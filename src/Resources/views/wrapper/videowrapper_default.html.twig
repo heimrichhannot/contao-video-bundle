@@ -1,0 +1,41 @@
+<!-- indexer::stop -->
+<div class="videowrapper_default">
+    <div class="huh_video video-wrapper">
+        {% if previewImage|default() %}
+            <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh.youtube.title.play'|trans }}"{% if youtubePrivacy|default() %} data-privacy="true" data-privacy-html="{{ privacy }}"{% endif %} data-btn-privacy-ok="{{ 'huh.youtube.button.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh.youtube.button.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
+                <figure class="image_container">
+                    {% if previewImage.picture|default() %}
+                        {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}
+                    {% else %}
+                        <img src="{{ previewImage.src }}" alt="youtube-preview-image">
+                    {% endif %}
+                    {% if videoDuration|default() %}
+                        <span class="duration">
+                    {% if videoDuration matches '/^\\d+$/' %}
+                        {% if videoDuration/3600 >=1 %}
+                            {{ videoDuration|date('H:i:s') }}
+                        {% else %}
+                            {{ videoDuration|date('i:s') }}
+                        {% endif %}
+                    {% else %}
+                        {{ videoDuration }}
+                    {% endif %}
+                    </span>
+                    {% endif %}
+                    {% if playButton|default() %}
+                        <span class="play-button"></span>
+                    {% endif %}
+                </figure>
+            </div>
+        {% endif %}
+        <div class="video-container{% if previewImage|default() %} video-hidden{% endif %}">
+            {{ videoplayer|default|raw }}
+        </div>
+    </div>
+    {% if text|default() %}
+        <div class="video-text">
+            {{ text|raw }}
+        </div>
+    {% endif %}
+</div>
+<!-- indexer::continue -->

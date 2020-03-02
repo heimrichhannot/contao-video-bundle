@@ -1,0 +1,9 @@
+huh_video:
+  videoTypes:
+    youtube:
+      class: HeimrichHannot\VideoBundle\Video\YouTubeVideo
+      configuration:
+        apiKey: "HelloWorld"
+        foo: bar
+        level: 3
+        false: true
