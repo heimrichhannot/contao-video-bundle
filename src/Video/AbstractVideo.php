@@ -14,7 +14,7 @@ namespace HeimrichHannot\VideoBundle\Video;
 
 use ReflectionClass;
 
-abstract class AbstractVideo
+abstract class AbstractVideo implements VideoInterface
 {
     /**
      * @var array
@@ -50,7 +50,7 @@ abstract class AbstractVideo
      */
     abstract public static function getTemplate(): string;
 
-    public function setData(array $rawData)
+    public function setData(array $rawData): void
     {
         $this->rawData = $rawData;
         foreach ($rawData as $key => $value)

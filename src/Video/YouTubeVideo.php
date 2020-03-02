@@ -12,7 +12,7 @@
 namespace HeimrichHannot\VideoBundle\Video;
 
 
-class YouTubeVideo extends AbstractVideo
+class YouTubeVideo extends AbstractVideo implements PreviewImageInterface
 {
     const PRIVACY_EMBED_URL = '//www.youtube-nocookie.com/embed/';
     const DEFAULT_EMBED_URL = '//www.youtube.com/embed/';
@@ -62,7 +62,7 @@ class YouTubeVideo extends AbstractVideo
     /**
      * @var string
      */
-    protected $previewImage = '';
+    protected $posterSRC = '';
 
     /**
      * @var bool
@@ -132,19 +132,11 @@ class YouTubeVideo extends AbstractVideo
     }
 
     /**
-     * @return bool
-     */
-    public function getAddPreviewImage(): bool
-    {
-        return $this->addPreviewImage;
-    }
-
-    /**
      * @return string
      */
     public function getPreviewImage(): string
     {
-        return $this->previewImage;
+        return $this->posterSRC;
     }
 
     /**
@@ -156,6 +148,11 @@ class YouTubeVideo extends AbstractVideo
     }
 
 
-
-
+    /**
+     * @inheritDoc
+     */
+    public function hasPreviewImage(): bool
+    {
+        return $this->addPreviewImage;
+    }
 }

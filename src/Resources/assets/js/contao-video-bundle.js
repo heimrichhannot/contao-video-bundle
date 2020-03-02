@@ -1,6 +1,6 @@
 import '@hundh/contao-utils-bundle';
 
-const videoThumbnailSelector = '.huh_video.video-wrapper > .video-thumbnail';
+const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-media > .video-thumbnail';
 const localeStorageAcceptPrivacyKey = 'huh_video_privacy';
 const privacyAutoFieldName = 'youtubePrivacyAuto';
 
