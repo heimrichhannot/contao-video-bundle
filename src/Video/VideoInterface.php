@@ -21,6 +21,13 @@ interface VideoInterface
     public static function getTemplate(): string;
 
     /**
+     * Return comma-seperated list of video provider specific dca/database fields.
+     *
+     * @return string
+     */
+    public static function getPalette(): string;
+
+    /**
      * Return the video data.
      *
      * @return array

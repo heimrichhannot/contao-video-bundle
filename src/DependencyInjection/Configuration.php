@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->booleanNode("defaultEnableNoCookieVideoUrl")->defaultFalse()->info("Enable if by default no cookie embed urls should be used, if supported by the video provider. This can be overwritten on root pages.")->end()
                 ->booleanNode("defaultEnablePrivacyNotice")->defaultFalse()->info("Enable if by default a privacy message should be displayed before playing the video. This can be overwritten on root pages.")->end()
-                ->arrayNode('videoTypes')
+                ->arrayNode('videoProvider')
                     ->useAttributeAsKey("name")
                     ->arrayPrototype()
                         ->children()

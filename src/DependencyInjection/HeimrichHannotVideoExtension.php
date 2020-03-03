@@ -26,8 +26,8 @@ class HeimrichHannotVideoExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        if (!isset($config['videoTypes']['youtube'])) {
-            $config['videoTypes']['youtube']['class'] = YouTubeVideo::class;
+        if (!isset($config['videoProvider']['youtube'])) {
+            $config['videoProvider']['youtube']['class'] = YouTubeVideo::class;
         }
         $container->setParameter('huh_video', $config);
     }

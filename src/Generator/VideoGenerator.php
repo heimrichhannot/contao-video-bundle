@@ -77,18 +77,22 @@ class VideoGenerator
             $context['src'] = $video->getNoCookieSrc();
         }
         $context['type'] = $video::getType();
-        $context['videoplayer'] = $this->twig->render($video->getTemplate(), $context);
-        if ($this->isPrivacyNoticeEnabled()) {
+
+
+
+        $context['playButton'] = true;
+
+        if ($this->isPrivacyNoticeEnabled($rootPage)) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context);
         }
-        return $this->twig->render('@HeimrichHannotVideo/wrapper/videowrapper_default.html.twig', $context);
+        return $this->twig->render($video->getTemplate(), $context);
     }
 
     protected function generatePrivacyNote(VideoInterface $video, array &$videoContext): string
     {
-        $context['headline'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.headline');
-        $context['text'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.text');
-        $context['checkbox'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.checkbox', ["host" => \Contao\Environment::get('host')]);
+        $context['headline'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.headline');
+        $context['text'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text');
+        $context['checkbox'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.checkbox', ["%host%" => \Contao\Environment::get('host')]);
         $context['videoContext'] = $videoContext;
         return $this->twig->render("@HeimrichHannotVideo/privacy/videoprivacy_default.twig", $context);
     }

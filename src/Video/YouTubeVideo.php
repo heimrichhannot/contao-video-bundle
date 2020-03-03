@@ -37,7 +37,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     /**
      * @var bool
      */
-    protected $ytShowRelated = false;
+    protected $videoShowRelated = false;
 
     /**
      * @var bool
@@ -74,7 +74,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public static function getTemplate(): string
     {
-        return '@HeimrichHannotVideo/video/video_youtube_default.html.twig';
+        return '@HeimrichHannotVideo/videoprovider/videoprovider_youtube.html.twig';
     }
 
     protected function createUrl(bool $noCookie)
@@ -93,9 +93,9 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
                 $queryParams[$param] = $this->{$property};
             }
         }
-//        $queryParams['rel'] = $this->ytShowRelated;
-//        $queryParams['modestbranding'] = $this->ytModestBranding;
-//        $queryParams['showinfo'] = $this->ytShowInfo;
+        $queryParams['rel'] = $this->videoShowRelated;
+        $queryParams['modestbranding'] = $this->ytModestBranding;
+        $queryParams['showinfo'] = $this->ytShowInfo;
 
         if ($this->autoplay) {
             $queryParams['autoplay'] = 1;
@@ -116,7 +116,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public function getShowRelated(): bool
     {
-        return $this->ytShowRelated;
+        return $this->videoShowRelated;
     }
 
     /**
@@ -174,5 +174,13 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     public function getNoCookieSrc(): string
     {
         return $this->createUrl(true);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getPalette(): string
+    {
+        return 'youtube,autoplay,videoDuration,ytHd,ytShowRelated,ytModestBranding,ytShowInfo,youtubeFullsize,youtubeLinkText';
     }
 }

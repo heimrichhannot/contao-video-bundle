@@ -6,3 +6,9 @@ services:
 
   HeimrichHannot\VideoBundle\Generator\VideoGenerator:
     public: true
+
+  HeimrichHannot\VideoBundle\Collection\VideoProviderCollection:
+    public: true
+
+  HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener:
+    public: true

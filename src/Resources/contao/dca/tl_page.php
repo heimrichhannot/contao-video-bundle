@@ -17,6 +17,7 @@ $arrDca = &$GLOBALS['TL_DCA']['tl_page'];
 
 //$arrDca['palettes']['__selector__'][] = 'youtubePrivacy';
 $arrDca['palettes']['__selector__'][] = 'overrideNoCookieVideoUrlSettings';
+$arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 
 /**
  * Palettes
@@ -27,7 +28,7 @@ $arrDca['palettes']['__selector__'][] = 'overrideNoCookieVideoUrlSettings';
 
 $arrDca['palettes']['root'] = str_replace(
     'adminEmail;',
-    ';{video_legend},overrideNoCookieVideoUrlSettings;',
+    ';{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice;',
     $arrDca['palettes']['root']
 );
 
@@ -36,6 +37,7 @@ $arrDca['palettes']['root'] = str_replace(
  */
 //$arrDca['subpalettes']['youtubePrivacy'] = 'youtubePrivacyTemplate';
 $arrDca['subpalettes']['overrideNoCookieVideoUrlSettings'] = 'enableNoCookieVideoUrl';
+$arrDca['subpalettes']['overrideEnablePrivacyNotice'] = 'enablePrivacyNotice';
 
 /**
  * Fields

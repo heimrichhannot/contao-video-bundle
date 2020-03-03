@@ -6,3 +6,4 @@ This document contains informations about migrating from older versions or prede
 
 tl_page:
 youtubePrivacy | enableNoCookieVideoUrl
+ytShowRelated | videoShowRelated

@@ -1,4 +1,5 @@
 import '@hundh/contao-utils-bundle';
+import alertify from 'alertifyjs';
 
 const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-thumbnail';
 const localeStorageAcceptPrivacyKey = 'huh_video_privacy';
@@ -90,9 +91,6 @@ class VideoBundle {
         function showVideo() {
             el.classList.add('initialize');
             video.classList.add('initialize');
-            let iframeUrl = new URL(iframe.getAttribute('src'));
-            iframeUrl.searchParams.append('autoplay', '1');
-            iframe.setAttribute('src', iframeUrl.toString());
             el.classList.remove('initialize', 'video-hidden');
             video.classList.remove('initialize', 'video-hidden');
         }
