@@ -1,8 +1,8 @@
 import '@hundh/contao-utils-bundle';
 
-const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-media > .video-thumbnail';
+const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-thumbnail';
 const localeStorageAcceptPrivacyKey = 'huh_video_privacy';
-const privacyAutoFieldName = 'youtubePrivacyAuto';
+const privacyAutoFieldName = 'video-save-privacy';
 
 class VideoBundle {
     static onReady() {
@@ -90,7 +90,9 @@ class VideoBundle {
         function showVideo() {
             el.classList.add('initialize');
             video.classList.add('initialize');
-            iframe.setAttribute('src', iframe.getAttribute('src') + '&autoplay=1');
+            let iframeUrl = new URL(iframe.getAttribute('src'));
+            iframeUrl.searchParams.append('autoplay', '1');
+            iframe.setAttribute('src', iframeUrl.toString());
             el.classList.remove('initialize', 'video-hidden');
             video.classList.remove('initialize', 'video-hidden');
         }

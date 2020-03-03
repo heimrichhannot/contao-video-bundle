@@ -1,0 +1,46 @@
+huh_video:
+  video:
+    youtube:
+      privacy:
+        headline: "Datenschutzhinweis"
+        text: "Wenn Sie unsere YouTube-Videos abspielen, werden Informationen über Ihre Nutzung von YouTube an den Betreiber in den USA übertragen und unter Umständen gespeichert."
+        checkbox: "Diese Entscheidung für die Nutzung von Youtube-Videos auf %host% dauerhaft speichern."
+        ok: "OK"
+        cancel: "Abbrechen"
+
+
+huh.youtube:
+  title:
+    play: Video abspielen
+    privacy: Datenschutzhinweis
+  text.privacy: Wenn Sie unsere YouTube-Videos abspielen, werden Informationen über Ihre Nutzung von YouTube an den Betreiber in den USA übertragen und unter Umständen gespeichert.
+  label.privacy.autoplay: Diese Entscheidung für die Nutzung von Youtube-Videos auf %host% dauerhaft speichern.
+  button:
+    privacy.cancel: Abbrechen
+    privacy.ok: OK
+    modal.close: Schließen
+
+# modal link text
+  modal.link:
+    default: Video anzeigen
+    play: Video abspielen
+    window: Video in neuen Fenster öffnen
+    article: Videobeitrag
+
+# DCA
+huh.list:
+  tl_list_config_element.field:
+    typeSelectorField.youtube:
+      name: YouTube Selektor Element
+      desc: Wählen Sie hier das Feld aus, welches den boolschen Selektor für das YouTube Feld enthält.
+    typeField.youtube:
+      name: YouTube Feld
+      desc: Wählen Sie hier das Feld aus, welches die ID des YouTube Video enthält.
+huh.reader:
+  tl_reader_config_element.field:
+    typeSelectorField.youtube:
+      name: YouTube Selektor Element
+      desc: Wählen Sie hier das Feld aus, welches den boolschen Selektor für das YouTube Feld enthält.
+    typeField.youtube:
+      name: YouTube Feld
+      desc: Wählen Sie hier das Feld aus, welches die ID des YouTube Video enthält.

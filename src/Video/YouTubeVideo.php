@@ -12,10 +12,10 @@
 namespace HeimrichHannot\VideoBundle\Video;
 
 
-class YouTubeVideo extends AbstractVideo implements PreviewImageInterface
+class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface
 {
-    const PRIVACY_EMBED_URL = '//www.youtube-nocookie.com/embed/';
-    const DEFAULT_EMBED_URL = '//www.youtube.com/embed/';
+    const PRIVACY_EMBED_URL = 'https://www.youtube-nocookie.com/embed/';
+    const DEFAULT_EMBED_URL = 'https://www.youtube.com/embed/';
 
     /**
      * The youtube video id
@@ -38,11 +38,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface
      * @var bool
      */
     protected $ytShowRelated = false;
-
-    /**
-     * @var bool
-     */
-    protected $youtubePrivacy = false;
 
     /**
      * @var bool
@@ -82,21 +77,38 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface
         return '@HeimrichHannotVideo/video/video_youtube_default.html.twig';
     }
 
-    public function getSrc()
+    protected function createUrl(bool $noCookie)
     {
-        $url = $this->youtubePrivacy ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
+        $url = $noCookie ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
         $url .= $this->youtube;
 
         $queryParams = [];
-        $queryParams['rel'] = $this->ytShowRelated;
-        $queryParams['modestbranding'] = $this->ytModestBranding;
-        $queryParams['showinfo'] = $this->ytShowInfo;
+        $params = [
+            'ytShowRelated' => 'rel',
+            'ytModestBranding' => 'modestbranding',
+            'ytShowInfo' => 'showinfo',
+        ];
+        foreach ($params as $property => $param) {
+            if ($this->{$property}) {
+                $queryParams[$param] = $this->{$property};
+            }
+        }
+//        $queryParams['rel'] = $this->ytShowRelated;
+//        $queryParams['modestbranding'] = $this->ytModestBranding;
+//        $queryParams['showinfo'] = $this->ytShowInfo;
 
         if ($this->autoplay) {
             $queryParams['autoplay'] = 1;
         }
-        $url .= '?'.http_build_query($queryParams);
+        if (!empty($queryParams)) {
+            $url .= '?'.http_build_query($queryParams);
+        }
         return $url;
+    }
+
+    public function getSrc()
+    {
+        return $this->createUrl(false);
     }
 
     /**
@@ -154,5 +166,13 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface
     public function hasPreviewImage(): bool
     {
         return $this->addPreviewImage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getNoCookieSrc(): string
+    {
+        return $this->createUrl(true);
     }
 }

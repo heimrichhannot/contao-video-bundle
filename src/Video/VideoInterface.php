@@ -7,6 +7,13 @@ namespace HeimrichHannot\VideoBundle\Video;
 interface VideoInterface
 {
     /**
+     * Return the video provider type/alias. For example 'youtube' or 'vimeo'
+     *
+     * @return string
+     */
+    public static function getType(): string;
+
+    /**
      * Return the twig template name
      *
      * @return string

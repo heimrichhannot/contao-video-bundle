@@ -1,6 +1,8 @@
 services:
   _defaults:
     autowire: true
+    bind:
+      $bundleConfig: '%huh_video%'
 
   HeimrichHannot\VideoBundle\Generator\VideoGenerator:
     public: true

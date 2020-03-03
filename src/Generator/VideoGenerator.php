@@ -13,11 +13,15 @@ namespace HeimrichHannot\VideoBundle\Generator;
 
 
 use Contao\FilesModel;
+use Contao\Frontend;
+use Contao\PageModel;
 use Contao\System;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class VideoGenerator
@@ -34,29 +38,83 @@ class VideoGenerator
      * @var ImageUtil
      */
     private $imageUtil;
+    /**
+     * @var array
+     */
+    private $bundleConfig;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
 
     /**
      * VideoGenerator constructor.
+     * @param Environment $twig
+     * @param ModelUtil $modelUtil
+     * @param ImageUtil $imageUtil
+     * @param array $bundleConfig
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
         $this->imageUtil = $imageUtil;
+        $this->bundleConfig = $bundleConfig;
+        $this->translator = $translator;
     }
 
     public function generate(VideoInterface $video): string
     {
-        $context = [];
+        $rootPage = Frontend::getRootPageFromUrl();
         $context = $video->getData();
         if ($video instanceof PreviewImageInterface)
         {
             $this->generatePreviewImage($video, $context);
         }
-
+        if ($this->isNoCookiesEnabled($rootPage) && $video instanceof NoCookieUrlInterface)
+        {
+            $context['src'] = $video->getNoCookieSrc();
+        }
+        $context['type'] = $video::getType();
         $context['videoplayer'] = $this->twig->render($video->getTemplate(), $context);
+        if ($this->isPrivacyNoticeEnabled()) {
+            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context);
+        }
         return $this->twig->render('@HeimrichHannotVideo/wrapper/videowrapper_default.html.twig', $context);
+    }
+
+    protected function generatePrivacyNote(VideoInterface $video, array &$videoContext): string
+    {
+        $context['headline'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.headline');
+        $context['text'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.text');
+        $context['checkbox'] = $this->translator->trans('huh_video.'.$video::getType().'.privacy.checkbox', ["host" => \Contao\Environment::get('host')]);
+        $context['videoContext'] = $videoContext;
+        return $this->twig->render("@HeimrichHannotVideo/privacy/videoprivacy_default.twig", $context);
+    }
+
+    protected function isNoCookiesEnabled(PageModel $rootPage = null)
+    {
+        $noCookiesEnabled = false;
+        if (isset($this->bundleConfig['defaultEnableNoCookieVideoUrl']) && true === $this->bundleConfig['defaultEnableNoCookieVideoUrl']) {
+            $noCookiesEnabled = true;
+        }
+        if ($rootPage && $rootPage->overrideNoCookieVideoUrlSettings) {
+            $noCookiesEnabled = (bool) $rootPage->enableNoCookieVideoUrl;
+        }
+        return $noCookiesEnabled;
+    }
+
+    protected function isPrivacyNoticeEnabled(PageModel $rootPage = null)
+    {
+        $isPrivacyNoticeEnabled = false;
+        if (isset($this->bundleConfig['defaultEnablePrivacyNotice']) && true === $this->bundleConfig['defaultEnablePrivacyNotice']) {
+            $isPrivacyNoticeEnabled = true;
+        }
+        if ($rootPage && $rootPage->overrideEnablePrivacyNotice) {
+            $isPrivacyNoticeEnabled = (bool) $rootPage->enablePrivacyNotice;
+        }
+        return $isPrivacyNoticeEnabled;
     }
 
     public function generatePreviewImage(PreviewImageInterface $video, array &$context): void
