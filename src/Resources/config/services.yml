@@ -12,3 +12,6 @@ services:
 
   HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener:
     public: true
+
+  HeimrichHannot\VideoBundle\Controller\:
+    resource: ../../Controller/*

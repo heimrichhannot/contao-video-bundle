@@ -64,6 +64,12 @@ class ModifiyVideoPaletteListener
             return;
         }
         $dca = &$GLOBALS['TL_DCA'][$dataContainer->table];
+
+        $dca['palettes']['__selector__'][] = 'fullsize';
+        $dca['subpalettes']['fullsize'] = 'videoLinkText';
+        $dca['fields']['fullsize']['label'] = &$GLOBALS['TL_LANG']['tl_content']['videoFullSize'];
+        $dca['fields']['fullsize']['eval']['submitOnChange'] = 'videoLinkText';
+
         $videoElementPalette = &$dca['palettes'][VideoElement::TYPE];
 
         $videoProviderFields = $videoClass::getPalette();

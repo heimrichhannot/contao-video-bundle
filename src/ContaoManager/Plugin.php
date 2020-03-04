@@ -17,11 +17,15 @@ use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ConfigPluginInterface;
+use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle;
 use HeimrichHannot\VideoBundle\HeimrichHannotVideoBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Routing\RouteCollection;
 
-class Plugin implements BundlePluginInterface, ConfigPluginInterface
+class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPluginInterface
 {
 
     /**
@@ -47,5 +51,15 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
         if (class_exists('HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle')) {
             $loader->load("@HeimrichHannotVideoBundle/Resources/config/config_encore.yml");
         }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
+    {
+        $file = "@HeimrichHannotVideoBundle/Resources/config/routing.yml";
+        return $resolver->resolve($file)->load($file);
     }
 }

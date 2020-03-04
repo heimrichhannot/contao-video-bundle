@@ -12,12 +12,14 @@
 namespace HeimrichHannot\VideoBundle\Generator;
 
 
+use Contao\Database;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
 use Contao\System;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
 use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -46,6 +48,10 @@ class VideoGenerator
      * @var TranslatorInterface
      */
     private $translator;
+    /**
+     * @var TemplateUtil
+     */
+    private $templateUtil;
 
 
     /**
@@ -55,19 +61,32 @@ class VideoGenerator
      * @param ImageUtil $imageUtil
      * @param array $bundleConfig
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
         $this->imageUtil = $imageUtil;
         $this->bundleConfig = $bundleConfig;
         $this->translator = $translator;
+        $this->templateUtil = $templateUtil;
     }
 
-    public function generate(VideoInterface $video): string
+    /**
+     * Options:
+     * - ignoreFullsize: (bool) Ignore the video fullsize property
+     *
+     * @param VideoInterface $video
+     * @param array $options
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function generate(VideoInterface $video, array $options = []): string
     {
         $rootPage = Frontend::getRootPageFromUrl();
         $context = $video->getData();
+        $context['uniqueId'] = uniqid();
         if ($video instanceof PreviewImageInterface)
         {
             $this->generatePreviewImage($video, $context);
@@ -83,18 +102,47 @@ class VideoGenerator
         $context['playButton'] = true;
 
         if ($this->isPrivacyNoticeEnabled($rootPage)) {
-            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context);
+            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
         }
-        return $this->twig->render($video->getTemplate(), $context);
+
+        $videoBuffer = $this->twig->render($video->getTemplate(), $context);
+
+        if ((!isset($options['ignoreFullsize']) || true !== $options['ignoreFullsize']) && $video->isFullsize()) {
+            $context['videoplayer'] = $videoBuffer;
+            $videoBuffer = $this->twig->render($this->getFullsizeTemplate($rootPage), $context);
+        }
+
+        return $videoBuffer;
     }
 
-    protected function generatePrivacyNote(VideoInterface $video, array &$videoContext): string
+    public function getFullsizeTemplate(PageModel $rootPage = null)
+    {
+        $template = "@HeimrichHannotVideo/modal/videofullsize_default.html.twig";
+        if ($rootPage) {
+            $template = $rootPage->videofullsizeTemplate;
+            $template = $this->templateUtil->getTemplate($template);
+        }
+        return $template;
+    }
+
+    public function getPrivacyTemplate(PageModel $rootPage = null)
+    {
+        $template = "@HeimrichHannotVideo/privacy/videoprivacy_default.twig";
+        if ($rootPage) {
+            $template = $rootPage->videoprivacyTemplate;
+            $template = $this->templateUtil->getTemplate($template);
+        }
+        return $template;
+    }
+
+    protected function generatePrivacyNote(VideoInterface $video, array &$videoContext, PageModel $rootPage = null): string
     {
         $context['headline'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.headline');
         $context['text'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text');
         $context['checkbox'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.checkbox', ["%host%" => \Contao\Environment::get('host')]);
         $context['videoContext'] = $videoContext;
-        return $this->twig->render("@HeimrichHannotVideo/privacy/videoprivacy_default.twig", $context);
+        $template = $this->getPrivacyTemplate($rootPage);
+        return $this->twig->render($this->getPrivacyTemplate($rootPage), $context);
     }
 
     protected function isNoCookiesEnabled(PageModel $rootPage = null)

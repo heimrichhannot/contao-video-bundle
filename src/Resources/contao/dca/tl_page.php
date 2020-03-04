@@ -28,7 +28,7 @@ $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 
 $arrDca['palettes']['root'] = str_replace(
     'adminEmail;',
-    ';{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice;',
+    ';{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;',
     $arrDca['palettes']['root']
 );
 
@@ -74,53 +74,29 @@ $fields = [
         'eval'      => ['tl_class' => 'clr'],
         'sql'       => "char(1) NOT NULL default ''",
     ],
+    'videofullsizeTemplate'       => [
+        'label'            => &$GLOBALS['TL_LANG']['tl_page']['videofullsizeTemplate'],
+        'default'          => 'youtube_modalvideo_default',
+        'exclude'          => true,
+        'inputType'        => 'select',
+        'options_callback' => function (\Contao\DataContainer $dc) {
+            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['videofullsize_'])->getCachedChoices();
+        },
+        'eval'             => ['tl_class' => 'w50'],
+        'sql'              => "varchar(64) NOT NULL default ''",
+    ],
+    'videoprivacyTemplate' => [
+        'label'            => &$GLOBALS['TL_LANG']['tl_page']['videoprivacyTemplate'],
+        'exclude'          => true,
+        'inputType'        => 'select',
+        'default'          => 'videoprivacy_default.twig',
+        'options_callback' => function (\Contao\DataContainer $dc) {
+            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['videoprivacy_'])->getCachedChoices();
+        },
+        'eval'             => ['tl_class' => 'w50', 'mandatory' => true],
+        'sql'              => "varchar(64) NOT NULL default ''",
+    ],
 ];
-
-
-//$arrFields = [
-//    'youtube_template'       => [
-//        'label'            => &$GLOBALS['TL_LANG']['tl_page']['youtube_template'],
-//        'default'          => 'youtube_video_default',
-//        'exclude'          => true,
-//        'inputType'        => 'select',
-//        'options_callback' => function (\Contao\DataContainer $dc) {
-//            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_video_'])->getCachedChoices();
-//        },
-//        'eval'             => ['tl_class' => 'w50'],
-//        'sql'              => "varchar(64) NOT NULL default ''",
-//    ],
-//    'youtube_modal_template'       => [
-//        'label'            => &$GLOBALS['TL_LANG']['tl_page']['youtube_modal_template'],
-//        'default'          => 'youtube_modalvideo_default',
-//        'exclude'          => true,
-//        'inputType'        => 'select',
-//        'options_callback' => function (\Contao\DataContainer $dc) {
-//            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_modalvideo_'])->getCachedChoices();
-//        },
-//        'eval'             => ['tl_class' => 'w50'],
-//        'sql'              => "varchar(64) NOT NULL default ''",
-//    ],
-//    'youtubePrivacy'         => [
-//        'label'     => &$GLOBALS['TL_LANG']['tl_page']['youtubePrivacy'],
-//        'exclude'   => true,
-//        'default'   => true,
-//        'inputType' => 'checkbox',
-//        'eval'      => ['submitOnChange' => true, 'tl_class' => 'clr'],
-//        'sql'       => "char(1) NOT NULL default ''",
-//    ],
-//    'youtubePrivacyTemplate' => [
-//        'label'            => &$GLOBALS['TL_LANG']['tl_page']['youtubePrivacyTemplate'],
-//        'exclude'          => true,
-//        'inputType'        => 'select',
-//        'default'          => 'youtube_privacy_default',
-//        'options_callback' => function (\Contao\DataContainer $dc) {
-//            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_privacy_'])->getCachedChoices();
-//        },
-//        'eval'             => ['tl_class' => 'w50', 'mandatory' => true],
-//        'sql'              => "varchar(64) NOT NULL default ''",
-//    ],
-//];
-//
 
 $arrDca['fields'] = array_merge($arrDca['fields'], $fields);
 

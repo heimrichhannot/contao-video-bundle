@@ -7,6 +7,13 @@ huh_video:
         checkbox: "Diese Entscheidung für die Nutzung von Youtube-Videos auf %host% dauerhaft speichern."
         ok: "OK"
         cancel: "Abbrechen"
+    vimeo:
+      privacy:
+        headline: "Datenschutzhinweis"
+        text: "Wenn Sie unsere Vimeo-Videos abspielen, werden Informationen über Ihre Nutzung von Vimeo an den Betreiber in den USA übertragen und unter Umständen gespeichert."
+        checkbox: "Diese Entscheidung für die Nutzung von Vimeo-Videos auf %host% dauerhaft speichern."
+        ok: "OK"
+        cancel: "Abbrechen"
 
 
 huh.youtube:

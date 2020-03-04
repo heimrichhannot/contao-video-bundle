@@ -77,7 +77,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return '@HeimrichHannotVideo/videoprovider/videoprovider_youtube.html.twig';
     }
 
-    protected function createUrl(bool $noCookie)
+    protected function createUrl(bool $noCookie): string
     {
         $url = $noCookie ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
         $url .= $this->youtube;
@@ -106,7 +106,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return $url;
     }
 
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->createUrl(false);
     }
@@ -181,6 +181,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public static function getPalette(): string
     {
-        return 'youtube,autoplay,videoDuration,ytHd,ytShowRelated,ytModestBranding,ytShowInfo,youtubeFullsize,youtubeLinkText';
+        return 'youtube,videoDuration,ytHd,ytShowRelated,ytModestBranding,ytShowInfo';
     }
 }

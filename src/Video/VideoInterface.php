@@ -41,4 +41,30 @@ interface VideoInterface
      * @return mixed
      */
     public function setData(array $rawData): void;
+
+    /**
+     * Return if the video should be display in a modal or a new browser window
+     *
+     * @return bool
+     */
+    public function isFullsize(): bool;
+
+    /**
+     * Return the video link text translation id
+     *
+     * @return string
+     */
+    public function getVideoLinkText(): string;
+
+    /**
+     * Return the headline text
+     */
+    public function getHeadlineText(): string;
+
+    /**
+     * Return the video url
+     *
+     * @return string
+     */
+    public function getSrc(): string;
 }

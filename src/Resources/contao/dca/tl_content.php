@@ -1,12 +1,13 @@
 <?php
 
-$dc = &$GLOBALS['TL_DCA']['tl_content'];
+$dca = &$GLOBALS['TL_DCA']['tl_content'];
 
-$dc['config']['onload_callback'][] = [\HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener::class, 'onLoadCallback'];
+$dca['config']['onload_callback'][] = [\HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener::class, 'onLoadCallback'];
 
-$dc['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] =
+$dca['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] =
     '{title_legend},type,name,headline;
 	{video_legend},videoProvider;
+	{player_legend},fullsize,autoplay;
 	{text_legend},text;
 	{template_legend:hide},customTpl,youtube_template,youtube_modal_template;
 	{protected_legend:hide},protected;
@@ -17,11 +18,15 @@ $dc['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] =
 //'youtube'                     => '{type_legend},type,headline;{source_legend},youtube;{player_legend},playerSize,autoplay;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop',
 //'vimeo'                       => '{type_legend},type,headline;{source_legend},vimeo;{player_legend},playerSize,autoplay;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop',
 
+/**
+ * Selectors
+ */
+$dca['palettes']['__selector__'][] = 'addPreviewImage';
 
 /**
  * Subpalettes
  */
-$dc['subpalettes']['addPreviewImage'] = 'posterSRC,size,addPlayButton';
+$dca['subpalettes']['addPreviewImage'] = 'posterSRC,size,addPlayButton';
 
 
 /**
@@ -35,7 +40,7 @@ $arrFields = [
         'options_callback' => function (\DataContainer $dc) {
             return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
         },
-        'eval'             => ['maxlength' => 64, 'tl_class' => 'w50'],
+        'eval'             => ['submitOnChange' => true, 'maxlength' => 64, 'tl_class' => 'w50'],
         'sql'              => "varchar(64) NOT NULL default ''",
     ],
     'addPreviewImage'        => [
@@ -83,15 +88,8 @@ $arrFields = [
         'eval'      => ['tl_class' => 'w50'],
         'sql'       => "char(1) NOT NULL default ''",
     ],
-    'youtubeFullsize'        => [
-        'label'     => &$GLOBALS['TL_LANG']['tl_content']['youtubeFullsize'],
-        'exclude'   => true,
-        'inputType' => 'checkbox',
-        'eval'      => ['tl_class' => 'w50'],
-        'sql'       => "char(1) NOT NULL default ''",
-    ],
-    'youtubeLinkText'        => [
-        'label'            => &$GLOBALS['TL_LANG']['tl_content']['youtubeLinkText'],
+    'videoLinkText'        => [
+        'label'            => &$GLOBALS['TL_LANG']['tl_content']['videoLinkText'],
         'exclude'          => true,
         'inputType'        => 'select',
         'default'          => 'huh.youtube.modal.link.default',
@@ -125,4 +123,4 @@ $arrFields = [
     ],
 ];
 
-$dc['fields'] = array_merge($dc['fields'], $arrFields);
+$dca['fields'] = array_merge($dca['fields'], $arrFields);

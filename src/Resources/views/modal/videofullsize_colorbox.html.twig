@@ -1,0 +1,21 @@
+<div class="video-fullsize">
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            jQuery('#videolink-{{ uniqueId }}').colorbox({
+                // Put custom options here
+                // loop: false,
+                // rel: $(this).attr('data-lightbox'),
+                innerWidth: '90%',
+                innerHeight: '80%',
+
+                inline: true,
+                href: "#videoplayer-{{ uniqueId }}"
+            });
+        });
+    </script>
+
+    <a id="videolink-{{ uniqueId }}" class="huh_video videolink colorbox">{{ videoLinkText|trans }}</a>
+    <div class="video" id="videoplayer-{{ uniqueId }}">
+        {{ videoplayer|raw }}
+    </div>
+</div>
