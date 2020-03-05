@@ -35,7 +35,7 @@ huh.video.before_render_player | Customize the video player context before rende
 
 ## Add video support to custom entity
 
-1. Add `DcaFieldGenerator::addSingleLegendPalette($dca)` in your dca config file and add the returned palette where you want.
+1. Add `DcaFieldGenerator::addSingleLegendPalette($dca)` in your dca config file and add the returned palette where you want. In following example this is done in the dca file, but we recommend to add use this code in the loadDataContainer hook instead, so you have more control over the context (see [our Implementation](../src/EventListener/LoadDataContainerListener.php) as example).
 
     ```php
     <?php
@@ -44,6 +44,3 @@ huh.video.before_render_player | Customize the video player context before rende
     $palette = \HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::addSingleLegendPalette($dca);
     $dca['palettes']['default'] = str_replace('{image_legend}', $palette.'{image_legend}', $dca['palettes']['default']);
     ```
-
-   
-1. 
