@@ -21,7 +21,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
 
     protected $addPreviewImage = false;
 
-    protected $posterSRC = '';
+    protected $posterSRC;
 
     /**
      * @inheritDoc
@@ -52,13 +52,13 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
      */
     public function hasPreviewImage(): bool
     {
-        return $this->addPreviewImage;
+        return $this->addPreviewImage && is_string($this->getPreviewImage());
     }
 
     /**
      * @inheritDoc
      */
-    public function getPreviewImage(): string
+    public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
     }

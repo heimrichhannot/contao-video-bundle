@@ -15,3 +15,9 @@ services:
 
   HeimrichHannot\VideoBundle\Controller\:
     resource: ../../Controller/*
+
+  HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener:
+    public: true
+
+  HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener:
+    public: true

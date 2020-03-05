@@ -18,7 +18,7 @@ interface PreviewImageInterface
      *
      * @return string
      */
-    public function getPreviewImage(): string;
+    public function getPreviewImage(): ?string;
 
 
 }

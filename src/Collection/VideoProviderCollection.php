@@ -12,6 +12,8 @@
 namespace HeimrichHannot\VideoBundle\Collection;
 
 
+use HeimrichHannot\VideoBundle\Video\VideoInterface;
+
 class VideoProviderCollection
 {
     /**
@@ -36,14 +38,33 @@ class VideoProviderCollection
 
     /**
      * @param string $provider
-     * @return mixed
+     * @return string
      * @throws \Exception
      */
-    public function getClassByVideoProvider(string $provider)
+    public function getClassByVideoProvider(string $provider): string
     {
         if (isset($this->bundleConfig['videoProvider'][$provider]['class'])) {
             return $this->bundleConfig['videoProvider'][$provider]['class'];
         }
         throw new \Exception("No configuration exists for given provider.");
+    }
+
+    public function getVideoByRawDataWithSelector(array $data, string $selector = 'addVideo')
+    {
+        if (!isset($data[$selector]) && true !== (bool) $data[$selector]) {
+            return null;
+        }
+        if (!isset($data['videoProvider']) && false === is_string($data['videoProvider'])) {
+            return null;
+        }
+        try
+        {
+            /** @var string|VideoInterface $videoClass */
+            $videoClass = $this->getClassByVideoProvider($data['videoProvider']);
+        } catch (\Exception $e)
+        {
+            return null;
+        }
+        return new $videoClass($data);
     }
 }

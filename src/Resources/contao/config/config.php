@@ -9,3 +9,6 @@
  */
 
 $GLOBALS['TL_CTE']['media'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] = \HeimrichHannot\VideoBundle\ContentElement\VideoElement::class;
+
+$GLOBALS['TL_HOOKS']['loadDataContainer'][] = [\HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener::class, 'onLoadDataContainer'];
+$GLOBALS['TL_HOOKS']['parseArticles'][] = [\HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener::class, 'onParseArticles'];

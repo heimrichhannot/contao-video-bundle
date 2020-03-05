@@ -146,7 +146,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     /**
      * @return string
      */
-    public function getPreviewImage(): string
+    public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
     }
@@ -165,7 +165,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public function hasPreviewImage(): bool
     {
-        return $this->addPreviewImage;
+        return $this->addPreviewImage && is_string($this->getPreviewImage());
     }
 
     /**

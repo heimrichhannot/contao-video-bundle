@@ -33,6 +33,15 @@ class HeimrichHannotVideoExtension extends Extension
         if (!isset($config['videoProvider']['vimeo'])) {
             $config['videoProvider']['vimeo']['class'] = VimeoVideo::class;
         }
+        if (!isset($config['supportedTables']['tl_news'])) {
+            $config['supportedTables']['tl_news'] = [
+                'multipleLegends' => false,
+                'palettes' => [
+                    "name" => 'default',
+                    "videoLegendSelector" => '{image_legend}'
+                ]
+            ];
+        }
         $container->setParameter('huh_video', $config);
     }
 

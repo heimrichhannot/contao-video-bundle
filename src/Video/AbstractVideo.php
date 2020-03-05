@@ -96,7 +96,10 @@ abstract class AbstractVideo implements VideoInterface
                     return;
                 }
                 $property = 'headlineText';
-                $value = StringUtil::deserialize($value, )['value'];
+                $value = StringUtil::deserialize($value);
+                if (is_array($value)) {
+                    $value = $value['value'];
+                }
                 break;
         }
         if (property_exists($this, $property)) {

@@ -2,14 +2,14 @@
 
 $dca = &$GLOBALS['TL_DCA']['tl_content'];
 
-$dca['config']['onload_callback'][] = [\HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener::class, 'onLoadCallback'];
+$dca['config']['onload_callback'][] = [\HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener::class, 'updateVideoPaletteWithLegend'];
 
 $dca['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] =
     '{title_legend},type,name,headline;
 	{video_legend},videoProvider;
 	{player_legend},fullsize,autoplay;
 	{text_legend},text;
-	{template_legend:hide},customTpl,youtube_template,youtube_modal_template;
+	{template_legend:hide},customTpl;
 	{protected_legend:hide},protected;
 	{expert_legend:hide},cssID,space
 	{invisible_legend:hide},invisible,start,stop;';
@@ -32,6 +32,7 @@ $dca['subpalettes']['addPreviewImage'] = 'posterSRC,size,addPlayButton';
 /**
  * Fields
  */
+
 $arrFields = [
     'videoProvider'        => [
         'label'            => &$GLOBALS['TL_LANG']['tl_content']['videoProvider'],
@@ -99,28 +100,28 @@ $arrFields = [
         'eval'             => ['maxlength' => 255, 'tl_class' => 'w50'],
         'sql'              => "varchar(255) NOT NULL default ''",
     ],
-    'youtube_template'       => [
-        'label'            => &$GLOBALS['TL_LANG']['tl_content']['youtube_template'],
-        'default'          => 'youtube_default',
-        'exclude'          => true,
-        'inputType'        => 'select',
-        'options_callback' => function (\Contao\DataContainer $dc) {
-            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_video_'])->getCachedChoices();
-        },
-        'eval'             => ['tl_class' => 'w50', 'includeBlankOption' => true],
-        'sql'              => "varchar(64) NOT NULL default ''",
-    ],
-    'youtube_modal_template' => [
-        'label'            => &$GLOBALS['TL_LANG']['tl_content']['youtube_modal_template'],
-        'default'          => 'youtube_modalvideo_default',
-        'exclude'          => true,
-        'inputType'        => 'select',
-        'options_callback' => function (\Contao\DataContainer $dc) {
-            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_modalvideo_'])->getCachedChoices();
-        },
-        'eval'             => ['tl_class' => 'w50', 'includeBlankOption' => true],
-        'sql'              => "varchar(64) NOT NULL default ''",
-    ],
+//    'youtube_template'       => [
+//        'label'            => &$GLOBALS['TL_LANG']['tl_content']['youtube_template'],
+//        'default'          => 'youtube_default',
+//        'exclude'          => true,
+//        'inputType'        => 'select',
+//        'options_callback' => function (\Contao\DataContainer $dc) {
+//            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_video_'])->getCachedChoices();
+//        },
+//        'eval'             => ['tl_class' => 'w50', 'includeBlankOption' => true],
+//        'sql'              => "varchar(64) NOT NULL default ''",
+//    ],
+//    'youtube_modal_template' => [
+//        'label'            => &$GLOBALS['TL_LANG']['tl_content']['youtube_modal_template'],
+//        'default'          => 'youtube_modalvideo_default',
+//        'exclude'          => true,
+//        'inputType'        => 'select',
+//        'options_callback' => function (\Contao\DataContainer $dc) {
+//            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['youtube_modalvideo_'])->getCachedChoices();
+//        },
+//        'eval'             => ['tl_class' => 'w50', 'includeBlankOption' => true],
+//        'sql'              => "varchar(64) NOT NULL default ''",
+//    ],
 ];
 
 $dca['fields'] = array_merge($dca['fields'], $arrFields);

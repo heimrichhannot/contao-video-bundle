@@ -6,6 +6,8 @@ namespace HeimrichHannot\VideoBundle\Video;
 
 interface VideoInterface
 {
+    public function __construct(array $data);
+
     /**
      * Return the video provider type/alias. For example 'youtube' or 'vimeo'
      *

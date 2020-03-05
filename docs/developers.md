@@ -32,3 +32,18 @@ huh.video.before_render_player | Customize the video player context before rende
 1. Add video translations within `huh_video.video.youtube`
 
 1. Register the video class within `huh_video.videoProvider.[videoprovider].class`
+
+## Add video support to custom entity
+
+1. Add `DcaFieldGenerator::addSingleLegendPalette($dca)` in your dca config file and add the returned palette where you want.
+
+    ```php
+    <?php
+    // tl_news.php
+    $dca = &$GLOBALS['TL_DCA']['tl_news'];
+    $palette = \HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::addSingleLegendPalette($dca);
+    $dca['palettes']['default'] = str_replace('{image_legend}', $palette.'{image_legend}', $dca['palettes']['default']);
+    ```
+
+   
+1. 
