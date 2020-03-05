@@ -26,6 +26,6 @@ $GLOBALS['TL_LANG']['tl_content']['ytShowInfo']             = ['Video-Infos anze
 $GLOBALS['TL_LANG']['tl_content']['videoLinkText']        = ['Link-Text', 'Der angezeigte Text des Links, der die Lightbox bzw. das neue Browserfenster öffnet.'];
 //$GLOBALS['TL_LANG']['tl_content']['youtube_template']       = ['Individuelles Youtube-Template', 'Überschreiben Sie das Standard Youtube-Template mit einer eigenen Vorlage.'];
 $GLOBALS['TL_LANG']['tl_content']['videofullsizeTemplate'] = ['Individuelles Template für Großansicht/Neues Fenster', 'Überschreiben Sie das Standard Template mit einer eigenen Vorlage zur Anzeige eines Videos in der Großansicht/Neues Fenster.'];
-
 $GLOBALS['TL_LANG']['tl_content']['videoFullSize']        = ['Großansicht/Neues Fenster', 'Großansicht des Videos in einer Lightbox bzw. den Link in einem neuem Browserfenster öffnen.'];
+$GLOBALS['TL_LANG']['tl_content']['videoAutoplay']        = ['Autoplay', 'Das Video automatisch beim Laden der Seite abspielen.'];
 
