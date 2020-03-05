@@ -26,7 +26,9 @@ class DcaFieldGenerator
         $palette = '{video_legend},addVideo;';
 
         $dca['subpalettes']['addVideo']  = static::PALETTE_VIDEO.','.static::PALETTE_PLAYER;
+        $dca['subpalettes']['addPreviewImage']  = 'posterSRC,size,addPlayButton';
         $dca['palettes']['__selector__'][] = 'addVideo';
+        $dca['palettes']['__selector__'][] = 'addPreviewImage';
 
         $fields = [
             'addVideo'         => [
