@@ -46,9 +46,9 @@ class ParseArticlesListener
      */
     public function onParseArticles(FrontendTemplate $template, array $newsEntry, Module $module): void
     {
-//        if (!isset($this->bundleConfig['enableNewsSupport']) || true !== $this->bundleConfig['enableNewsSupport']) {
-//            return;
-//        }
+        if (!isset($this->bundleConfig['enableNewsSupport']) || true !== $this->bundleConfig['enableNewsSupport']) {
+            return;
+        }
 
         /** @var VideoInterface|string $video */
         $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($newsEntry);

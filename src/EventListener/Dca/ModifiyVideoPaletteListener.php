@@ -12,13 +12,11 @@
 namespace HeimrichHannot\VideoBundle\EventListener\Dca;
 
 
-use Contao\ContentModel;
 use Contao\DataContainer;
 use Contao\Message;
 use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
-use HeimrichHannot\VideoBundle\ContentElement\VideoElement;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
 
@@ -105,11 +103,6 @@ class ModifiyVideoPaletteListener
     {
         $dca = &$GLOBALS['TL_DCA'][$table];
 
-        $dca['palettes']['__selector__'][]                   = 'fullsize';
-        $dca['subpalettes']['fullsize']                      = 'videoLinkText';
-        $dca['fields']['fullsize']['label']                  = &$GLOBALS['TL_LANG']['tl_content']['videoFullSize'];
-        $dca['fields']['fullsize']['eval']['submitOnChange'] = 'videoLinkText';
-
         $videoProviderFields = $videoClass::getPalette();
 
         $addPreviewImageFields = is_subclass_of($videoClass, PreviewImageInterface::class);
@@ -123,7 +116,7 @@ class ModifiyVideoPaletteListener
             );
 
             if ($addPreviewImageFields) {
-                $position = 'fullsize,autoplay';
+                $position = 'videoFullsize,autoplay';
                 $previewPalette = ',addPreviewImage';
                 $palette = str_replace(
                     $position,
@@ -147,7 +140,7 @@ class ModifiyVideoPaletteListener
 
                 if ($addPreviewImageFields) {
                     if ($noLegend) {
-                        $palette = str_replace('fullsize,autoplay','fullsize,autoplay,addPreviewImage',$palette);
+                        $palette = str_replace('videoFullsize,autoplay','videoFullsize,autoplay,addPreviewImage',$palette);
                     } else {
                         $palette = str_replace(
                             '{template_legend',

@@ -15,4 +15,4 @@ tl_content:
 
 Alt | Neu
 --- | ---
-youtubeFullSize | fullsize (Core-Feld)
+youtubeFullSize | videoFullSize

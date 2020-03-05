@@ -18,17 +18,21 @@ use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 class DcaFieldGenerator
 {
     const PALETTE_VIDEO = 'videoProvider';
-    const PALETTE_PLAYER = 'fullsize,autoplay';
+    const PALETTE_PLAYER = 'videoFullsize,autoplay';
 
-    public static function addSingleLegendPalette(array &$dca)
+    public static function addSingleLegendPalette(string $table)
     {
+        Controller::loadDataContainer($table);
+        Controller::loadLanguageFile('tl_content');
+        $GLOBALS['TL_LANG'][$table]['video_legend']        = $GLOBALS['TL_LANG']['tl_content']['video_legend'];
+
+        $dca = &$GLOBALS['TL_DCA'][$table];
         $dca['config']['onload_callback'][] = [ModifiyVideoPaletteListener::class, 'updateVideoPaletteWithoutLegend'];
         $palette = '{video_legend},addVideo;';
 
         $dca['subpalettes']['addVideo']  = static::PALETTE_VIDEO.','.static::PALETTE_PLAYER;
-        $dca['subpalettes']['addPreviewImage']  = 'posterSRC,size,addPlayButton';
         $dca['palettes']['__selector__'][] = 'addVideo';
-        $dca['palettes']['__selector__'][] = 'addPreviewImage';
+        static::addSubpalettes($dca);
 
         $fields = [
             'addVideo'         => [
@@ -46,6 +50,24 @@ class DcaFieldGenerator
         return $palette;
     }
 
+    /**
+     * Add the default video bundle subpalettes
+     *
+     * @param array $dca
+     */
+    public static function addSubpalettes(array &$dca)
+    {
+        $dca['subpalettes']['addPreviewImage']  = 'posterSRC,size,addPlayButton';
+        $dca['subpalettes']['videoFullsize']  = 'videoLinkText';
+        $dca['palettes']['__selector__'][] = 'addPreviewImage';
+        $dca['palettes']['__selector__'][] = 'videoFullsize';
+    }
+
+    /**
+     * Return the video bundle dca fields
+     *
+     * @return array
+     */
     public static function getVideoFields()
     {
         Controller::loadDataContainer("tl_content");
@@ -117,6 +139,13 @@ class DcaFieldGenerator
                 },
                 'eval'             => ['maxlength' => 255, 'tl_class' => 'w50'],
                 'sql'              => "varchar(255) NOT NULL default ''",
+            ],
+            'videoFullsize'        => [
+                'label'     => &$GLOBALS['TL_LANG']['tl_content']['videoFullsize'],
+                'exclude'   => true,
+                'inputType' => 'checkbox',
+                'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
+                'sql'       => "char(1) NOT NULL default ''",
             ],
         ];
     }

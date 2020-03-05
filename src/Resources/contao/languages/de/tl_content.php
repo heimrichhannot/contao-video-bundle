@@ -12,9 +12,12 @@ $GLOBALS['TL_LANG']['tl_content']['video_legend']        = 'Video-Einstellungen'
  * Fields
  */
 
-//$GLOBALS['TL_LANG']['tl_content']['addYouTube']      = ['YouTube-Video hinzufügen', 'Wählen Sie diese Option, wenn Sie der Nachricht ein YouTube-Video hinzufügen möchten.'];
-//$GLOBALS['TL_LANG']['tl_content']['addPreviewImage'] = ['Vorschaugrafik hinzufügen', 'Wählen Sie diese Option, wenn Sie dem Video eine Vorschaugrafik hinzufügen möchten, wenn das Vorschaubild nicht gesetzt ist, wird das Bild von Youtube geladen.'];
-//$GLOBALS['TL_LANG']['tl_content']['addPlayButton']   = ['Play-Button hinzufügen', 'Wählen Sie diese Option, damit dem Video ein div-Element für eine Play-Grafik hinzugefügt wird.'];
+$GLOBALS['TL_LANG']['tl_content']['addVideo']      = ['Video hinzufügen', 'Wählen Sie diese Option, wenn Sie ein Video hinzufügen möchten.'];
+$GLOBALS['TL_LANG']['tl_content']['videoProvider']      = ['Video-Anbieter', 'Wählen Sie den gewünschten Video-Anbieter aus.'];
+$GLOBALS['TL_LANG']['tl_content']['videoFullsize']      = ['Großansicht/Neues Fenster', 'Großansicht des Videos in einer Lightbox bzw. den Link in einem neuem Browserfenster öffnen.'];
+
+$GLOBALS['TL_LANG']['tl_content']['addPreviewImage'] = ['Vorschaugrafik hinzufügen', 'Wählen Sie diese Option, wenn Sie dem Video eine Vorschaugrafik hinzufügen möchten, wenn das Vorschaubild nicht gesetzt ist, wird das Bild von Youtube geladen.'];
+$GLOBALS['TL_LANG']['tl_content']['addPlayButton']   = ['Play-Button hinzufügen', 'Wählen Sie diese Option, damit dem Video ein div-Element für eine Play-Grafik hinzugefügt wird.'];
 //
 //$GLOBALS['TL_LANG']['tl_content']['videoId']                = ['Video-Id', 'Geben Sie hier die ID des YouTube-Videos ein.'];
 $GLOBALS['TL_LANG']['tl_content']['videoDuration']          = ['Länge', 'Geben Sie hier die Dauer des Videos ein.'];
