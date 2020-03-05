@@ -135,7 +135,7 @@ class DcaFieldGenerator
                 'inputType'        => 'select',
                 'default'          => 'huh.youtube.modal.link.default',
                 'options_callback' => function (\DataContainer $dc) {
-                    return \Contao\System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh.youtube.modal.link');
+                    return \Contao\System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
                 },
                 'eval'             => ['maxlength' => 255, 'tl_class' => 'w50'],
                 'sql'              => "varchar(255) NOT NULL default ''",

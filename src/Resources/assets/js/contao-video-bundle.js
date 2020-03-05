@@ -47,7 +47,7 @@ class VideoBundle {
                     cancel: el.getAttribute('data-btn-privacy-cancel') !== null ? el.getAttribute('data-btn-privacy-cancel') : 'Cancel'
                 },
                 onshow: function() {
-                    document.dispatchEvent(new CustomEvent('huh.youtube.event.alertify.onshow', {
+                    document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onshow', {
                         bubbles: true,
                         cancelable: true,
                         detail: {
@@ -57,7 +57,7 @@ class VideoBundle {
                 },
                 defaultFocusOff: true,
                 onfocus: function() {
-                    document.dispatchEvent(new CustomEvent('huh.youtube.event.alertify.onfocus', {
+                    document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onfocus', {
                         bubbles: true,
                         cancelable: true,
                         detail: {

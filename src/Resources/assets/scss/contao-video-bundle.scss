@@ -142,26 +142,6 @@ $play-button-height: 48px;
     }
   }
 
-  .youtube-privacy {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 999999;
-    overflow: hidden;
-    outline: 0;
-    opacity: 0;
-    transition: 500ms opacity linear;
-    height: 0;
-    display: block;
-
-    &.show {
-      opacity: 1;
-      height: auto;
-    }
-  }
-
   .video-text {
     margin-top: 1rem;
   }

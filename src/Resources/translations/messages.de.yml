@@ -14,7 +14,12 @@ huh_video:
         checkbox: "Diese Entscheidung für die Nutzung von Vimeo-Videos auf %host% dauerhaft speichern."
         ok: "OK"
         cancel: "Abbrechen"
-
+  fields:
+    videoLinkText:
+      default: Video anzeigen
+      play: Video abspielen
+      window: Video in neuen Fenster öffnen
+      article: Videobeitrag
 
 huh.youtube:
   title:
@@ -26,13 +31,6 @@ huh.youtube:
     privacy.cancel: Abbrechen
     privacy.ok: OK
     modal.close: Schließen
-
-# modal link text
-  modal.link:
-    default: Video anzeigen
-    play: Video abspielen
-    window: Video in neuen Fenster öffnen
-    article: Videobeitrag
 
 # DCA
 huh.list:
