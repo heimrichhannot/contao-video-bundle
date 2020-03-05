@@ -102,7 +102,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
      */
     public function getNoCookieSrc(): string
     {
-        // TODO: Implement getNoCookieSrc() method.
+        return  $this->createUrl(true);
     }
 
     /**
@@ -110,6 +110,6 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
      */
     public function getSrc(): string
     {
-        // TODO: Implement getSrc() method.
+        return $this->createUrl(false);
     }
 }

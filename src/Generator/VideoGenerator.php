@@ -74,6 +74,7 @@ class VideoGenerator
     /**
      * Options:
      * - ignoreFullsize: (bool) Ignore the video fullsize property
+     * - rootPage: (PageModel) Set the root page instead of determine it
      *
      * @param VideoInterface $video
      * @param array $options
@@ -82,9 +83,21 @@ class VideoGenerator
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function generate(VideoInterface $video, array $options = []): string
+    public function generate(VideoInterface $video, $parent, array $options = []): string
     {
-        $rootPage = Frontend::getRootPageFromUrl();
+        if (isset($options['rootPage'])) {
+
+            if (!$options['rootPage'] instanceof  PageModel) {
+                throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".get_class($options['rootPage']));
+            }
+            if ('root' === $options['rootPage']->type) {
+                throw new \InvalidArgumentException("Option rootPage only allows PageModel instances of type 'root'. Type ".$options['rootPage']->type.' given.');
+            }
+            $rootPage = $options['rootPage'];
+        } else {
+            $rootPage = Frontend::getRootPageFromUrl();
+        }
+
         $context = $video->getData();
         $context['uniqueId'] = uniqid();
         if ($video instanceof PreviewImageInterface)
