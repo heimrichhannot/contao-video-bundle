@@ -116,7 +116,7 @@ class ModifiyVideoPaletteListener
             );
 
             if ($addPreviewImageFields) {
-                $position = 'videoFullsize,autoplay';
+                $position = 'videoFullsize,videoAutoplay';
                 $previewPalette = ',addPreviewImage';
                 $palette = str_replace(
                     $position,
@@ -140,7 +140,7 @@ class ModifiyVideoPaletteListener
 
                 if ($addPreviewImageFields) {
                     if ($noLegend) {
-                        $palette = str_replace('videoFullsize,autoplay','videoFullsize,autoplay,addPreviewImage',$palette);
+                        $palette = str_replace('videoFullsize,videoAutoplay','videoFullsize,videoAutoplay,addPreviewImage',$palette);
                     } else {
                         $palette = str_replace(
                             '{template_legend',

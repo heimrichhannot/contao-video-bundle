@@ -19,7 +19,7 @@ use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 class LoadDataContainerListener
 {
     const PALETTE_VIDEO = 'videoProvider';
-    const PALETTE_PLAYER = 'videoFullsize,autoplay';
+    const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
     /**
      * @var array

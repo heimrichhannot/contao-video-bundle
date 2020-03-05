@@ -1,0 +1,23 @@
+{
+  "entrypoints": {
+    "contao-video-bundle": {
+      "css": [
+        "/bundles/heimrichhannotvideo/assets/alertify.css"
+      ],
+      "js": [
+        "/bundles/heimrichhannotvideo/assets/alertify.js",
+        "/bundles/heimrichhannotvideo/assets/contao-video-bundle.js"
+      ]
+    },
+    "contao-video-bundle-theme": {
+      "css": [
+        "/bundles/heimrichhannotvideo/assets/alertify.css",
+        "/bundles/heimrichhannotvideo/assets/contao-video-bundle-theme.css"
+      ],
+      "js": [
+        "/bundles/heimrichhannotvideo/assets/alertify.js",
+        "/bundles/heimrichhannotvideo/assets/contao-video-bundle-theme.js"
+      ]
+    }
+  }
+}

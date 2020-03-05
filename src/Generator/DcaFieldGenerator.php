@@ -18,7 +18,7 @@ use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 class DcaFieldGenerator
 {
     const PALETTE_VIDEO = 'videoProvider';
-    const PALETTE_PLAYER = 'videoFullsize,autoplay';
+    const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
     public static function addSingleLegendPalette(string $table)
     {
@@ -146,6 +146,13 @@ class DcaFieldGenerator
                 'inputType' => 'checkbox',
                 'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
                 'sql'       => "char(1) NOT NULL default ''",
+            ],
+            'videoAutoplay' => [
+                'label'     => &$GLOBALS['TL_LANG']['tl_content']['videoAutoplay'],
+                'exclude'   => true,
+                'inputType' => 'checkbox',
+                'eval'      => ['tl_class' => 'w50 m12'],
+                'sql'       => "char(1) NOT NULL default ''"
             ],
         ];
     }

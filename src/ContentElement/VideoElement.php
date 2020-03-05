@@ -14,6 +14,7 @@ namespace HeimrichHannot\VideoBundle\ContentElement;
 
 use Contao\ContentElement;
 use Contao\System;
+use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
 use HeimrichHannot\VideoBundle\Video\YouTubeVideo;
@@ -29,7 +30,11 @@ class VideoElement extends ContentElement
      */
     protected function compile()
     {
-        $videoClass = System::getContainer()->get(VideoProviderCollection::class)->getClassByVideoProvider($this->videoProvider);
-        $this->Template->video = System::getContainer()->get(VideoGenerator::class)->generate(new $videoClass($this->objModel->row()), $this);
+
+        $video = System::getContainer()->get(VideoProviderCollection::class)->getVideoByRawDataWithSelector($this->objModel->row(), null);
+        if ($video) {
+            $this->Template->video = System::getContainer()->get(VideoGenerator::class)->generate($video, $this);
+            System::getContainer()->get(FrontendAsset::class)->addFrontendAsset();
+        }
     }
 }

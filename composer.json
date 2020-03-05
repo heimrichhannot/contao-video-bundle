@@ -14,8 +14,7 @@
     "php": "^7.1",
     "contao/core-bundle": "^4.4",
     "symfony/http-kernel": "^3.4|^4.0",
-    "heimrichhannot/contao-utils-bundle": "^2.60",
-    "heimrichhannot-contao-components/alertifyjs": "1.11.2"
+    "heimrichhannot/contao-utils-bundle": "^2.60"
   },
   "autoload": {
     "psr-4": {

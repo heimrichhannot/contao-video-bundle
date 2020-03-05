@@ -49,9 +49,16 @@ class VideoProviderCollection
         throw new \Exception("No configuration exists for given provider.");
     }
 
-    public function getVideoByRawDataWithSelector(array $data, string $selector = 'addVideo')
+    /**
+     * Return a video object base
+     *
+     * @param array $data
+     * @param string $selector
+     * @return null
+     */
+    public function getVideoByRawDataWithSelector(array $data, ?string $selector = 'addVideo')
     {
-        if (!isset($data[$selector]) && true !== (bool) $data[$selector]) {
+        if (is_string($selector) && !isset($data[$selector]) && true !== (bool) $data[$selector]) {
             return null;
         }
         if (!isset($data['videoProvider']) && false === is_string($data['videoProvider'])) {

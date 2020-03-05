@@ -27,8 +27,8 @@ $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 //$arrDca['palettes']['root'] = str_replace('adminEmail;', $replace, $arrDca['palettes']['root']);
 
 $arrDca['palettes']['root'] = str_replace(
-    'adminEmail;',
-    ';{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;',
+    '{sitemap_legend',
+    '{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
     $arrDca['palettes']['root']
 );
 
@@ -82,7 +82,7 @@ $fields = [
         'options_callback' => function (\Contao\DataContainer $dc) {
             return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['videofullsize_'])->getCachedChoices();
         },
-        'eval'             => ['tl_class' => 'w50'],
+        'eval'             => ['tl_class' => 'w50 clr'],
         'sql'              => "varchar(64) NOT NULL default ''",
     ],
     'videoprivacyTemplate' => [

@@ -21,3 +21,6 @@ services:
 
   HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener:
     public: true
+
+  HeimrichHannot\VideoBundle\Asset\FrontendAsset:
+    public: true

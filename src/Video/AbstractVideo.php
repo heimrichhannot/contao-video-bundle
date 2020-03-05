@@ -88,6 +88,10 @@ abstract class AbstractVideo implements VideoInterface
     protected function setProperty(string $property, $value)
     {
         switch ($property) {
+            case 'videoAutoplay':
+                $property = 'autoplay';
+                $value = (bool) $value;
+                break;
             case 'videoFullsize':
                 $property = 'fullsize';
                 $value = (bool) $value;

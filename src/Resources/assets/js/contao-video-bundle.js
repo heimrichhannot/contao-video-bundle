@@ -1,4 +1,4 @@
-import '@hundh/contao-utils-bundle';
+import EventUtil from '@hundh/contao-utils-bundle/js/event-util'
 import alertify from 'alertifyjs';
 
 const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-thumbnail';
@@ -15,7 +15,7 @@ class VideoBundle {
         });
 
         // handle click event
-        utilsBundle.event.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
+        EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
             VideoBundle.initVideo(target);
         });
     }
@@ -25,7 +25,7 @@ class VideoBundle {
             iframe = video.querySelector('iframe');
 
         // stop playing video on closing any modal window
-        utilsBundle.event.addDynamicEventListener('click', '[data-dismiss="modal"]', function(target) {
+        EventUtil.addDynamicEventListener('click', '[data-dismiss="modal"]', function(target) {
             iframe.setAttribute('src', iframe.getAttribute('data-src'));
         });
 

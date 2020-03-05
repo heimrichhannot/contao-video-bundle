@@ -1,0 +1,27 @@
+{
+  "name": "contao-video-bundle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:heimrichhannot/contao-video-bundle.git",
+  "author": "Thomas Körner <t.koerner@heimrich-hannot.de>",
+  "dependencies": {
+    "@hundh/contao-utils-bundle": "^1.6",
+    "alertifyjs": "^1.11"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "autoprefixer": "^9.1.5"
+  },
+  "scripts": {
+    "build-dev": "yarn encore dev",
+    "build-production": "yarn encore production"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
+}
