@@ -20,9 +20,11 @@ use Contao\System;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
+use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -52,6 +54,10 @@ class VideoGenerator
      * @var TemplateUtil
      */
     private $templateUtil;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
 
     /**
@@ -61,7 +67,7 @@ class VideoGenerator
      * @param ImageUtil $imageUtil
      * @param array $bundleConfig
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
@@ -69,6 +75,7 @@ class VideoGenerator
         $this->bundleConfig = $bundleConfig;
         $this->translator = $translator;
         $this->templateUtil = $templateUtil;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -124,6 +131,8 @@ class VideoGenerator
             $context['videoplayer'] = $videoBuffer;
             $videoBuffer = $this->twig->render($this->getFullsizeTemplate($rootPage), $context);
         }
+
+        $this->eventDispatcher->dispatch(BeforeRenderPlayerEvent::NAME, new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options));
 
         return $videoBuffer;
     }

@@ -1,5 +1,11 @@
 # Contao Video Bundle Developer Documentation
 
+## Events
+
+Event name                     | Description
+------------------------------ | -----------
+huh.video.before_render_player | Customize the video player context before rendering
+
 ## Add new video provider
 
 1. Create a video class that extends from `AbstractVideo` and implement the abstract methods.
