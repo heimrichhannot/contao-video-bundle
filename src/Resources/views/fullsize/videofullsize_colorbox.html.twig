@@ -1,0 +1,17 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        document.querySelector('#videolink-{{ uniqueId }}').addEventListener('huh.video.privacy.accept', function(event) {
+            jQuery(event.target).colorbox({
+                // Put custom options here
+                // loop: false,
+                // rel: $(this).attr('data-lightbox'),
+                innerWidth: '90%',
+                innerHeight: '80%',
+                iframe: true,
+                href: event.target.getAttribute('href')
+            });
+        });
+    });
+</script>
+
+<a id="videolink-{{ uniqueId }}" href="{{ src }}" class="huh_video video-link colorbox" {% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %}>{{ videoLinkText|trans }}</a>

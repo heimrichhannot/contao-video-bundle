@@ -14,9 +14,10 @@ huh.video.before_render_player | Customize the video player context before rende
 
 Event name | Description
 ---------- | -----------
-
-huh.video.event.alertify.onshow | Proxy for alertify onshow event
-huh.video.event.alertify.onfocus | Proxy for alertify onfocus event
+huh.video.alertify.onshow | Proxy for alertify onshow event
+huh.video.alertify.onfocus | Proxy for alertify onfocus event
+huh.video.privacy.accept | User accepted privacy prompt
+huh.video.privacy.cancel | User canceled privacy prompt
 
 ## Add new video provider
 

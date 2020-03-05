@@ -18,6 +18,78 @@ class VideoBundle {
         EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
             VideoBundle.initVideo(target);
         });
+        // handle click event
+        EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
+            VideoBundle.initVideo(target);
+        });
+
+        // handle click event
+
+        document.querySelectorAll('.huh_video.video-link').forEach(function(element) {
+            element.addEventListener('click', function(event) {
+                event.preventDefault();
+                VideoBundle.initPrivacy(event.target);
+            });
+        });
+    }
+
+    static initPrivacy(element) {
+        if ('privacy' in element.dataset) {
+            if (null !== localStorage.getItem(localeStorageAcceptPrivacyKey)) {
+                return true;
+            }
+
+            const dialog = alertify.confirm().set({
+                labels: {
+                    ok: element.getAttribute('data-btn-privacy-ok') !== null ? element.getAttribute('data-btn-privacy-ok') : 'OK' ,
+                    cancel: element.getAttribute('data-btn-privacy-cancel') !== null ? element.getAttribute('data-btn-privacy-cancel') : 'Cancel'
+                },
+                onshow: function() {
+                    document.dispatchEvent(new CustomEvent('huh.video.alertify.onshow', {
+                        bubbles: true,
+                        cancelable: true,
+                        detail: {
+                            elements: dialog.elements
+                        }
+                    }));
+                },
+                defaultFocusOff: true,
+                onfocus: function() {
+                    document.dispatchEvent(new CustomEvent('huh.video.alertify.onfocus', {
+                        bubbles: true,
+                        cancelable: true,
+                        detail: {
+                            elements: dialog.elements
+                        }
+                    }));
+                }
+            });
+
+            alertify.confirm('&nbsp;',
+                element.getAttribute('data-privacy-html').replace(/\\"/g, '"'),
+                () => {
+                    if (dialog.elements.content.querySelector('[name=' + privacyAutoFieldName + ']').checked) {
+                        localStorage.setItem(localeStorageAcceptPrivacyKey, true);
+                    }
+                    element.dispatchEvent(new CustomEvent('huh.video.privacy.accept', {
+                        bubbles: true,
+                        cancelable: true,
+                        detail: {
+                            elements: dialog.elements
+                        }
+                    }));
+                    // location.href = element.getAttribute('href');
+                },
+                function() {
+                    element.dispatchEvent(new CustomEvent('huh.video.privacy.cancel', {
+                        bubbles: true,
+                        cancelable: true,
+                        detail: {
+                            elements: dialog.elements
+                        }
+                    }));
+                });
+        }
     }
 
     static initVideo(el) {

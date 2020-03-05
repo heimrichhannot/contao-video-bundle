@@ -76,7 +76,7 @@ $fields = [
     ],
     'videofullsizeTemplate'       => [
         'label'            => &$GLOBALS['TL_LANG']['tl_page']['videofullsizeTemplate'],
-        'default'          => 'youtube_modalvideo_default',
+        'default'          => 'videofullsize_default',
         'exclude'          => true,
         'inputType'        => 'select',
         'options_callback' => function (\Contao\DataContainer $dc) {

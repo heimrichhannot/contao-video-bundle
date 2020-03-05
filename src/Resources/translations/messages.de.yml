@@ -14,7 +14,10 @@ huh_video:
         checkbox: "Diese Entscheidung für die Nutzung von Vimeo-Videos auf %host% dauerhaft speichern."
         ok: "OK"
         cancel: "Abbrechen"
+
   fields:
+    videoFullsize:
+      cancel: Abbrechen
     videoLinkText:
       default: Video anzeigen
       play: Video abspielen
