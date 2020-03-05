@@ -14,6 +14,7 @@ namespace HeimrichHannot\VideoBundle\EventListener;
 
 use Contao\FrontendTemplate;
 use Contao\Module;
+use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -32,12 +33,17 @@ class ParseArticlesListener
      * @var VideoGenerator
      */
     private $videoGenerator;
+    /**
+     * @var FrontendAsset
+     */
+    private $frontendAsset;
 
-    public function __construct(array $bundleConfig, VideoProviderCollection $videoProviderCollection, VideoGenerator $videoGenerator)
+    public function __construct(array $bundleConfig, VideoProviderCollection $videoProviderCollection, VideoGenerator $videoGenerator, FrontendAsset $frontendAsset)
     {
         $this->bundleConfig = $bundleConfig;
         $this->videoProviderCollection = $videoProviderCollection;
         $this->videoGenerator = $videoGenerator;
+        $this->frontendAsset = $frontendAsset;
     }
 
 
@@ -55,6 +61,8 @@ class ParseArticlesListener
         if (!$video) {
             return;
         }
+
         $template->videoplayer = $this->videoGenerator->generate($video, $module);
+        $this->frontendAsset->addFrontendAsset();
     }
 }
