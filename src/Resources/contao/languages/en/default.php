@@ -10,5 +10,5 @@
 
 $GLOBALS['TL_LANG']['CTE'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] = [
     'Video',
-    'Ein Content element welches die Einbindung von Videos verschiedener Anbieter erlauft.',
+    'A content element allows embedding videos from different video providers.t',
 ];
