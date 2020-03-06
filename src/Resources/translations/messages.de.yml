@@ -5,16 +5,11 @@ huh_video:
         headline: "Datenschutzhinweis"
         text: "Wenn Sie unsere YouTube-Videos abspielen, werden Informationen über Ihre Nutzung von YouTube an den Betreiber in den USA übertragen und unter Umständen gespeichert."
         checkbox: "Diese Entscheidung für die Nutzung von Youtube-Videos auf %host% dauerhaft speichern."
-        ok: "OK"
-        cancel: "Abbrechen"
     vimeo:
       privacy:
         headline: "Datenschutzhinweis"
         text: "Wenn Sie unsere Vimeo-Videos abspielen, werden Informationen über Ihre Nutzung von Vimeo an den Betreiber in den USA übertragen und unter Umständen gespeichert."
         checkbox: "Diese Entscheidung für die Nutzung von Vimeo-Videos auf %host% dauerhaft speichern."
-        ok: "OK"
-        cancel: "Abbrechen"
-
   fields:
     videoFullsize:
       cancel: Abbrechen
@@ -23,17 +18,12 @@ huh_video:
       play: Video abspielen
       window: Video in neuen Fenster öffnen
       article: Videobeitrag
-
-huh.youtube:
-  title:
-    play: Video abspielen
-    privacy: Datenschutzhinweis
-  text.privacy: Wenn Sie unsere YouTube-Videos abspielen, werden Informationen über Ihre Nutzung von YouTube an den Betreiber in den USA übertragen und unter Umständen gespeichert.
-  label.privacy.autoplay: Diese Entscheidung für die Nutzung von Youtube-Videos auf %host% dauerhaft speichern.
-  button:
-    privacy.cancel: Abbrechen
-    privacy.ok: OK
-    modal.close: Schließen
+  template:
+    thumbnail:
+      title: "%type%-Video abspielen"
+    privacy:
+      ok: "OK"
+      cancel: "Abbrechen"
 
 # DCA
 huh.list:
