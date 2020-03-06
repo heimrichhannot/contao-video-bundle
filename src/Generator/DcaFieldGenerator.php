@@ -133,7 +133,7 @@ class DcaFieldGenerator
                 'label'            => &$GLOBALS['TL_LANG']['tl_content']['videoLinkText'],
                 'exclude'          => true,
                 'inputType'        => 'select',
-                'default'          => 'huh.youtube.modal.link.default',
+                'default'          => 'huh_video.fields.videoLinkText.default',
                 'options_callback' => function (\DataContainer $dc) {
                     return \Contao\System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
                 },

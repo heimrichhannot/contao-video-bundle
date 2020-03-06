@@ -40,6 +40,11 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     protected $videoShowRelated = false;
 
     /**
+     * @var bool 
+     */
+    protected $ytShowInfo = false;
+
+    /**
      * @var bool
      */
     protected $ytModestBranding = false;
@@ -53,11 +58,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      * @var string
      */
     protected $posterSRC = '';
-
-    /**
-     * @var bool
-     */
-    protected $addPlayButton = false;
 
     public static function getType(): string
     {
@@ -144,14 +144,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getAddPlayButton(): bool
-    {
-        return $this->addPlayButton;
     }
 
 

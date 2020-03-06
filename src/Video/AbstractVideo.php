@@ -38,6 +38,11 @@ abstract class AbstractVideo implements VideoInterface
     protected $headlineText = '';
 
     /**
+     * @var bool
+     */
+    protected $addPlayButton = false;
+
+    /**
      * AbstractVideo constructor.
      * @param array $data
      */
@@ -160,4 +165,11 @@ abstract class AbstractVideo implements VideoInterface
     {
         return $this->headlineText;
     }
+
+    public function getAddPlayButton(): bool
+    {
+        return $this->addPlayButton;
+    }
+
+
 }

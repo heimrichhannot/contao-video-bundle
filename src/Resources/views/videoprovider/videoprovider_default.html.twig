@@ -2,7 +2,7 @@
 <div class="huh_video videowrapper_default {{ type|default }}">
     <div class="video-wrapper">
         {% if previewImage|default() %}
-            <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
+            <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
                 <figure class="image_container">
                     {% if previewImage.picture|default() %}
                         {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}

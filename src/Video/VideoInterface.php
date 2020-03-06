@@ -69,4 +69,11 @@ interface VideoInterface
      * @return string
      */
     public function getSrc(): string;
+
+    /**
+     * Return if a play button should be added to the preview image
+     *
+     * @return bool
+     */
+    public function getAddPlayButton(): bool;
 }

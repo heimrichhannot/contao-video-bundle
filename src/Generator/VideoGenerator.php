@@ -117,9 +117,7 @@ class VideoGenerator
         }
         $context['type'] = $video::getType();
 
-
-
-        $context['playButton'] = true;
+        $context['playButton'] = $video->getAddPlayButton();
 
         if ($this->isPrivacyNoticeEnabled($rootPage)) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
@@ -139,7 +137,7 @@ class VideoGenerator
 
     public function getFullsizeTemplate(PageModel $rootPage = null)
     {
-        $template = "@HeimrichHannotVideo/modal/videofullsize_default.html.twig";
+        $template = "@HeimrichHannotVideo/fullsize/videofullsize_default.html.twig";
         if ($rootPage) {
             $template = $rootPage->videofullsizeTemplate;
             $template = $this->templateUtil->getTemplate($template);

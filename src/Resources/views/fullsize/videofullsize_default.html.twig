@@ -1,8 +1,8 @@
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         document.querySelector('#videolink-{{ uniqueId }}').addEventListener('huh.video.privacy.accept', function(event) {
-            location.href = event.target.getAttribute('href');
+            window.open(event.target.getAttribute('href'));
         });
     });
 </script>
-<a id="videolink-{{ uniqueId }}" href="{{ src }}" class="huh_video video-link" {% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %}>{{ videoLinkText|trans }}</a>
+<a id="videolink-{{ uniqueId }}" href="{{ src }}" target="_blank" class="huh_video video-link" {% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %}>{{ videoLinkText|trans }}</a>
