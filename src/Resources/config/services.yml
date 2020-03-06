@@ -24,3 +24,5 @@ services:
 
   HeimrichHannot\VideoBundle\Asset\FrontendAsset:
     public: true
+    calls:
+      - [setEncoreFrontendAsset, ['@?HeimrichHannot\EncoreBundle\Asset\FrontendAsset']]

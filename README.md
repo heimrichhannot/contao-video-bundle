@@ -6,6 +6,7 @@ This bundle brings enhanced video embedding support to contao with enhanced priv
 * Support for YouTube and Vimeo as video providers
 * Out-of-the-box-usage: 
     * Content Element
+    * News
 * enhance your users privacy with preview images, privacy notice before playing and no cookie urls
 * responsive Videos
 * expandable architecture

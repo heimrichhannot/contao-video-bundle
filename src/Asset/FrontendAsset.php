@@ -13,27 +13,33 @@ namespace HeimrichHannot\VideoBundle\Asset;
 
 
 use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FrontendAsset
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-    /**
      * @var ContainerUtil
      */
     private $containerUtil;
+    /**
+     * @var \HeimrichHannot\EncoreBundle\Asset\FrontendAsset
+     */
+    protected $encoreFrontendAsset;
 
 
     /**
      * FrontendAsset constructor.
      */
-    public function __construct(ContainerInterface $container, ContainerUtil $containerUtil)
+    public function __construct(ContainerUtil $containerUtil)
     {
-        $this->container = $container;
         $this->containerUtil = $containerUtil;
+    }
+
+    /**
+     * @param \HeimrichHannot\EncoreBundle\Asset\FrontendAsset $encoreFrontendAsset
+     */
+    public function setEncoreFrontendAsset(\HeimrichHannot\EncoreBundle\Asset\FrontendAsset $encoreFrontendAsset): void
+    {
+        $this->encoreFrontendAsset = $encoreFrontendAsset;
     }
 
     public function addFrontendAsset()
@@ -42,9 +48,9 @@ class FrontendAsset
             return;
         }
 
-        if ($this->container->has('huh.encore.asset.frontend')) {
-            $this->container->get('huh.encore.asset.frontend')->addActiveEntrypoint('contao-video-bundle');
-            $this->container->get('huh.encore.asset.frontend')->addActiveEntrypoint('contao-video-bundle-theme');
+        if ($this->encoreFrontendAsset) {
+            $this->encoreFrontendAsset->addActiveEntrypoint('contao-video-bundle');
+            $this->encoreFrontendAsset->addActiveEntrypoint('contao-video-bundle-theme');
         }
 
         $GLOBALS['TL_USER_CSS']['contao-video-bundle']             = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-theme.css|static';
