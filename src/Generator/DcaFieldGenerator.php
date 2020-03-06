@@ -112,7 +112,7 @@ class DcaFieldGenerator
                 'label'     => &$GLOBALS['TL_LANG']['tl_content']['videoShowRelated'],
                 'exclude'   => true,
                 'inputType' => 'checkbox',
-                'eval'      => ['tl_class' => 'w50'],
+                'eval'      => ['tl_class' => 'w50 clr'],
                 'sql'       => "char(1) NOT NULL default ''",
             ],
             'ytModestBranding'       => [

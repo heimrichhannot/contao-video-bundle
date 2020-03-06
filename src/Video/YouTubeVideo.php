@@ -47,11 +47,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     /**
      * @var bool
      */
-    protected $ytShowInfo = false;
-
-    /**
-     * @var bool
-     */
     protected $addPreviewImage = false;
 
     /**
@@ -84,7 +79,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
 
         $queryParams = [];
         $params = [
-            'ytShowRelated' => 'rel',
+            'videoShowRelated' => 'rel',
             'ytModestBranding' => 'modestbranding',
             'ytShowInfo' => 'showinfo',
         ];
@@ -181,6 +176,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public static function getPalette(): string
     {
-        return 'youtube,videoDuration,ytHd,ytShowRelated,ytModestBranding,ytShowInfo';
+        return 'youtube,videoDuration,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
     }
 }
