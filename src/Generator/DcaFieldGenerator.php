@@ -20,6 +20,12 @@ class DcaFieldGenerator
     const PALETTE_VIDEO = 'videoProvider';
     const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
+    /**
+     * Update dca for video bundle. Returns the string containing a legend and the selector field for the video subpalette.
+     *
+     * @param string $table
+     * @return string
+     */
     public static function addSingleLegendPalette(string $table)
     {
         Controller::loadDataContainer($table);
@@ -144,14 +150,14 @@ class DcaFieldGenerator
                 'label'     => &$GLOBALS['TL_LANG']['tl_content']['videoFullsize'],
                 'exclude'   => true,
                 'inputType' => 'checkbox',
-                'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
+                'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
                 'sql'       => "char(1) NOT NULL default ''",
             ],
             'videoAutoplay' => [
                 'label'     => &$GLOBALS['TL_LANG']['tl_content']['videoAutoplay'],
                 'exclude'   => true,
                 'inputType' => 'checkbox',
-                'eval'      => ['tl_class' => 'w50 m12'],
+                'eval'      => ['tl_class' => 'w50'],
                 'sql'       => "char(1) NOT NULL default ''"
             ],
         ];

@@ -12,6 +12,7 @@
 namespace HeimrichHannot\VideoBundle\EventListener;
 
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\NewsBundle\ContaoNewsBundle;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
@@ -66,7 +67,12 @@ class LoadDataContainerListener
             if (!is_string($palette)) {
                 continue;
             }
-            $dca['palettes'][$paletteName] = str_replace('{image_legend}', $videoPalette.'{image_legend}', $dca['palettes'][$paletteName]);
+            $paletteManipulator = PaletteManipulator::create()
+                ->addLegend("video_legend", "image_legend", PaletteManipulator::POSITION_BEFORE)
+                ->addField("addVideo", "video_legend", PaletteManipulator::POSITION_APPEND)
+                ->applyToPalette($paletteName, 'tl_news');
+
+//            $dca['palettes'][$paletteName] = str_replace('{image_legend}', $videoPalette.'{image_legend}', $dca['palettes'][$paletteName]);
         }
     }
 }
