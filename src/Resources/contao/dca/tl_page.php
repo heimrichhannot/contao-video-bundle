@@ -28,9 +28,17 @@ $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 
 $arrDca['palettes']['root'] = str_replace(
     '{sitemap_legend',
-    '{video_legend},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
+    '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
     $arrDca['palettes']['root']
 );
+
+if (isset($arrDca['palettes']['rootfallback'])) {
+    $arrDca['palettes']['rootfallback'] = str_replace(
+        '{sitemap_legend',
+        '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
+        $arrDca['palettes']['rootfallback']
+    );
+}
 
 /**
  * Subpalettes
