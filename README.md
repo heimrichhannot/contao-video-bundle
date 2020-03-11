@@ -30,6 +30,10 @@ This bundle brings enhanced video embedding support to contao with enhanced priv
 1. Adjust template settings on root page if needed. You can also overwrite the default configuration there. 
 
 1. Start adding videos as content element or to your news.
+    * Content Element: Select "Video" content element
+    * News:
+        * Check "Add video" in your news item
+        * output "videoplayer" variable in your news template
 
 ## Documentation
 
