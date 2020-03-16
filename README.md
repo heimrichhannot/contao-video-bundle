@@ -1,6 +1,6 @@
 # Contao Video Bundle
 
-This bundle brings enhanced video embedding support to contao with enhanced privacy options. 
+This bundle brings enhanced video embedding support to contao with enhanced privacy options and is the successor of our [YouTube Bundle](https://github.com/heimrichhannot/contao-youtube-bundle). 
 
 ## Features
 * Support for YouTube and Vimeo as video providers
@@ -41,3 +41,7 @@ This bundle brings enhanced video embedding support to contao with enhanced priv
 
 [Configuration reference](docs/configuration.md)
  
+ 
+## Acknowledgments
+
+The creation of this bundle and the vimeo integration was supported by [Liebchen+Liebchen GmbH](https://www.lplusl.de/).
