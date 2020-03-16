@@ -1,4 +1,8 @@
 # Contao Video Bundle
+[![](https://img.shields.io/packagist/v/heimrichhannot/contao-video-bundle.svg)](https://packagist.org/packages/heimrichhannot/contao-video-bundle)
+[![](https://img.shields.io/packagist/dt/heimrichhannot/contao-video-bundle.svg)](https://packagist.org/packages/heimrichhannot/contao-video-bundle)
+
+
 
 This bundle brings enhanced video embedding support to contao with additional privacy options and is the successor of our [YouTube Bundle](https://github.com/heimrichhannot/contao-youtube-bundle). 
 
