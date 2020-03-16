@@ -1,7 +1,7 @@
 {
   "name": "heimrichhannot/contao-video-bundle",
   "type": "contao-bundle",
-  "description": "Video Content Element, with responsive support, preview image, play button and many more.",
+  "description": "This bundle brings enhanced video embedding support to contao with additional privacy options.",
   "keywords": [
     "contao",
     "youtube",
