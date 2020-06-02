@@ -8,7 +8,6 @@ $dca['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] 
     '{type_legend},type,name,headline;
 	{video_legend},videoProvider;
 	{player_legend},videoFullsize,videoAutoplay;
-	{text_legend},text;
 	{template_legend:hide},customTpl;
 	{protected_legend:hide},protected;
 	{expert_legend:hide},cssID,space
