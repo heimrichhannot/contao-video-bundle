@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2020-06-04
+- removed duplicate js code
+- added tabindex to video-wrapper and play-button elements to prevent scrolling to top when closing privacy dialog
+
 ## [0.1.1] - 2020-06-02
 - removed unused field 'text' from tl_content dca
 

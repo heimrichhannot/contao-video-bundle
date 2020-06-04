@@ -18,10 +18,6 @@ class VideoBundle {
         EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
             VideoBundle.initVideo(target);
         });
-        // handle click event
-        EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
-            VideoBundle.initVideo(target);
-        });
 
         // handle click event
 
