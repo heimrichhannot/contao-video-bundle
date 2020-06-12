@@ -11,13 +11,17 @@
 
 $arrDca = &$GLOBALS['TL_DCA']['tl_page'];
 
+$replaceDca = '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend';
 /**
  * Selectors
  */
-
 //$arrDca['palettes']['__selector__'][] = 'youtubePrivacy';
 $arrDca['palettes']['__selector__'][] = 'overrideNoCookieVideoUrlSettings';
 $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
+if (class_exists('HeimrichHannot\PrivacyCenter\DataContainer\TrackingObjectContainer')) {
+    $arrDca['palettes']['__selector__'][] = 'usePrivacyCenter';
+    $replaceDca = '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate,usePrivacyCenter;{sitemap_legend';
+}
 
 /**
  * Palettes
@@ -28,14 +32,14 @@ $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 
 $arrDca['palettes']['root'] = str_replace(
     '{sitemap_legend',
-    '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
+    $replaceDca,
     $arrDca['palettes']['root']
 );
 
 if (isset($arrDca['palettes']['rootfallback'])) {
     $arrDca['palettes']['rootfallback'] = str_replace(
         '{sitemap_legend',
-        '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate;{sitemap_legend',
+        $replaceDca,
         $arrDca['palettes']['rootfallback']
     );
 }
@@ -46,6 +50,7 @@ if (isset($arrDca['palettes']['rootfallback'])) {
 //$arrDca['subpalettes']['youtubePrivacy'] = 'youtubePrivacyTemplate';
 $arrDca['subpalettes']['overrideNoCookieVideoUrlSettings'] = 'enableNoCookieVideoUrl';
 $arrDca['subpalettes']['overrideEnablePrivacyNotice'] = 'enablePrivacyNotice';
+$arrDca['subpalettes']['usePrivacyCenter'] = 'privacyCenterLocalStorageAttribute';
 
 /**
  * Fields
@@ -92,6 +97,48 @@ $fields = [
         },
         'eval'             => ['tl_class' => 'w50 clr'],
         'sql'              => "varchar(64) NOT NULL default ''",
+    ],
+    'usePrivacyCenter' => [
+        'label'                   => &$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'],
+        'exclude'                 => true,
+        'inputType'               => 'checkbox',
+        'eval'                    => ['tl_class' => 'w50', 'submitOnChange' => true],
+        'sql'                     => "char(1) NOT NULL default ''"
+    ],
+    'privacyCenterLocalStorageAttribute'       => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_page']['privacyCenterLocalStorageAttribute'],
+        'inputType' => 'multiColumnEditor',
+        'eval'      => [
+            'tl_class' => 'long clr',
+            'multiColumnEditor' => [
+                'fields' => [
+                    'videoProvider' => [
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_page']['videoProvider'],
+                        'exclude'                 => true,
+                        'filter'                  => true,
+                        'inputType'               => 'select',
+                        'options' => [],
+                        'options_callback' => function (\Contao\DataContainer $dc) {
+                            return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
+                        },
+                        'eval'                    => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                    ],
+                    'localStorageAttribute' => [
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'],
+                        'exclude'                 => true,
+                        'filter'                  => true,
+                        'inputType'               => 'select',
+                        'options_callback' => function (\Contao\DataContainer $dc) {
+                            return System::getContainer()->get('huh.utils.choice.model_instance')->getCachedChoices([
+                                'dataContainer' => 'tl_tracking_object'
+                            ]);
+                        },
+                        'eval'                    => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                    ],
+                ],
+            ],
+        ],
+        'sql'       => "blob NULL",
     ],
     'videoprivacyTemplate' => [
         'label'            => &$GLOBALS['TL_LANG']['tl_page']['videoprivacyTemplate'],

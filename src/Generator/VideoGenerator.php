@@ -17,9 +17,11 @@ use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
 use Contao\System;
+use HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
+use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
@@ -58,7 +60,10 @@ class VideoGenerator
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
-
+    /**
+     * @var PrivacyCenterExtension
+     */
+    private $privacyCenterExtension;
 
     /**
      * VideoGenerator constructor.
@@ -67,7 +72,7 @@ class VideoGenerator
      * @param ImageUtil $imageUtil
      * @param array $bundleConfig
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, PrivacyCenterExtension $privacyCenterExtension)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
@@ -76,6 +81,7 @@ class VideoGenerator
         $this->translator = $translator;
         $this->templateUtil = $templateUtil;
         $this->eventDispatcher = $eventDispatcher;
+        $this->privacyCenterExtension = $privacyCenterExtension;
     }
 
     /**
@@ -92,6 +98,7 @@ class VideoGenerator
      */
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {
+
         if (isset($options['rootPage'])) {
 
             if (!$options['rootPage'] instanceof  PageModel) {
@@ -107,19 +114,49 @@ class VideoGenerator
 
         $context = $video->getData();
         $context['uniqueId'] = uniqid();
+
         if ($video instanceof PreviewImageInterface)
         {
             $this->generatePreviewImage($video, $context);
         }
+
         if ($this->isNoCookiesEnabled($rootPage) && $video instanceof NoCookieUrlInterface)
         {
             $context['src'] = $video->getNoCookieSrc();
         }
+
         $context['type'] = $video::getType();
 
         $context['playButton'] = $video->getAddPlayButton();
 
-        if ($this->isPrivacyNoticeEnabled($rootPage)) {
+        if ($this->isPrivacyCenterEnabled($rootPage)) {
+
+            $localStorageAttributes = \Contao\StringUtil::deserialize($rootPage->privacyCenterLocalStorageAttribute, true);
+            $videoProviderLocalStorage = [];
+
+            foreach ($localStorageAttributes as $item) {
+                $localStorageAttribute = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
+                $videoProviderLocalStorage[$item['videoProvider']] = $localStorageAttribute ;
+            }
+
+            $privacyOptions = [
+                'addPoster' => true,
+                'addPosterImage' => true,
+                'posterImages' => [
+                    '(min-width: 1px)' => $context['previewImage']['src']
+                ],
+                'posterDescription' => $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text'),
+                'posterButtonText' => $this->translator->trans('huh_video.template.privacy.ok'),
+                'posterButtonCancel' => $this->translator->trans('huh_video.template.privacy.cancel')
+            ];
+
+            unset($context['previewImage']);
+
+            $code = $this->twig->render($video->getTemplate(), $context);
+
+            return $this->privacyCenterExtension->protectCode($code, $videoProviderLocalStorage[$context['type']], $privacyOptions);
+
+        } elseif ($this->isPrivacyNoticeEnabled($rootPage)) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
         }
 
@@ -219,5 +256,16 @@ class VideoGenerator
             ]
         );
         $context['previewImage'] = $imageData;
+    }
+
+    protected function isPrivacyCenterEnabled(PageModel $rootPage): bool
+    {
+        $isPrivacyCenterEnabled = false;
+
+        if ($rootPage && $rootPage->usePrivacyCenter) {
+            $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
+        }
+
+        return $isPrivacyCenterEnabled;
     }
 }

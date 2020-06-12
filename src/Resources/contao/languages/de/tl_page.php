@@ -30,8 +30,17 @@ $GLOBALS['TL_LANG']['tl_page']['videofullsizeTemplate'][1] = 'Wählen Sie das Te
 $GLOBALS['TL_LANG']['tl_page']['videoprivacyTemplate'][0] = 'Datenschutzhinweise-Template';
 $GLOBALS['TL_LANG']['tl_page']['videoprivacyTemplate'][1] = 'Wählen Sie ein Template aus, dass für die Anzeige der Datenschutzhinweise verwendet werden soll.';
 
+$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'][0] = 'Intergration im Datanschutzcenter';
+$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'][1] = 'Aktiviert die Integration der Datenschutzeinstellungen im Consens-Manager.';
 
+$GLOBALS['TL_LANG']['tl_page']['privacyCenterLocalStorageAttribute'][0] = 'Identifikationsfelder';
+$GLOBALS['TL_LANG']['tl_page']['privacyCenterLocalStorageAttribute'][1] = 'Wählen Sie hier die Felder aus, die für die Zuordnung der Video-Betreiber zum Datenschutzcenter dienen.';
 
+$GLOBALS['TL_LANG']['tl_page']['videoProvider'][0] = 'Video-Anbieter';
+$GLOBALS['TL_LANG']['tl_page']['videoProvider'][1] = 'Wählen Sie den Anbieter des Videos aus.';
+
+$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'][0] = 'LocalStorage Attribut';
+$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'][1] = 'Wählen Sie hier den LocalStorage Attribut aus';
 
 /**
  * Legends
