@@ -132,11 +132,14 @@ class VideoGenerator
         if ($this->isPrivacyCenterEnabled($rootPage)) {
 
             $localStorageAttributes = \Contao\StringUtil::deserialize($rootPage->privacyCenterLocalStorageAttribute, true);
+
             $videoProviderLocalStorage = [];
 
             foreach ($localStorageAttributes as $item) {
-                $localStorageAttribute = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
-                $videoProviderLocalStorage[$item['videoProvider']] = $localStorageAttribute ;
+                if (null === $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute) {
+                    continue;
+                }
+                $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
             }
 
             $privacyOptions = [
@@ -153,14 +156,14 @@ class VideoGenerator
             unset($context['previewImage']);
 
             $code = $this->twig->render($video->getTemplate(), $context);
-
-            return $this->privacyCenterExtension->protectCode($code, $videoProviderLocalStorage[$context['type']], $privacyOptions);
-
-        } elseif ($this->isPrivacyNoticeEnabled($rootPage)) {
-            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
+            $videoBuffer = $this->privacyCenterExtension->protectCode($code, $videoProviderLocalStorage[$context['type']], $privacyOptions);
+        } else {
+            $videoBuffer = $this->twig->render($video->getTemplate(), $context);
         }
 
-        $videoBuffer = $this->twig->render($video->getTemplate(), $context);
+        if ($this->isPrivacyNoticeEnabled($rootPage)) {
+            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
+        }
 
         if ((!isset($options['ignoreFullsize']) || true !== $options['ignoreFullsize']) && $video->isFullsize()) {
             $context['videoplayer'] = $videoBuffer;

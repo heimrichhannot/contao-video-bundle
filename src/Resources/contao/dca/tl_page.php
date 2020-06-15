@@ -121,7 +121,7 @@ $fields = [
                         'options_callback' => function (\Contao\DataContainer $dc) {
                             return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
                         },
-                        'eval'                    => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                        'eval'                    => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
                     ],
                     'localStorageAttribute' => [
                         'label'                   => &$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'],
@@ -133,7 +133,7 @@ $fields = [
                                 'dataContainer' => 'tl_tracking_object'
                             ]);
                         },
-                        'eval'                    => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                        'eval'                    => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
                     ],
                 ],
             ],
