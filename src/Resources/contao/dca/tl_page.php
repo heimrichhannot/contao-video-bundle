@@ -18,9 +18,11 @@ $replaceDca = '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnab
 //$arrDca['palettes']['__selector__'][] = 'youtubePrivacy';
 $arrDca['palettes']['__selector__'][] = 'overrideNoCookieVideoUrlSettings';
 $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
-if (class_exists('HeimrichHannot\PrivacyCenter\DataContainer\TrackingObjectContainer')) {
+
+//ContaoPrivacyCenterBundle integration
+if (class_exists('HeimrichHannot\PrivacyCenterBundle\ContaoPrivacyCenterBundle')) {
     $arrDca['palettes']['__selector__'][] = 'usePrivacyCenter';
-    $replaceDca = '{video_legend:hide},overrideNoCookieVideoUrlSettings,overrideEnablePrivacyNotice,videofullsizeTemplate,videoprivacyTemplate,usePrivacyCenter;{sitemap_legend';
+    str_replace(';{sitemap_legend', ',usePrivacyCenter;{sitemap_legend', $replaceDca);
 }
 
 /**

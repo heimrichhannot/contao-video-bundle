@@ -265,7 +265,7 @@ class VideoGenerator
     {
         $isPrivacyCenterEnabled = false;
 
-        if ($rootPage && $rootPage->usePrivacyCenter) {
+        if ($rootPage && $rootPage->usePrivacyCenter && class_exists('HeimrichHannot\PrivacyCenterBundle\ContaoPrivacyCenterBundle')) {
             $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
         }
 
