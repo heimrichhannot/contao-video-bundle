@@ -29,6 +29,11 @@ class VideoProviderCollection
         $this->bundleConfig = $bundleConfig;
     }
 
+    /**
+     * Return all video provider as array.
+     *
+     * @return array
+     */
     public function getVideoProvider()
     {
         if (isset($this->bundleConfig['videoProvider'])) {

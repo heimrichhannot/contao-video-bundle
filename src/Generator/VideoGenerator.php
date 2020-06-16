@@ -12,16 +12,13 @@
 namespace HeimrichHannot\VideoBundle\Generator;
 
 
-use Contao\Database;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
-use Contao\System;
-use HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
-use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
+use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
@@ -60,10 +57,6 @@ class VideoGenerator
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
-    /**
-     * @var PrivacyCenterExtension
-     */
-    private $privacyCenterExtension;
 
     /**
      * VideoGenerator constructor.
@@ -72,7 +65,7 @@ class VideoGenerator
      * @param ImageUtil $imageUtil
      * @param array $bundleConfig
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, PrivacyCenterExtension $privacyCenterExtension)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
@@ -81,7 +74,6 @@ class VideoGenerator
         $this->translator = $translator;
         $this->templateUtil = $templateUtil;
         $this->eventDispatcher = $eventDispatcher;
-        $this->privacyCenterExtension = $privacyCenterExtension;
     }
 
     /**
@@ -129,48 +121,33 @@ class VideoGenerator
 
         $context['playButton'] = $video->getAddPlayButton();
 
-        if ($this->isPrivacyCenterEnabled($rootPage)) {
-
-            $localStorageAttributes = \Contao\StringUtil::deserialize($rootPage->privacyCenterLocalStorageAttribute, true);
-
-            $videoProviderLocalStorage = [];
-
-            foreach ($localStorageAttributes as $item) {
-                if (null === $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute) {
-                    continue;
-                }
-                $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
-            }
-
-            $privacyOptions = [
-                'addPoster' => true,
-                'addPosterImage' => true,
-                'posterImages' => [
-                    '(min-width: 1px)' => $context['previewImage']['src']
-                ],
-                'posterDescription' => $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text'),
-                'posterButtonText' => $this->translator->trans('huh_video.template.privacy.ok'),
-                'posterButtonCancel' => $this->translator->trans('huh_video.template.privacy.cancel')
-            ];
-
-            unset($context['previewImage']);
-
-            $code = $this->twig->render($video->getTemplate(), $context);
-            $videoBuffer = $this->privacyCenterExtension->protectCode($code, $videoProviderLocalStorage[$context['type']], $privacyOptions);
-        } else {
-            $videoBuffer = $this->twig->render($video->getTemplate(), $context);
-        }
-
         if ($this->isPrivacyNoticeEnabled($rootPage)) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
         }
 
-        if ((!isset($options['ignoreFullsize']) || true !== $options['ignoreFullsize']) && $video->isFullsize()) {
-            $context['videoplayer'] = $videoBuffer;
-            $videoBuffer = $this->twig->render($this->getFullsizeTemplate($rootPage), $context);
-        }
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @noinspection PhpParamsInspection */
+        $event = $this->eventDispatcher->dispatch(
+            BeforeRenderPlayerEvent::NAME,
+            new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options));
+        $context = $event->getContext();
 
-        $this->eventDispatcher->dispatch(BeforeRenderPlayerEvent::NAME, new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options));
+        $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
+
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        /** @noinspection PhpParamsInspection */
+        /** @var AfterRenderPlayerEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            AfterRenderPlayerEvent::NAME,
+            new AfterRenderPlayerEvent($videoBuffer, $event->getVideo(), $context, $event->getParent(), $event->getRootPage(), $event->getOptions())
+        );
+        $context = $event->getContext();
+        $videoBuffer = $event->getBuffer();
+
+        if ((!isset($event->getOptions()['ignoreFullsize']) || true !== $event->getOptions()['ignoreFullsize']) && $event->getVideo()->isFullsize()) {
+            $context['videoplayer'] = $videoBuffer;
+            $videoBuffer = $this->twig->render($this->getFullsizeTemplate($event->getRootPage()), $context);
+        }
 
         return $videoBuffer;
     }
@@ -259,16 +236,5 @@ class VideoGenerator
             ]
         );
         $context['previewImage'] = $imageData;
-    }
-
-    protected function isPrivacyCenterEnabled(PageModel $rootPage): bool
-    {
-        $isPrivacyCenterEnabled = false;
-
-        if ($rootPage && $rootPage->usePrivacyCenter && class_exists('HeimrichHannot\PrivacyCenterBundle\HeimrichHannotPrivacyCenterBundle')) {
-            $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
-        }
-
-        return $isPrivacyCenterEnabled;
     }
 }

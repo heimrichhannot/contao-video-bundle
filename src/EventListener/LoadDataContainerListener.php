@@ -13,8 +13,7 @@ namespace HeimrichHannot\VideoBundle\EventListener;
 
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\NewsBundle\ContaoNewsBundle;
-use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
+use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
 class LoadDataContainerListener
@@ -48,6 +47,10 @@ class LoadDataContainerListener
             case 'tl_news':
                 $this->prepareNewsTable();
                 break;
+            case 'tl_page':
+                $this->preparePageTable();
+                break;
+
         }
     }
 
@@ -74,5 +77,69 @@ class LoadDataContainerListener
 
 //            $dca['palettes'][$paletteName] = str_replace('{image_legend}', $videoPalette.'{image_legend}', $dca['palettes'][$paletteName]);
         }
+    }
+
+    protected function preparePageTable()
+    {
+        $this->enablePrivacyCenterSupport();
+    }
+
+    protected function enablePrivacyCenterSupport()
+    {
+        if (!class_exists('HeimrichHannot\PrivacyCenterBundle\HeimrichHannotPrivacyCenterBundle')) {
+            return;
+        }
+        if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
+            trigger_error(
+                "HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.",
+                E_USER_WARNING);
+            return;
+        }
+
+        $dca = &$GLOBALS['TL_DCA']['tl_page'];
+        $dca['palettes']['__selector__'][] = 'usePrivacyCenter';
+
+        foreach (['root','rootfallback'] as $paletteName) {
+            if (!isset($dca['palettes'][$paletteName])) {
+                continue;
+            }
+            $dca['palettes'][$paletteName] = str_replace(';{sitemap_legend', ',usePrivacyCenter;{sitemap_legend', $dca['palettes'][$paletteName]);
+        }
+
+        $dca['fields']['usePrivacyCenter'] = [
+            'label'                   => &$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => ['tl_class' => 'w50', 'submitOnChange' => true],
+            'sql'                     => "char(1) NOT NULL default ''"
+        ];
+        $dca['fields']['privacyCenterLocalStorageAttribute'] = [
+            'label'     => &$GLOBALS['TL_LANG']['tl_page']['privacyCenterLocalStorageAttribute'],
+            'inputType' => 'multiColumnEditor',
+            'eval'      => [
+                'tl_class'          => 'long clr',
+                'multiColumnEditor' => [
+                    'fields' => [
+                        'videoProvider'         => [
+                            'label'            => &$GLOBALS['TL_LANG']['tl_page']['videoProvider'],
+                            'exclude'          => true,
+                            'filter'           => true,
+                            'inputType'        => 'select',
+                            'options_callback' => [PageContainer::class, 'onMceVideoProviderOptionsCallback'],
+                            'eval'             => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                        ],
+                        'localStorageAttribute' => [
+                            'label'            => &$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'],
+                            'exclude'          => true,
+                            'filter'           => true,
+                            'inputType'        => 'select',
+                            'options_callback' => [PageContainer::class, 'onMceLocalStorageAttribute'],
+                            'eval'             => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                        ],
+                    ],
+                ],
+            ],
+            'sql'       => "blob NULL",
+        ];
     }
 }

@@ -10,8 +10,20 @@ services:
   HeimrichHannot\VideoBundle\Collection\VideoProviderCollection:
     public: true
 
-  HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener:
+
+  HeimrichHannot\VideoBundle\EventListener\Dca\:
+    resource: ../../EventListener/Dca/*
     public: true
+
+
+#  HeimrichHannot\VideoBundle\EventSubscriber\:
+#    resource: ../../EventSubscriber/*
+#    autoconfigure: true
+
+  HeimrichHannot\VideoBundle\EventSubscriber\PrivacyCenterSubscriber:
+    autoconfigure: true
+    calls:
+      - [setPrivacyCenterExtension, ['@?HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension']]
 
   HeimrichHannot\VideoBundle\Controller\:
     resource: ../../Controller/*
