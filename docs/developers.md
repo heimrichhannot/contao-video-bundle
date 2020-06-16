@@ -60,9 +60,11 @@ huh.video.privacy.cancel | User canceled privacy prompt
    
 ## Add custom video link texts
 
-Add your wanted translation as symfony translation withing `huh_video.fields.videoLinkText` key. Example: 
+Add your wanted translation as [symfony translation](https://symfony.com/doc/3.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example: 
 
     ```yaml
+    # Projekt: app/Resources/translations/messages.en.yml
+    # Bundle: src/Resources/translations/messages.en.yml
     huh_video:
       fields:
         videoLinkText:
