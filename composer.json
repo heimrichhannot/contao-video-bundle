@@ -14,7 +14,8 @@
     "php": "^7.1",
     "contao/core-bundle": "^4.4",
     "symfony/http-kernel": "^3.4|^4.0",
-    "heimrichhannot/contao-utils-bundle": "^2.60"
+    "heimrichhannot/contao-utils-bundle": "^2.60",
+    "heimrichhannot/contao-multi-column-editor-bundle": "^2.5"
   },
   "autoload": {
     "psr-4": {

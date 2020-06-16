@@ -15,6 +15,7 @@ This bundle brings enhanced video embedding support to contao with additional pr
 * responsive Videos
 * expandable architecture
 * [Encore Bundle](https://github.com/heimrichhannot/contao-encore-bundle) support
+* Privacy Center Bundle support
 
 ## Usage
 
@@ -31,7 +32,8 @@ This bundle brings enhanced video embedding support to contao with additional pr
         # Enable if by default a privacy message should be displayed before playing the video. This can be overwritten on root pages.
         defaultEnablePrivacyNotice: false
     ```
-1. Adjust template settings on root page if needed. You can also overwrite the default configuration there. 
+1. Adjust template settings on root page if needed. You can also overwrite the default configuration there.
+    * If privacy center bundle installed, configure the integration there.
 
 1. Start adding videos as content element or to your news.
     * Content Element: Select "Video" content element
