@@ -8,7 +8,8 @@ Events are fired as symfony events.
 
 Event name                     | Description
 ------------------------------ | -----------
-huh.video.before_render_player | Customize the video player context before rendering
+BeforeRenderPlayer | Customize the video player context before rendering
+AfterRenderPlayer | Work with the rendered player buffer before output.
 
 ### JavaScript events
 
