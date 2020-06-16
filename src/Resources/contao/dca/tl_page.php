@@ -20,7 +20,7 @@ $arrDca['palettes']['__selector__'][] = 'overrideNoCookieVideoUrlSettings';
 $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
 
 //ContaoPrivacyCenterBundle integration
-if (class_exists('HeimrichHannot\PrivacyCenterBundle\ContaoPrivacyCenterBundle')) {
+if (class_exists('HeimrichHannot\PrivacyCenterBundle\HeimrichHannotPrivacyCenterBundle')) {
     $arrDca['palettes']['__selector__'][] = 'usePrivacyCenter';
     str_replace(';{sitemap_legend', ',usePrivacyCenter;{sitemap_legend', $replaceDca);
 }
