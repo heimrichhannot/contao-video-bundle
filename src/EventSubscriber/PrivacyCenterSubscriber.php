@@ -38,7 +38,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
 
     protected $previewImage = [];
     /**
-     * @var HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension
+     * @var \HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension
      */
     protected $privacyCenterExtension;
 
@@ -49,7 +49,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
         $this->twig = $twig;
     }
 
-    public function setPrivacyCenterExtension(HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension $privacyCenterExtension)
+    public function setPrivacyCenterExtension(\HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension $privacyCenterExtension)
     {
         $this->privacyCenterExtension = $privacyCenterExtension;
     }
