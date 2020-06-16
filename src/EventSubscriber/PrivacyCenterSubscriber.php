@@ -74,7 +74,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
 
     public function beforeRenderPlayer(BeforeRenderPlayerEvent $event)
     {
-        if (!$this->isPrivacyCenterEnabled()) {
+        if (!$this->isPrivacyCenterEnabled($event->getRootPage())) {
             return;
         }
 
@@ -88,7 +88,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
 
     public function afterRenderPlayer(AfterRenderPlayerEvent $event)
     {
-        if (!$this->isPrivacyCenterEnabled()) {
+        if (!$this->isPrivacyCenterEnabled($event->getRootPage())) {
             return;
         }
 
@@ -102,8 +102,8 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
             }
             $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
         }
-        if (!empty($this->previewImage) && isset($this->previewImage['previewImage']['src'])) {
-            $previewImagePath = $this->previewImage['previewImage']['src'];
+        if (!empty($this->previewImage) && isset($this->previewImage['src'])) {
+            $previewImagePath = $this->previewImage['src'];
         } else {
             $previewImagePath = 'bundles/heimrichhannotvideo/images/preview_fallback.jpg';
         }
