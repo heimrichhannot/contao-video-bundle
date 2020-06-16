@@ -137,11 +137,11 @@ class VideoGenerator
 
     public function getFullsizeTemplate(PageModel $rootPage = null)
     {
-        $template = "@HeimrichHannotVideo/fullsize/videofullsize_default.html.twig";
-        if ($rootPage) {
+        $template = "videofullsize_default";
+        if ($rootPage && $rootPage->videofullsizeTemplate) {
             $template = $rootPage->videofullsizeTemplate;
-            $template = $this->templateUtil->getTemplate($template);
         }
+        $template = $this->templateUtil->getTemplate($template);
         return $template;
     }
 

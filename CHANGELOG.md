@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2020-06-16
+- fixed fullsize template fallback not working when no template set in root page
+
 ## [0.1.3] - 2020-06-16
 - fixed privacy template fallback not working when no template set in root page
 
