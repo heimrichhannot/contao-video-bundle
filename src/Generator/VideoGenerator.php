@@ -147,11 +147,11 @@ class VideoGenerator
 
     public function getPrivacyTemplate(PageModel $rootPage = null)
     {
-        $template = "@HeimrichHannotVideo/privacy/videoprivacy_default.twig";
-        if ($rootPage) {
+        $template = "videoprivacy_default";
+        if ($rootPage && $rootPage->videoprivacyTemplate) {
             $template = $rootPage->videoprivacyTemplate;
-            $template = $this->templateUtil->getTemplate($template);
         }
+        $template = $this->templateUtil->getTemplate($template);
         return $template;
     }
 
