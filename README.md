@@ -20,7 +20,7 @@ This bundle brings enhanced video embedding support to contao with additional pr
 
 ### Setup
 
-1. Setup the configuration to your likes (see [configuration reference](docs/configuration.md) for all options):
+1. Setup the [configuration](https://docs.contao.org/manual/de/system/einstellungen/#config-yml) to your likes (see [configuration reference](docs/configuration.md) for all options):
 
     ```yaml
     huh_video:

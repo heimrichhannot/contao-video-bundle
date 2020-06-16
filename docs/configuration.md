@@ -18,3 +18,8 @@ huh_video:
             class:                ~
 
 ```
+
+## Help
+
+* [Contao Configuration](https://docs.contao.org/manual/de/system/einstellungen/#config-yml)
+* [Symfony Configuration](https://symfony.com/doc/3.4/configuration.html)
