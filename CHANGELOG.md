@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2020-06-16
+-  fixed fullsize template fallback not working when no template set in root page
+
 ## [0.2.0] - 2020-06-16
 - added privacy-center intergration
 
