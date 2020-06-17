@@ -59,9 +59,9 @@ class VideoProviderCollection
      *
      * @param array $data
      * @param string $selector
-     * @return null
+     * @return VideoInterface|null
      */
-    public function getVideoByRawDataWithSelector(array $data, ?string $selector = 'addVideo')
+    public function getVideoByRawDataWithSelector(array $data, ?string $selector = 'addVideo'): ?VideoInterface
     {
         if (is_string($selector) && !isset($data[$selector]) && true !== (bool) $data[$selector]) {
             return null;
