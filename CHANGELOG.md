@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] - 2020-06-19
+- added raw filter to privacy template checkbox field, to allow addition to html links
+
 ## [0.3.1] - 2020-06-17
 - fix exception in backend when template not found
 - fix wrong return value notation in VideoProviderCollection::getVideoByRawDataWithSelector()
