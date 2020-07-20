@@ -50,6 +50,7 @@ class LoadDataContainerListener
             case 'tl_page':
                 $this->preparePageTable();
                 break;
+            case 'tl_list_config_element':
 
         }
     }
@@ -74,9 +75,21 @@ class LoadDataContainerListener
                 ->addLegend("video_legend", "image_legend", PaletteManipulator::POSITION_BEFORE)
                 ->addField("addVideo", "video_legend", PaletteManipulator::POSITION_APPEND)
                 ->applyToPalette($paletteName, 'tl_news');
-
-//            $dca['palettes'][$paletteName] = str_replace('{image_legend}', $videoPalette.'{image_legend}', $dca['palettes'][$paletteName]);
         }
+    }
+
+    protected function prepareListTable()
+    {
+        $dca = &$GLOBALS['TL_DCA']['tl_list_config_element'];
+
+
+
+
+
+        $table = 'tl_list_config_element';
+
+
+
     }
 
     protected function preparePageTable()

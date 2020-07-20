@@ -10,11 +10,9 @@ services:
   HeimrichHannot\VideoBundle\Collection\VideoProviderCollection:
     public: true
 
-
   HeimrichHannot\VideoBundle\EventListener\Dca\:
     resource: ../../EventListener/Dca/*
     public: true
-
 
 #  HeimrichHannot\VideoBundle\EventSubscriber\:
 #    resource: ../../EventSubscriber/*
@@ -38,3 +36,6 @@ services:
     public: true
     calls:
       - [setEncoreFrontendAsset, ['@?HeimrichHannot\EncoreBundle\Asset\FrontendAsset']]
+
+  HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
+    tags: ['huh.list.config_element_type']
