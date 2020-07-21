@@ -38,4 +38,4 @@ services:
       - [setEncoreFrontendAsset, ['@?HeimrichHannot\EncoreBundle\Asset\FrontendAsset']]
 
   HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
-    tags: ['huh.list.config_element_type']
+    tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2020-07-21
+- added list and reader config elements
+
 ## [0.3.2] - 2020-06-19
 - added raw filter to privacy template checkbox field, to allow addition to html links
 

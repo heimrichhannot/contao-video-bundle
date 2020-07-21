@@ -13,6 +13,7 @@ namespace HeimrichHannot\VideoBundle\EventListener;
 
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use HeimrichHannot\VideoBundle\EventListener\Dca\ConfigElementListener;
 use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
@@ -51,6 +52,9 @@ class LoadDataContainerListener
                 $this->preparePageTable();
                 break;
             case 'tl_list_config_element':
+            case 'tl_reader_config_element':
+                $this->prepareConfigElementTable($table);
+                break;
 
         }
     }
@@ -78,18 +82,10 @@ class LoadDataContainerListener
         }
     }
 
-    protected function prepareListTable()
+    protected function prepareConfigElementTable($table)
     {
-        $dca = &$GLOBALS['TL_DCA']['tl_list_config_element'];
-
-
-
-
-
-        $table = 'tl_list_config_element';
-
-
-
+        $dca = &$GLOBALS['TL_DCA'][$table];
+        $dca['config']['onload_callback'][] = [ConfigElementListener::class, 'onLoadCallback'];
     }
 
     protected function preparePageTable()

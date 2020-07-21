@@ -11,11 +11,11 @@ This bundle brings enhanced video embedding support to contao with additional pr
 * Out-of-the-box-usage: 
     * Content Element
     * News
-    * [List Bundle](https://github.com/heimrichhannot/contao-list-bundle)
 * enhance your users privacy with preview images, privacy notice before playing and no cookie urls
 * responsive Videos
 * expandable architecture
 * [Encore Bundle](https://github.com/heimrichhannot/contao-encore-bundle) support
+* [List Bundle](https://github.com/heimrichhannot/contao-list-bundle) and [Reader Bundle](https://github.com/heimrichhannot/contao-reader-bundle) support
 * Privacy Center Bundle support
 
 ## Usage
