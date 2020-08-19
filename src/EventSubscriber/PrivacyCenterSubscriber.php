@@ -16,7 +16,6 @@ use Contao\PageModel;
 use Contao\StringUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
-use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -57,7 +56,6 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeRenderPlayerEvent::NAME => 'beforeRenderPlayer',
             AfterRenderPlayerEvent::NAME  => 'afterRenderPlayer',
         ];
     }
@@ -65,25 +63,12 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
     protected function isPrivacyCenterEnabled(PageModel $rootPage = null)
     {
         $isPrivacyCenterEnabled = false;
+
         if ($this->privacyCenterExtension && $rootPage && $rootPage->usePrivacyCenter) {
             $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
         }
 
         return $isPrivacyCenterEnabled;
-    }
-
-    public function beforeRenderPlayer(BeforeRenderPlayerEvent $event)
-    {
-        if (!$this->isPrivacyCenterEnabled($event->getRootPage())) {
-            return;
-        }
-
-        $context = $event->getContext();
-        if (isset($context['previewImage'])) {
-            $this->previewImage = $context['previewImage'];
-            unset($context['previewImage']);
-        }
-        $event->setContext($context);
     }
 
     public function afterRenderPlayer(AfterRenderPlayerEvent $event)
@@ -115,7 +100,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
                 '(min-width: 1px)' => $previewImagePath,
             ],
             'posterDescription' => $this->translator->trans('huh_video.video.'.$event->getVideo()::getType().'.privacy.text'),
-            'posterButtonText' => $this->translator->trans('huh_video.template.privacy.ok'),
+            'posterButtonText' => $this->translator->trans('huh_video.template.privacy.showContent'),
             'posterButtonCancel' => $this->translator->trans('huh_video.template.privacy.cancel')
         ];
         $event->setBuffer($this->privacyCenterExtension->protectCode($event->getBuffer(), $videoProviderLocalStorage[$event->getContext()['type']], $privacyOptions));

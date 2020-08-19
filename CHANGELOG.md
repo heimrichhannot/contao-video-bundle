@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2020-08-19
+- fixed support for privacy center
+
 ## [0.4.0] - 2020-07-21
 - added list and reader config elements
 

@@ -14,10 +14,6 @@ services:
     resource: ../../EventListener/Dca/*
     public: true
 
-#  HeimrichHannot\VideoBundle\EventSubscriber\:
-#    resource: ../../EventSubscriber/*
-#    autoconfigure: true
-
   HeimrichHannot\VideoBundle\EventSubscriber\PrivacyCenterSubscriber:
     autoconfigure: true
     calls:

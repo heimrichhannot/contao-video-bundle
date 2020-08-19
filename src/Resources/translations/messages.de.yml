@@ -23,6 +23,7 @@ huh_video:
       title: "%type%-Video abspielen"
     privacy:
       ok: "OK"
+      showContent: "Inhalt anzeigen"
       cancel: "Abbrechen"
 
 # DCA

@@ -20,7 +20,6 @@ class VideoBundle {
         });
 
         // handle click event
-
         document.querySelectorAll('.huh_video.video-link').forEach(function(element) {
             element.addEventListener('click', function(event) {
                 event.preventDefault();
@@ -164,4 +163,14 @@ class VideoBundle {
         }
     }
 }
+
+document.addEventListener('afterUnlockProtectedCode', (e) => {
+    // privacy center -> skip the preview image on first unlock, i.e., if the unlocking has been done by a click
+    let video = document.querySelector('[data-identifier="' + e.detail.identifier + '"] .huh_video');
+
+    if (e.detail.unlockByClick) {
+        VideoBundle.initVideo(video);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', VideoBundle.onReady);
