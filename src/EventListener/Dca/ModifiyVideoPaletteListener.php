@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\EventListener\Dca;
-
 
 use Contao\DataContainer;
 use Contao\Message;
@@ -45,7 +41,6 @@ class ModifiyVideoPaletteListener
         $this->modelUtil = $modelUtil;
     }
 
-
     /**
      * @param DataContainer $dataContainer
      */
@@ -67,36 +62,37 @@ class ModifiyVideoPaletteListener
         if (!$this->containerUtil->isBackend()) {
             return;
         }
+
         if (false === strpos($dataContainer->getPalette(), 'videoProvider')) {
             return;
         }
         $model = $this->modelUtil->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
+
         if (!isset($model->videoProvider)) {
             return;
         }
-        try
-        {
+
+        try {
             /** @var string|VideoInterface $videoClass */
             $videoClass = $this->videoProviderCollection->getClassByVideoProvider($model->videoProvider);
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             Message::addError($e->getMessage());
+
             return;
         }
 
         $isSubpalette = false;
+
         if (false !== strpos($dataContainer->getPalette(), 'addVideo')) {
             $isSubpalette = true;
         }
 
         $this->updatePalette($dataContainer->table, $videoClass, $withoutLegend, $isSubpalette);
-
-        return;
     }
 
     /**
-     * @param string $table
      * @param string|VideoInterface $videoClass
+     *
      * @return array
      */
     protected function updatePalette(string $table, string $videoClass, bool $noLegend = false, bool $isSubpalette = false): void
@@ -111,7 +107,7 @@ class ModifiyVideoPaletteListener
             $palette = $dca['subpalettes']['addVideo'];
             $palette = str_replace(
                 'videoProvider',
-                'videoProvider,' . $videoProviderFields,
+                'videoProvider,'.$videoProviderFields,
                 $palette
             );
 
@@ -126,21 +122,20 @@ class ModifiyVideoPaletteListener
             }
             $dca['subpalettes']['addVideo'] = $palette;
         } else {
-            foreach ($dca['palettes'] as $paletteName => $palette)
-            {
-                if (is_array($palette)) {
+            foreach ($dca['palettes'] as $paletteName => $palette) {
+                if (\is_array($palette)) {
                     continue;
                 }
 
                 $palette = str_replace(
                     ',videoProvider',
-                    ',videoProvider,' . $videoProviderFields,
+                    ',videoProvider,'.$videoProviderFields,
                     $palette
                 );
 
                 if ($addPreviewImageFields) {
                     if ($noLegend) {
-                        $palette = str_replace('videoFullsize,videoAutoplay','videoFullsize,videoAutoplay,addPreviewImage',$palette);
+                        $palette = str_replace('videoFullsize,videoAutoplay', 'videoFullsize,videoAutoplay,addPreviewImage', $palette);
                     } else {
                         $palette = str_replace(
                             '{template_legend',

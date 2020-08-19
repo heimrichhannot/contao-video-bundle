@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\EventListener\Dca;
-
 
 use Contao\DataContainer;
 use HeimrichHannot\UtilsBundle\Choice\ModelInstanceChoice;
@@ -27,7 +23,6 @@ class PageContainer
      */
     private $modelInstanceChoice;
 
-
     /**
      * PageContainer constructor.
      */
@@ -39,6 +34,7 @@ class PageContainer
 
     /**
      * @param DataContainer $dc
+     *
      * @return array
      */
     public function onMceVideoProviderOptionsCallback($dc)
@@ -48,12 +44,13 @@ class PageContainer
 
     /**
      * @param DataContainer $dc
+     *
      * @return mixed
      */
     public function onMceLocalStorageAttribute($dc)
     {
         return $this->modelInstanceChoice->getCachedChoices([
-            'dataContainer' => 'tl_tracking_object'
+            'dataContainer' => 'tl_tracking_object',
         ]);
     }
 }

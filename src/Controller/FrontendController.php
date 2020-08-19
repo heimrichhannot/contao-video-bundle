@@ -1,13 +1,10 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
-
 
 namespace HeimrichHannot\VideoBundle\Controller;
 
@@ -20,8 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class FrontendController
- * @package HeimrichHannot\VideoBundle\Controller
+ * Class FrontendController.
  *
  * @Route("/huh_video", name="huh_video_", defaults={"_scope"="frontend", "_token_check"=false })
  */
@@ -50,29 +46,30 @@ class FrontendController extends AbstractController
         $this->videoProviderCollection = $videoProviderCollection;
     }
 
-
     /**
      * @Route("/videobyentity/{entity}/{id}", name="video-by-entity", requirements={"id"="\d+"})
      *
      * @param string $entity Table name without tl_ prefix
-     * @param int $id
+     * @param int    $id
+     *
      * @return Response
      */
     public function showVideoByEntityAction($entity, $id)
     {
         /** @var Model|null $entity */
         $entity = $this->modelUtil->findModelInstanceByPk('tl_'.$entity, $id);
+
         if (!$entity) {
-            return new Response("No entity with video found", 404);
+            return new Response('No entity with video found', 404);
         }
         $provider = $entity->videoProvider;
-        try
-        {
+
+        try {
             $videoClass = $this->videoProviderCollection->getClassByVideoProvider($entity->videoProvider);
+
             return new Response($this->videoGenerator->generate(new $videoClass($entity->row()), ['ignoreFullsize' => true]));
         } catch (\Exception $e) {
-            return new Response("No video found for given entity", 404);
+            return new Response('No video found for given entity', 404);
         }
-
     }
 }

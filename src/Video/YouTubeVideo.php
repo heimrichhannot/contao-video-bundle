@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\Video;
-
 
 class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface
 {
@@ -18,7 +14,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     const DEFAULT_EMBED_URL = 'https://www.youtube.com/embed/';
 
     /**
-     * The youtube video id
+     * The youtube video id.
      *
      * @var string
      */
@@ -40,7 +36,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     protected $videoShowRelated = false;
 
     /**
-     * @var bool 
+     * @var bool
      */
     protected $ytShowInfo = false;
 
@@ -65,40 +61,11 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getTemplate(): string
     {
         return '@HeimrichHannotVideo/videoprovider/videoprovider_youtube.html.twig';
-    }
-
-    protected function createUrl(bool $noCookie): string
-    {
-        $url = $noCookie ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
-        $url .= $this->youtube;
-
-        $queryParams = [];
-        $params = [
-            'videoShowRelated' => 'rel',
-            'ytModestBranding' => 'modestbranding',
-            'ytShowInfo' => 'showinfo',
-        ];
-        foreach ($params as $property => $param) {
-            if ($this->{$property}) {
-                $queryParams[$param] = $this->{$property};
-            }
-        }
-        $queryParams['rel'] = $this->videoShowRelated;
-        $queryParams['modestbranding'] = $this->ytModestBranding;
-        $queryParams['showinfo'] = $this->ytShowInfo;
-
-        if ($this->autoplay) {
-            $queryParams['autoplay'] = 1;
-        }
-        if (!empty($queryParams)) {
-            $url .= '?'.http_build_query($queryParams);
-        }
-        return $url;
     }
 
     public function getSrc(): string
@@ -106,33 +73,21 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return $this->createUrl(false);
     }
 
-    /**
-     * @return bool
-     */
     public function getShowRelated(): bool
     {
         return $this->videoShowRelated;
     }
 
-    /**
-     * @return bool
-     */
     public function getModestBranding(): bool
     {
         return $this->ytModestBranding;
     }
 
-    /**
-     * @return bool
-     */
     public function getShowInfo(): bool
     {
         return $this->ytShowInfo;
     }
 
-    /**
-     * @return string
-     */
     public function getVideoDuration(): string
     {
         return $this->videoDuration;
@@ -146,17 +101,16 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return $this->posterSRC;
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasPreviewImage(): bool
     {
-        return $this->addPreviewImage && is_string($this->getPreviewImage());
+        return $this->addPreviewImage && \is_string($this->getPreviewImage());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getNoCookieSrc(): string
     {
@@ -164,10 +118,42 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getPalette(): string
     {
         return 'youtube,videoDuration,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
+    }
+
+    protected function createUrl(bool $noCookie): string
+    {
+        $url = $noCookie ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
+        $url .= $this->youtube;
+
+        $queryParams = [];
+        $params = [
+            'videoShowRelated' => 'rel',
+            'ytModestBranding' => 'modestbranding',
+            'ytShowInfo' => 'showinfo',
+        ];
+
+        foreach ($params as $property => $param) {
+            if ($this->{$property}) {
+                $queryParams[$param] = $this->{$property};
+            }
+        }
+        $queryParams['rel'] = $this->videoShowRelated;
+        $queryParams['modestbranding'] = $this->ytModestBranding;
+        $queryParams['showinfo'] = $this->ytShowInfo;
+
+        if ($this->autoplay) {
+            $queryParams['autoplay'] = 1;
+        }
+
+        if (!empty($queryParams)) {
+            $url .= '?'.http_build_query($queryParams);
+        }
+
+        return $url;
     }
 }

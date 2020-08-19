@@ -1,20 +1,15 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
-
 
 namespace HeimrichHannot\VideoBundle\Video;
 
-
 class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface
 {
-
     protected $vimeo = '';
 
     protected $autoplay = false;
@@ -24,7 +19,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
     protected $posterSRC;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getType(): string
     {
@@ -32,7 +27,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getTemplate(): string
     {
@@ -40,7 +35,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getPalette(): string
     {
@@ -48,19 +43,35 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasPreviewImage(): bool
     {
-        return $this->addPreviewImage && is_string($this->getPreviewImage());
+        return $this->addPreviewImage && \is_string($this->getPreviewImage());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoCookieSrc(): string
+    {
+        return  $this->createUrl(true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSrc(): string
+    {
+        return $this->createUrl(false);
     }
 
     protected function createUrl(bool $noCookie): string
@@ -69,10 +80,10 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
         $url .= $this->vimeo;
 
         $queryParams = [];
+
         if ($noCookie) {
             $queryParams['dnt'] = '1';
         }
-
 
 //        $params = [
 //            'ytShowRelated' => 'rel',
@@ -91,25 +102,11 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
         if ($this->autoplay) {
             $queryParams['autoplay'] = 1;
         }
+
         if (!empty($queryParams)) {
             $url .= '?'.http_build_query($queryParams);
         }
+
         return $url;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getNoCookieSrc(): string
-    {
-        return  $this->createUrl(true);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSrc(): string
-    {
-        return $this->createUrl(false);
     }
 }

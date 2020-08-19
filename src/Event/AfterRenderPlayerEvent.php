@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\Event;
-
 
 use Contao\PageModel;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -55,49 +51,31 @@ class AfterRenderPlayerEvent extends Event
         $this->options = $options;
     }
 
-    /**
-     * @return string
-     */
     public function getBuffer(): string
     {
         return $this->buffer;
     }
 
-    /**
-     * @param string $buffer
-     */
     public function setBuffer(string $buffer): void
     {
         $this->buffer = $buffer;
     }
 
-    /**
-     * @return VideoInterface
-     */
     public function getVideo(): VideoInterface
     {
         return $this->video;
     }
 
-    /**
-     * @param VideoInterface $video
-     */
     public function setVideo(VideoInterface $video): void
     {
         $this->video = $video;
     }
 
-    /**
-     * @return array
-     */
     public function getContext(): array
     {
         return $this->context;
     }
 
-    /**
-     * @param array $context
-     */
     public function setContext(array $context): void
     {
         $this->context = $context;
@@ -119,33 +97,21 @@ class AfterRenderPlayerEvent extends Event
         $this->parent = $parent;
     }
 
-    /**
-     * @return PageModel|null
-     */
     public function getRootPage(): ?PageModel
     {
         return $this->rootPage;
     }
 
-    /**
-     * @param PageModel|null $rootPage
-     */
     public function setRootPage(?PageModel $rootPage): void
     {
         $this->rootPage = $rootPage;
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @param array $options
-     */
     public function setOptions(array $options): void
     {
         $this->options = $options;

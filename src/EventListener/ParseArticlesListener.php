@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\EventListener;
-
 
 use Contao\FrontendTemplate;
 use Contao\Module;
@@ -46,9 +42,8 @@ class ParseArticlesListener
         $this->frontendAsset = $frontendAsset;
     }
 
-
     /**
-     * Hook("parseArticles")
+     * Hook("parseArticles").
      */
     public function onParseArticles(FrontendTemplate $template, array $newsEntry, Module $module): void
     {
@@ -58,6 +53,7 @@ class ParseArticlesListener
 
         /** @var VideoInterface|string $video */
         $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($newsEntry);
+
         if (!$video) {
             return;
         }

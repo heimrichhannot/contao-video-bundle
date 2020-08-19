@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\EventSubscriber;
-
 
 use Contao\PageModel;
 use Contao\StringUtil;
@@ -22,6 +18,11 @@ use Twig\Environment;
 
 class PrivacyCenterSubscriber implements EventSubscriberInterface
 {
+    protected $previewImage = [];
+    /**
+     * @var \HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension
+     */
+    protected $privacyCenterExtension;
     /**
      * @var ModelUtil
      */
@@ -34,12 +35,6 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
      * @var Environment
      */
     private $twig;
-
-    protected $previewImage = [];
-    /**
-     * @var \HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension
-     */
-    protected $privacyCenterExtension;
 
     public function __construct(ModelUtil $modelUtil, TranslatorInterface $translator, Environment $twig)
     {
@@ -56,19 +51,8 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            AfterRenderPlayerEvent::NAME  => 'afterRenderPlayer',
+            AfterRenderPlayerEvent::NAME => 'afterRenderPlayer',
         ];
-    }
-
-    protected function isPrivacyCenterEnabled(PageModel $rootPage = null)
-    {
-        $isPrivacyCenterEnabled = false;
-
-        if ($this->privacyCenterExtension && $rootPage && $rootPage->usePrivacyCenter) {
-            $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
-        }
-
-        return $isPrivacyCenterEnabled;
     }
 
     public function afterRenderPlayer(AfterRenderPlayerEvent $event)
@@ -87,6 +71,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
             }
             $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
         }
+
         if (!empty($this->previewImage) && isset($this->previewImage['src'])) {
             $previewImagePath = $this->previewImage['src'];
         } else {
@@ -101,8 +86,19 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
             ],
             'posterDescription' => $this->translator->trans('huh_video.video.'.$event->getVideo()::getType().'.privacy.text'),
             'posterButtonText' => $this->translator->trans('huh_video.template.privacy.showContent'),
-            'posterButtonCancel' => $this->translator->trans('huh_video.template.privacy.cancel')
+            'posterButtonCancel' => $this->translator->trans('huh_video.template.privacy.cancel'),
         ];
         $event->setBuffer($this->privacyCenterExtension->protectCode($event->getBuffer(), $videoProviderLocalStorage[$event->getContext()['type']], $privacyOptions));
+    }
+
+    protected function isPrivacyCenterEnabled(PageModel $rootPage = null)
+    {
+        $isPrivacyCenterEnabled = false;
+
+        if ($this->privacyCenterExtension && $rootPage && $rootPage->usePrivacyCenter) {
+            $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
+        }
+
+        return $isPrivacyCenterEnabled;
     }
 }

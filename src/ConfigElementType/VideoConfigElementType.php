@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\ConfigElementType;
-
 
 use HeimrichHannot\ListBundle\ConfigElementType\ListConfigElementData;
 use HeimrichHannot\ListBundle\ConfigElementType\ListConfigElementTypeInterface;
@@ -40,7 +36,6 @@ class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderCo
         $this->videoGenerator = $videoGenerator;
     }
 
-
     public static function getType(): string
     {
         return 'huh_video';
@@ -51,24 +46,6 @@ class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderCo
         return '{video_legend},imageSelectorField;';
     }
 
-    /**
-     * @param ItemInterface|\HeimrichHannot\ReaderBundle\Item\ItemInterface $item
-     * @param ListConfigElementModel|ReaderConfigElementModel $config
-     * @throws LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    protected function addToItemData($item, $config)
-    {
-        $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($item->getRaw());
-        if (!$video) {
-            return;
-        }
-        $videoBuffer = $this->videoGenerator->generate($video, $this);
-        $item->setFormattedValue(
-            $config->templateVariable, $videoBuffer);
-    }
-
     public function addToListItemData(ListConfigElementData $configElementData): void
     {
         $this->addToItemData($configElementData->getItem(), $configElementData->getListConfigElement());
@@ -77,5 +54,25 @@ class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderCo
     public function addToReaderItemData(ReaderConfigElementData $configElementData): void
     {
         $this->addToItemData($configElementData->getItem(), $configElementData->getReaderConfigElement());
+    }
+
+    /**
+     * @param ItemInterface|\HeimrichHannot\ReaderBundle\Item\ItemInterface $item
+     * @param ListConfigElementModel|ReaderConfigElementModel               $config
+     *
+     * @throws LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    protected function addToItemData($item, $config)
+    {
+        $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($item->getRaw());
+
+        if (!$video) {
+            return;
+        }
+        $videoBuffer = $this->videoGenerator->generate($video, $this);
+        $item->setFormattedValue(
+            $config->templateVariable, $videoBuffer);
     }
 }

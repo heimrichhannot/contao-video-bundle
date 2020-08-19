@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\EventListener\Dca;
-
 
 use Contao\Controller;
 use Contao\DataContainer;
@@ -29,17 +25,17 @@ class ConfigElementListener
         $this->modelUtil = $modelUtil;
     }
 
-
     public function onLoadCallback(DataContainer $dc): void
     {
         $element = $this->modelUtil->findModelInstanceByIdOrAlias($dc->table, $dc->id);
+
         if (!$element) {
             return;
         }
+
         if (VideoConfigElementType::getType() === $element->type) {
             Controller::loadLanguageFile('tl_list_config_element');
             $GLOBALS['TL_LANG'][$dc->table]['imageSelectorField'][1] = $GLOBALS['TL_LANG']['tl_list_config_element']['imageSelectorField']['videoSelector'];
         }
-        return;
     }
 }

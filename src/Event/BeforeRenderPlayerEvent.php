@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0-or-later
  */
 
-
 namespace HeimrichHannot\VideoBundle\Event;
-
 
 use Contao\PageModel;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -52,25 +48,16 @@ class BeforeRenderPlayerEvent extends Event
         $this->options = $options;
     }
 
-    /**
-     * @return VideoInterface
-     */
     public function getVideo(): VideoInterface
     {
         return $this->video;
     }
 
-    /**
-     * @return array
-     */
     public function getContext(): array
     {
         return $this->context;
     }
 
-    /**
-     * @param array $context
-     */
     public function setContext(array $context): void
     {
         $this->context = $context;
@@ -84,17 +71,11 @@ class BeforeRenderPlayerEvent extends Event
         return $this->parent;
     }
 
-    /**
-     * @return PageModel|null
-     */
     public function getRootPage(): ?PageModel
     {
         return $this->rootPage;
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
