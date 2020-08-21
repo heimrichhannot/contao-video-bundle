@@ -25,6 +25,9 @@ services:
   HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener:
     public: true
 
+  HeimrichHannot\VideoBundle\EventListener\SqlGetDataListener:
+    public: true
+
   HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener:
     public: true
 

@@ -12,3 +12,4 @@ $GLOBALS['TL_CTE']['media'][\HeimrichHannot\VideoBundle\ContentElement\VideoElem
 
 $GLOBALS['TL_HOOKS']['loadDataContainer'][] = [\HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener::class, 'onLoadDataContainer'];
 $GLOBALS['TL_HOOKS']['parseArticles'][] = [\HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener::class, 'onParseArticles'];
+$GLOBALS['TL_HOOKS']['sqlGetFromDca']['videoBundle'] = [\HeimrichHannot\VideoBundle\EventListener\SqlGetDataListener::class, 'onSqlGetFromDca'];
