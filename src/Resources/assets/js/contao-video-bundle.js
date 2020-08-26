@@ -168,7 +168,7 @@ document.addEventListener('afterUnlockProtectedCode', (e) => {
     // privacy center -> skip the preview image on first unlock, i.e., if the unlocking has been done by a click
     let video = document.querySelector('[data-identifier="' + e.detail.identifier + '"] .huh_video');
 
-    if (e.detail.unlockByClick) {
+    if (video !== null && e.detail.unlockByClick) {
         VideoBundle.initVideo(video);
     }
 });
