@@ -100,7 +100,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
 //        $queryParams['showinfo'] = $this->ytShowInfo;
 
         if ($this->autoplay) {
-            $queryParams['autoplay'] = 1;
+            $queryParams['autoplay'] = '1';
         }
 
         if (!empty($queryParams)) {

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.5.4] - 2020-08-27
+- fixed configuration not correctly applied to youtube embed uri
+
 ## [0.5.3] - 2020-08-26
 - fixed js issue
 
