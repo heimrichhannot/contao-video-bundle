@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2020-09-01
+- updated build dependencies and configuration
+- enhanced ie support
+- added template comments when in dev mode
+
 ## [0.5.4] - 2020-08-27
 - fixed configuration not correctly applied to youtube embed uri
 

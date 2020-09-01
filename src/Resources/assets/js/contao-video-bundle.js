@@ -158,8 +158,12 @@ class VideoBundle {
         function showVideo() {
             el.classList.add('initialize');
             video.classList.add('initialize');
-            el.classList.remove('initialize', 'video-hidden');
-            video.classList.remove('initialize', 'video-hidden');
+
+            el.classList.remove('initialize');
+            el.classList.remove('video-hidden');
+
+            video.classList.remove('initialize');
+            video.classList.remove('video-hidden');
         }
     }
 }

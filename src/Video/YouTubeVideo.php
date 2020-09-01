@@ -142,9 +142,9 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
                 $queryParams[$param] = $this->{$property};
             }
         }
-        $queryParams['rel'] = $this->videoShowRelated ? "1" : "0";
-        $queryParams['modestbranding'] = $this->ytModestBranding ? "1" : "0";
-        $queryParams['showinfo'] = $this->ytShowInfo ? "1" : "0";
+        $queryParams['rel'] = $this->videoShowRelated ? '1' : '0';
+        $queryParams['modestbranding'] = $this->ytModestBranding ? '1' : '0';
+        $queryParams['showinfo'] = $this->ytShowInfo ? '1' : '0';
 
         if ($this->autoplay) {
             $queryParams['autoplay'] = '1';

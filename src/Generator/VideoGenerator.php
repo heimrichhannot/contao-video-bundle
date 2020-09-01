@@ -8,6 +8,7 @@
 
 namespace HeimrichHannot\VideoBundle\Generator;
 
+use Contao\Config;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
@@ -120,6 +121,12 @@ class VideoGenerator
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
 
+        // Add start and end markers in debug mode
+        if (Config::get('debugMode')) {
+            $strRelPath = $event->getVideo()->getTemplate();
+            $videoBuffer = "\n<!-- TWIG TEMPLATE START: $strRelPath -->\n$videoBuffer\n<!-- TWIG TEMPLATE END: $strRelPath -->\n";
+        }
+
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         /** @noinspection PhpParamsInspection */
         /** @var AfterRenderPlayerEvent $event */
@@ -132,7 +139,12 @@ class VideoGenerator
 
         if ((!isset($event->getOptions()['ignoreFullsize']) || true !== $event->getOptions()['ignoreFullsize']) && $event->getVideo()->isFullsize()) {
             $context['videoplayer'] = $videoBuffer;
-            $videoBuffer = $this->twig->render($this->getFullsizeTemplate($event->getRootPage()), $context);
+            $template = $this->getFullsizeTemplate($event->getRootPage());
+            $videoBuffer = $this->twig->render($template, $context);
+
+            if (Config::get('debugMode')) {
+                $videoBuffer = "\n<!-- TWIG TEMPLATE START: $template -->\n$videoBuffer\n<!-- TWIG TEMPLATE END: $template -->\n";
+            }
         }
 
         return $videoBuffer;

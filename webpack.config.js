@@ -14,6 +14,15 @@ Encore
         return `${moduleFileName}`;
     };
 })
+.addExternals({
+    '@hundh/contao-utils-bundle': 'utilsBundle'
+})
+.configureBabel(null,
+{
+    includeNodeModules: [
+        '@hundh/contao-utils-bundle',
+    ]
+})
 .enableSassLoader()
 .enablePostCssLoader()
 .enableSourceMaps(!Encore.isProduction())
