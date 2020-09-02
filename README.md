@@ -20,6 +20,14 @@ This bundle brings enhanced video embedding support to contao with additional pr
 
 ## Usage
 
+### Install
+
+Install with contao manager or composer:
+
+    composer require heimrichhannot/contao-video-bundle
+    
+Update database afterwards.
+
 ### Setup
 
 1. Setup the [configuration](https://docs.contao.org/manual/de/system/einstellungen/#config-yml) to your likes (see [configuration reference](docs/configuration.md) for all options):
@@ -33,6 +41,7 @@ This bundle brings enhanced video embedding support to contao with additional pr
         # Enable if by default a privacy message should be displayed before playing the video. This can be overwritten on root pages.
         defaultEnablePrivacyNotice: false
     ```
+1. Clear cache and check for database updates after update your config
 1. Adjust template settings on root page if needed. You can also overwrite the default configuration there.
     * If privacy center bundle installed, configure the integration there.
 
@@ -41,6 +50,16 @@ This bundle brings enhanced video embedding support to contao with additional pr
     * News:
         * Check "Add video" in your news item
         * output "videoplayer" variable in your news template
+
+### Help
+
+#### IE Support
+
+To make video bundle work in IE, you have to add polyfills:
+
+* https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach
+* https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+
 
 ## Documentation
 
