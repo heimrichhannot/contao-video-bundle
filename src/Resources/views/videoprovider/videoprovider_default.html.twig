@@ -24,7 +24,9 @@
                     {% endif %}
                     {% if playButton|default() %}
                         {% block playbutton %}
-                            <span class="play-button {{ type|default }}" tabindex="0"></span>
+                            <button type="button" tabindex="0" class="play-button {{ type|default }}">
+                                <span class="sr-only">{{ 'huh_video.fields.videoLinkText.play'|trans }}</span>
+                            </button>
                         {% endblock %}
                     {% endif %}
                 </figure>

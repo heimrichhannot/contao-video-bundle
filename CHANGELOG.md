@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2020-10-20
+- modified play button to be actual html button
+- added sr-only text to play-button
+
 ## [0.6.0] - 2020-09-01
 - updated build dependencies and configuration
 - enhanced ie support

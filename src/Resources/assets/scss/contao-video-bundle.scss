@@ -73,6 +73,7 @@ $play-button-height: 48px;
         width: $play-button-width;
         height: $play-button-height;
         opacity: .8;
+        border: none;
 
         transition: all .4s cubic-bezier(0.0, 0.0, 0.2, 1);
 
