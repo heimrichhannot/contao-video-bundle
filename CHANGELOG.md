@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.7.2] - 2020-10-20
+- added `type` to play-button class
+
 ## [0.7.1] - 2020-10-20
 - removed play-button span description
 - added aria-label to play-button

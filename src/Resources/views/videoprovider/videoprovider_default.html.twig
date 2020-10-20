@@ -24,7 +24,7 @@
                     {% endif %}
                     {% if playButton|default() %}
                         {% block playbutton %}
-                            <button class="play-button" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
+                            <button class="play-button {{ type|default }}" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
                         {% endblock %}
                     {% endif %}
                 </figure>
