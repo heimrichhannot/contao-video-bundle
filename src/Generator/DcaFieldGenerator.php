@@ -80,6 +80,7 @@ class DcaFieldGenerator
                 'options_callback' => function (\DataContainer $dc) {
                     return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
                 },
+                'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['videoProvider'],
                 'eval' => ['submitOnChange' => true, 'maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
                 'sql' => "varchar(64) NOT NULL default ''",
             ],
@@ -152,6 +153,83 @@ class DcaFieldGenerator
                 'inputType' => 'checkbox',
                 'eval' => ['tl_class' => 'w50'],
                 'sql' => "char(1) NOT NULL default ''",
+            ],
+            'videoSRC' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC'],
+                'exclude' => false,
+                'inputType' => 'multiColumnEditor',
+                'eval' => [
+                    'tl_class' => 'long clr',
+                    'multiColumnEditor' => [
+                        'minRowCount' => 1,
+                        'skipCopyValuesOnAdd' => true,
+                        'fields' => [
+                            'file' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_file'],
+                                'inputType' => 'fileTree',
+                                'eval' => [
+                                    'multiple' => false,
+                                    'filesOnly' => true,
+                                    'fieldType' => 'radio',
+                                    'mandatory' => true,
+                                    'submitOnChange' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                            ],
+                            'mediaQuery' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'],
+                                'inputType' => 'select',
+                                'eval' => [
+                                    'mandatory' => true,
+                                    'includeBlankOption' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                                'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
+                            ],
+                        ],
+                    ],
+                ],
+                'sql' => 'blob NULL',
+            ],
+            'videoSubtitles' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSubtitles'],
+                'exclude' => false,
+                'inputType' => 'multiColumnEditor',
+                'eval' => [
+                    'tl_class' => 'long clr',
+                    'multiColumnEditor' => [
+                        'minRowCount' => 0,
+                        'skipCopyValuesOnAdd' => true,
+                        'fields' => [
+                            'file' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSubtitles_file'],
+                                'inputType' => 'fileTree',
+                                'eval' => [
+                                    'multiple' => true,
+                                    'filesOnly' => true,
+                                    'fieldType' => 'radio',
+                                    'extensions' => 'vtt',
+                                    'mandatory' => true,
+                                    'submitOnChange' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                            ],
+                            'language' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSubtitles_language'],
+                                'inputType' => 'select',
+                                'eval' => [
+                                    'mandatory' => true,
+                                    'includeBlankOption' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                                'options_callback' => function (\DataContainer $dc) {
+                                    return \Contao\System::getLanguages(true);
+                                },
+                            ],
+                        ],
+                    ],
+                ],
+                'sql' => 'blob NULL',
             ],
         ];
     }

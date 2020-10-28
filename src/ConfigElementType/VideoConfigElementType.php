@@ -72,6 +72,7 @@ class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderCo
             return;
         }
         $videoBuffer = $this->videoGenerator->generate($video, $this);
+
         $item->setFormattedValue(
             $config->templateVariable, $videoBuffer);
     }

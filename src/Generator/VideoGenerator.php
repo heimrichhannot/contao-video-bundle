@@ -101,7 +101,9 @@ class VideoGenerator
         }
 
         if ($this->isNoCookiesEnabled($rootPage) && $video instanceof NoCookieUrlInterface) {
-            $context['src'] = $video->getNoCookieSrc();
+            if (null !== $context['src']) {
+                $context['src'] = $video->getNoCookieSrc();
+            }
         }
 
         $context['type'] = $video::getType();

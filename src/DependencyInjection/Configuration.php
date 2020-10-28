@@ -38,7 +38,14 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-
+                ->arrayNode('video_media_queries')
+                    ->useAttributeAsKey('name')
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('query')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

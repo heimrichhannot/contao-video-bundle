@@ -38,3 +38,8 @@ services:
 
   HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
     tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']
+
+  HeimrichHannot\VideoBundle\EventListener\BeforeRenderPlayerEventListener:
+    tags:
+      - { name: kernel.event_listener, event: huh.video.before_render_player, method: __invoke  }
+
