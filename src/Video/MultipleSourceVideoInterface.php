@@ -10,5 +10,10 @@ namespace HeimrichHannot\VideoBundle\Video;
 
 interface MultipleSourceVideoInterface extends VideoInterface
 {
+    /**
+     * @return array
+     *               returns an array of arrays
+     *               example array[['file' => 'filepath', 'mediaQuery' => 'media query string']]
+     */
     public function getMultipleSrc(): array;
 }

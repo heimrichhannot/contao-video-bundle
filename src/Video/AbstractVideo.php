@@ -39,6 +39,11 @@ abstract class AbstractVideo implements VideoInterface
     protected $addPlayButton = false;
 
     /**
+     * @var bool
+     */
+    protected $autoplay = false;
+
+    /**
      * AbstractVideo constructor.
      */
     public function __construct(array $data)
@@ -119,6 +124,11 @@ abstract class AbstractVideo implements VideoInterface
     public function getAddPlayButton(): bool
     {
         return $this->addPlayButton;
+    }
+
+    public function isAutoplayEnabled(): bool
+    {
+        return $this->autoplay;
     }
 
     /**

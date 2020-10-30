@@ -13,10 +13,6 @@ namespace HeimrichHannot\VideoBundle\EventListener;
  */
 class InitializeSystemListener
 {
-    public function __construct()
-    {
-    }
-
     public function __invoke(): void
     {
         $hookKeys = array_keys($GLOBALS['TL_HOOKS']['loadDataContainer']);
