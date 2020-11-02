@@ -1,32 +1,22 @@
-<!-- indexer::stop -->
-<div class="huh_video videowrapper_default {{ type|default }}">
-    <div class="video-wrapper">
+{% extends "@HeimrichHannotVideo/videoprovider/videoprovider_default.html.twig" %}
 
-        <div class="video-container">
-            {% block videoplayer %}
-                <video{% if previewImage|default() %} poster="{{ previewImage.picture.img.src }}"{% endif %}{% if autoplay|default() == true %} autoplay="autoplay"{% endif %} controls="controls" preload="metadata">
-                    {% if multipleSrc|default() %}
-                        {% for video in multipleSrc %}
-                            <source type="video/{{ video.file.extension }}" src="{{ video.file.path }}"{% if video.mediaQuery|default() %} media="{{ video.mediaQuery }}" {% endif %}{% if video.file.name|default() %} title="{{ video.file.name }}" {% endif %}>
-                        {% endfor %}
-                    {% endif %}
-                    {% if not multipleSrc|default() and src|default() %}
-                        <source src="{{ src }}">
-                    {% endif %}
-                    {% if subtitles|default() %}
-                        {% for subtitle in subtitles %}
-                            <track label="{{ subtitle.label }}" kind="subtitles" srclang="{{ subtitle.lang }}" src="{{ subtitle.src }}">
-                        {% endfor %}
-                    {% endif %}
-                </video>
-            {% endblock %}
-        </div>
+{% block previewImage %}
+{% endblock %}
 
-    </div>
-    {% if text|default() %}
-        <div class="video-text">
-            {{ text|raw }}
-        </div>
-    {% endif %}
-</div>
-<!-- indexer::continue -->
+{% block videoplayer %}
+    <video{% if previewImage|default() %} poster="{{ previewImage.picture.img.src }}"{% endif %}{% if autoplay|default() == true %} autoplay="autoplay"{% endif %} controls="controls" preload="metadata">
+        {% if multipleSrc|default() %}
+            {% for video in multipleSrc %}
+                <source type="video/{{ video.file.extension }}" src="{{ video.file.path }}"{% if video.mediaQuery|default() %} media="{{ video.mediaQuery }}" {% endif %}{% if video.file.name|default() %} title="{{ video.file.name }}"{% endif %}>
+            {% endfor %}
+        {% endif %}
+        {% if not multipleSrc|default() and src|default() %}
+            <source src="{{ src }}">
+        {% endif %}
+        {% if subtitles|default() %}
+            {% for subtitle in subtitles %}
+                <track label="{{ subtitle.label }}" kind="subtitles" srclang="{{ subtitle.lang }}" src="{{ subtitle.src }}">
+            {% endfor %}
+        {% endif %}
+    </video>
+{% endblock %}

@@ -1,35 +1,37 @@
 <!-- indexer::stop -->
 <div class="huh_video videowrapper_default {{ type|default }}">
     <div class="video-wrapper" tabindex="0">
-        {% if previewImage|default() %}
-            <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
-                <figure class="image_container">
-                    {% if previewImage.picture|default() %}
-                        {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}
-                    {% else %}
-                        <img src="{{ previewImage.src }}" alt="{{ previewImage.alt|default("Video Preview Image") }}">
-                    {% endif %}
-                    {% if videoDuration|default() %}
-                        <span class="duration">
-                    {% if videoDuration matches '/^\\d+$/' %}
-                        {% if videoDuration/3600 >=1 %}
-                            {{ videoDuration|date('H:i:s') }}
+        {% block previewImage %}
+            {% if previewImage|default() %}
+                <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
+                    <figure class="image_container">
+                        {% if previewImage.picture|default() %}
+                            {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}
                         {% else %}
-                            {{ videoDuration|date('i:s') }}
+                            <img src="{{ previewImage.src }}" alt="{{ previewImage.alt|default("Video Preview Image") }}">
                         {% endif %}
-                    {% else %}
-                        {{ videoDuration }}
-                    {% endif %}
-                    </span>
-                    {% endif %}
-                    {% if playButton|default() %}
-                        {% block playbutton %}
-                            <button class="play-button {{ type|default }}" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
-                        {% endblock %}
-                    {% endif %}
-                </figure>
-            </div>
-        {% endif %}
+                        {% if videoDuration|default() %}
+                            <span class="duration">
+                        {% if videoDuration matches '/^\\d+$/' %}
+                            {% if videoDuration/3600 >=1 %}
+                                {{ videoDuration|date('H:i:s') }}
+                            {% else %}
+                                {{ videoDuration|date('i:s') }}
+                            {% endif %}
+                        {% else %}
+                            {{ videoDuration }}
+                        {% endif %}
+                        </span>
+                        {% endif %}
+                        {% if playButton|default() %}
+                            {% block playbutton %}
+                                <button class="play-button {{ type|default }}" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
+                            {% endblock %}
+                        {% endif %}
+                    </figure>
+                </div>
+            {% endif %}
+        {% endblock %}
         <div class="video-container{% if previewImage|default() %} video-hidden{% endif %}">
             {% block videoplayer %}
                 {% if previewImage|default() %}

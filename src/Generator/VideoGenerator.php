@@ -106,8 +106,6 @@ class VideoGenerator
 
         $context['type'] = $video::getType();
 
-        $context['autoplay'] = $video->isAutoplayEnabled();
-
         $context['playButton'] = $video->getAddPlayButton();
 
         if ($this->isPrivacyNoticeEnabled($rootPage)) {

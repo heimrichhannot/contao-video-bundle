@@ -29,6 +29,11 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
     protected $posterSRC = '';
 
     /**
+     * @var bool
+     */
+    protected $autoplay = false;
+
+    /**
      * {@inheritdoc}
      */
     public static function getType(): string
@@ -80,6 +85,11 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
         }
 
         return $path;
+    }
+
+    public function getAutoplay(): bool
+    {
+        return $this->autoplay;
     }
 
     public function getMultipleSrc(): array
