@@ -8,6 +8,10 @@ This bundle brings enhanced video embedding support to contao with additional pr
 
 ## Features
 * Support for YouTube and Vimeo as video providers
+* Support for Videos from Contao File System
+    * integration of multiple sources for one video
+    * integration for subtitles
+    * integration for madia-queries on video <source> tag
 * Out-of-the-box-usage: 
     * Content Element
     * News

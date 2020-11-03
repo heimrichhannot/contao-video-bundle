@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.8.0] - 2020-11-28
 - add file video type (#3)
+- updated README
 
 ## [0.7.2] - 2020-10-20
 - added `type` to play-button class

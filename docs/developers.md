@@ -63,11 +63,21 @@ huh.video.privacy.cancel | User canceled privacy prompt
 
 Add your wanted translation as [symfony translation](https://symfony.com/doc/3.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example: 
 
-    ```yaml
-    # Projekt: app/Resources/translations/messages.en.yml
-    # Bundle: src/Resources/translations/messages.en.yml
-    huh_video:
-      fields:
-        videoLinkText:
-          amazing: "Show this amazing video!"
-    ```
+```yaml
+# Projekt: app/Resources/translations/messages.en.yml
+# Bundle: src/Resources/translations/messages.en.yml
+huh_video:
+  fields:
+    videoLinkText:
+      amazing: "Show this amazing video!"
+```
+    
+## Add custom media queries for file system videos
+The `name` is optional and is used for better explanation to the backend user
+```yaml
+huh_video:
+    media_queries:
+        xxl:
+            query: "(min-width: 1200px)"
+            name: "Desktop"
+```

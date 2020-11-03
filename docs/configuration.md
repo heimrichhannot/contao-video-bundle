@@ -16,7 +16,13 @@ huh_video:
         # Prototype
         name:
             class:                ~
-
+    # This is used to be the value key of the media-queries dropdown. Changing this option will cause problems with already set up Videos and assigned media-query settings.
+    media_queries:
+    
+        # Prototype
+        value:
+            query:                ~
+            name:                 ''
 ```
 
 ## Help
