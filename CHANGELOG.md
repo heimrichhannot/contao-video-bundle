@@ -1,9 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [0.8.0] - 2020-10-28
-- added feature to add videos from file system
-- added news support for videos from file system
+## [0.8.0] - 2020-11-28
+- add file video type (#3)
 
 ## [0.7.2] - 2020-10-20
 - added `type` to play-button class
