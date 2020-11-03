@@ -127,7 +127,7 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
 
         $videoSrc = [];
 
-        $mediaQueryConfig = System::getContainer()->getParameter('huh_video')['video_media_queries'];
+        $mediaQueryConfig = System::getContainer()->getParameter('huh_video')['media_queries'];
 
         foreach ($data as $video) {
             $mediaQuery = $mediaQueryConfig[$video['mediaQuery']]['query'];

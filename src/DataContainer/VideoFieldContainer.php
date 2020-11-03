@@ -18,9 +18,13 @@ class VideoFieldContainer
         $config = System::getContainer()->getParameter('huh_video');
         $queries = [];
 
-        if (\is_array($config['video_media_queries'])) {
-            foreach ($config['video_media_queries'] as $key => $query) {
-                $queries[$key] = $query['query'];
+        if (\is_array($config['media_queries'])) {
+            foreach ($config['media_queries'] as $key => $query) {
+                if (!empty($query['name'])) {
+                    $queries[$key] = $query['name'].' ['.$query['query'].']';
+                } else {
+                    $queries[$key] = $query['query'];
+                }
             }
         }
 
