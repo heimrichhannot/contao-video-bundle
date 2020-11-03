@@ -38,7 +38,15 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-
+                ->arrayNode('media_queries')->info('Configure the media queries of the html video-element.')
+                    ->useAttributeAsKey('value')->info('This is used to be the value key of the media-queries dropdown. Changing this option will cause problems with already set up Videos and assigned media-query settings.')
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('query')->end()
+                            ->scalarNode('name')->defaultValue('')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

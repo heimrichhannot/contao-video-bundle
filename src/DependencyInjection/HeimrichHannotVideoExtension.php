@@ -8,6 +8,7 @@
 
 namespace HeimrichHannot\VideoBundle\DependencyInjection;
 
+use HeimrichHannot\VideoBundle\Video\FileVideo;
 use HeimrichHannot\VideoBundle\Video\VimeoVideo;
 use HeimrichHannot\VideoBundle\Video\YouTubeVideo;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,6 +30,10 @@ class HeimrichHannotVideoExtension extends Extension
 
         if (!isset($config['videoProvider']['vimeo'])) {
             $config['videoProvider']['vimeo']['class'] = VimeoVideo::class;
+        }
+
+        if (!isset($config['videoProvider']['file'])) {
+            $config['videoProvider']['file']['class'] = FileVideo::class;
         }
         $container->setParameter('huh_video', $config);
     }
