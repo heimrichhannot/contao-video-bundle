@@ -1,6 +1,12 @@
 $play-button-width: 68px;
 $play-button-height: 48px;
 
+#tl_formbody_edit {
+    [name="videoAlternativeText"] {
+      height: 150px !important;
+    }
+}
+
 .huh_video {
 
   .video-wrapper {

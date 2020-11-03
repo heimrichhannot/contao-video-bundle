@@ -1,22 +1,23 @@
 <?php
 
-/**
- * Legends
+/*
+ * Copyright (c) 2020 Heimrich & Hannot GmbH
+ *
+ * @license LGPL-3.0-or-later
  */
 
 $GLOBALS['TL_LANG']['tl_content']['previewImage_legend'] = 'Preview image settings';
-$GLOBALS['TL_LANG']['tl_content']['video_legend']        = 'Video settings';
+$GLOBALS['TL_LANG']['tl_content']['video_legend'] = 'Video settings';
 
-
-/**
+/*
  * Fields
  */
 
-$GLOBALS['TL_LANG']['tl_content']['addVideo'][0]      = 'Add video';
-$GLOBALS['TL_LANG']['tl_content']['addVideo'][1]      = 'Choose this option to add a video.';
+$GLOBALS['TL_LANG']['tl_content']['addVideo'][0] = 'Add video';
+$GLOBALS['TL_LANG']['tl_content']['addVideo'][1] = 'Choose this option to add a video.';
 
-$GLOBALS['TL_LANG']['tl_content']['videoProvider'][0]      = 'Video provider';
-$GLOBALS['TL_LANG']['tl_content']['videoProvider'][1]      = 'Choose the wanted video provider.';
+$GLOBALS['TL_LANG']['tl_content']['videoProvider'][0] = 'Video provider';
+$GLOBALS['TL_LANG']['tl_content']['videoProvider'][1] = 'Choose the wanted video provider.';
 
 $GLOBALS['TL_LANG']['tl_content']['videoFullsize'][0] = 'Full-size view/new window';
 $GLOBALS['TL_LANG']['tl_content']['videoFullsize'][1] = 'Open the video in a lightbox or the link in a new browser window.';
@@ -47,3 +48,6 @@ $GLOBALS['TL_LANG']['tl_content']['videofullsizeTemplate'][1] = 'Overwrite the d
 
 $GLOBALS['TL_LANG']['tl_content']['videoAutoplay'][0] = 'Autoplay';
 $GLOBALS['TL_LANG']['tl_content']['videoAutoplay'][1] = 'Automatically play the video when the page loads.';
+
+$GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][0] = 'Alternative text';
+$GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][1] = 'Enter a text here that should serve as an alternative to the video. For example, if the browser does not support the video element, or for barrier-free use of the website.';
