@@ -47,7 +47,7 @@ class ParseArticlesListener
      */
     public function onParseArticles(FrontendTemplate $template, array $newsEntry, Module $module): void
     {
-        if (!isset($this->bundleConfig['enableNewsSupport']) || true !== $this->bundleConfig['enableNewsSupport']) {
+        if (!isset($this->bundleConfig['enable_news_support']) || true !== $this->bundleConfig['enable_news_support']) {
             return;
         }
 

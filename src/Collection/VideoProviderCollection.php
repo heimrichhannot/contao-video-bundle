@@ -32,8 +32,8 @@ class VideoProviderCollection
      */
     public function getVideoProvider()
     {
-        if (isset($this->bundleConfig['videoProvider'])) {
-            return array_keys($this->bundleConfig['videoProvider']);
+        if (isset($this->bundleConfig['video_provider'])) {
+            return array_keys($this->bundleConfig['video_provider']);
         }
     }
 
@@ -42,8 +42,8 @@ class VideoProviderCollection
      */
     public function getClassByVideoProvider(string $provider): string
     {
-        if (isset($this->bundleConfig['videoProvider'][$provider]['class'])) {
-            return $this->bundleConfig['videoProvider'][$provider]['class'];
+        if (isset($this->bundleConfig['video_provider'][$provider]['class'])) {
+            return $this->bundleConfig['video_provider'][$provider]['class'];
         }
 
         throw new \Exception('No configuration exists for given provider.');
