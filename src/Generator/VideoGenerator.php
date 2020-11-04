@@ -223,7 +223,7 @@ class VideoGenerator
     {
         $noCookiesEnabled = false;
 
-        if (isset($this->bundleConfig['defaultEnableNoCookieVideoUrl']) && true === $this->bundleConfig['defaultEnableNoCookieVideoUrl']) {
+        if (isset($this->bundleConfig['default_use_no_cookie_video_url']) && true === $this->bundleConfig['default_use_no_cookie_video_url']) {
             $noCookiesEnabled = true;
         }
 
@@ -238,7 +238,7 @@ class VideoGenerator
     {
         $isPrivacyNoticeEnabled = false;
 
-        if (isset($this->bundleConfig['defaultEnablePrivacyNotice']) && true === $this->bundleConfig['defaultEnablePrivacyNotice']) {
+        if (isset($this->bundleConfig['default_display_privacy_notice']) && true === $this->bundleConfig['default_display_privacy_notice']) {
             $isPrivacyNoticeEnabled = true;
         }
 

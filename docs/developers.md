@@ -45,7 +45,16 @@ huh.video.privacy.cancel | User canceled privacy prompt
 
 1. Add video translations within `huh_video.video.youtube`
 
-1. Register the video class within `huh_video.videoProvider.[videoprovider].class`
+1. Register the video class within `huh_video.video_provider.[videoprovider].class`
+
+    Example: 
+    
+    ```yaml
+    huh_video:
+      video_provider:
+        my_custom_provider:
+          class: App\Video\MyCustomProviderVideo
+    ```
 
 ## Add video support to custom entity
 
