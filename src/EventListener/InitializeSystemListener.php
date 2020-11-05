@@ -15,6 +15,7 @@ class InitializeSystemListener
 {
     public function __invoke(): void
     {
+        $this->addBackendAssets();
         $hookKeys = array_keys($GLOBALS['TL_HOOKS']['loadDataContainer']);
 
         if (($hookPosition = array_search('huh_video', $hookKeys, true)) > array_search('multiColumnEditor', $hookKeys, true)) {
@@ -23,6 +24,14 @@ class InitializeSystemListener
             array_insert($GLOBALS['TL_HOOKS']['loadDataContainer'], $hookPosition, ['multiColumnEditor' => $tmp]);
 
             return;
+        }
+    }
+
+    protected function addBackendAssets(): void
+    {
+        if ('BE' === TL_MODE) {
+            $GLOBALS['TL_CSS']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css|static';
+            $GLOBALS['TL_JAVASCRIPT']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js|static';
         }
     }
 }
