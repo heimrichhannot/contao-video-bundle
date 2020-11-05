@@ -3,6 +3,7 @@ var Encore = require('@symfony/webpack-encore');
 Encore
 .setOutputPath('src/Resources/public/assets/')
 .addEntry('contao-video-bundle', './src/Resources/assets/js/contao-video-bundle.js')
+.addEntry('contao-video-bundle-be', './src/Resources/assets/js/contao-video-bundle-be.js')
 .addEntry('contao-video-bundle-theme', './src/Resources/assets/js/contao-video-bundle-theme.js')
 .setPublicPath('/bundles/heimrichhannotvideo/assets')
 .setManifestKeyPrefix('bundles/heimrichhannotvideo/assets')
