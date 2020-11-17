@@ -44,7 +44,7 @@ class DcaFieldGenerator
                 'sql' => "char(1) NOT NULL default ''",
             ],
         ];
-        $fields = array_merge($fields, static::getVideoFields());
+        $fields = array_merge($fields, static::getVideoFields($dca));
 
         $dca['fields'] = array_merge($dca['fields'], $fields);
 
@@ -67,11 +67,11 @@ class DcaFieldGenerator
      *
      * @return array
      */
-    public static function getVideoFields()
+    public static function getVideoFields(array $dca = [])
     {
         Controller::loadDataContainer('tl_content');
 
-        return [
+        $videoFields = [
             'youtube' => $GLOBALS['TL_DCA']['tl_content']['fields']['youtube'],
             'vimeo' => $GLOBALS['TL_DCA']['tl_content']['fields']['vimeo'],
             'videoProvider' => [
@@ -232,5 +232,11 @@ class DcaFieldGenerator
                 'sql' => 'blob NULL',
             ],
         ];
+
+        if (!empty($dca) && !\array_key_exists('posterSRC', $dca['fields'])) {
+            $videoFields['posterSRC'] = $GLOBALS['TL_DCA']['tl_content']['fields']['posterSRC'];
+        }
+
+        return $videoFields;
     }
 }
