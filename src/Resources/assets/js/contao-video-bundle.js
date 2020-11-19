@@ -114,6 +114,8 @@ class VideoBundle {
 
         video.classList.remove('initialize');
         video.classList.remove('video-hidden');
+
+        document.dispatchEvent(new CustomEvent('videoInitialized', {detail: video, bubbles: true, cancelable: true}));
     }
 
     static initIframeVideo(element, iframe) {
