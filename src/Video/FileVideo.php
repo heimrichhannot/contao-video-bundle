@@ -100,7 +100,7 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
     public function getAlternativeText(): string
     {
         if (!empty($this->getRawData()['videoAlternativeText'])) {
-            $this->alternativeText = StringUtil::deserialize($this->getRawData()['videoAlternativeText']);
+            $this->alternativeText = $this->getRawData()['videoAlternativeText'];
         }
 
         return $this->alternativeText;

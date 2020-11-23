@@ -8,6 +8,9 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\System;
+use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
+
 /**
  * @Hook("initializeSystem")
  */
@@ -29,7 +32,7 @@ class InitializeSystemListener
 
     protected function addBackendAssets(): void
     {
-        if ('BE' === TL_MODE) {
+        if (System::getContainer()->get(ContainerUtil::class)->isFrontend()) {
             $GLOBALS['TL_CSS']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css|static';
             $GLOBALS['TL_JAVASCRIPT']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js|static';
         }
