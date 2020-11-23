@@ -8,7 +8,6 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
-use Contao\System;
 use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
 
 /**
@@ -16,6 +15,16 @@ use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
  */
 class InitializeSystemListener
 {
+    /**
+     * @var ContainerUtil
+     */
+    protected $containerUtil;
+
+    public function __construct(ContainerUtil $containerUtil)
+    {
+        $this->containerUtil = $containerUtil;
+    }
+
     public function __invoke(): void
     {
         $this->addBackendAssets();
@@ -32,7 +41,7 @@ class InitializeSystemListener
 
     protected function addBackendAssets(): void
     {
-        if (System::getContainer()->get(ContainerUtil::class)->isFrontend()) {
+        if ($this->containerUtil->isFrontend()) {
             $GLOBALS['TL_CSS']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css|static';
             $GLOBALS['TL_JAVASCRIPT']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js|static';
         }
