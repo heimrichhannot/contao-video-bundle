@@ -39,11 +39,11 @@ Update database afterwards.
     ```yaml
     huh_video:
         # Enable support for news entity.
-        enableNewsSupport:    false
+        enable_news_support:    false
         # Enable if by default no cookie embed urls should be used, if supported by the video provider. This can be overwritten on root pages.
-        defaultEnableNoCookieVideoUrl: false
+        default_use_no_cookie_video_url: false
         # Enable if by default a privacy message should be displayed before playing the video. This can be overwritten on root pages.
-        defaultEnablePrivacyNotice: false
+        default_display_privacy_notice: false
     ```
 1. Clear cache and check for database updates after update your config
 1. Adjust template settings on root page if needed. You can also overwrite the default configuration there.

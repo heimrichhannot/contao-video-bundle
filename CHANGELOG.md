@@ -1,7 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [0.8.0] - 2020-11-28
+
+## [0.8.2] - 2020-11-19
+- added event after video initialization 
+
+## [0.8.1] - 2020-11-17
+- fixed adding of video fields for non content entities 
+
+## [0.8.0] - 2020-10-28
 - add file video type (#3)
 - updated README
 
