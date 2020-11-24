@@ -1,6 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2020-11-24
+- added support for alternative text (#5)
 
 ## [0.8.2] - 2020-11-19
 - added event after video initialization 
