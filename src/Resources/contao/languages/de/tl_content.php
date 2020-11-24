@@ -44,7 +44,7 @@ $GLOBALS['TL_LANG']['tl_content']['videoSubtitles_file'][1] = 'Wählen Sie eine 
 $GLOBALS['TL_LANG']['tl_content']['videoSubtitles_language'][0] = 'Sprache';
 $GLOBALS['TL_LANG']['tl_content']['videoSubtitles_language'][1] = 'Wählen Sie die Sprache der Untertitel aus.';
 $GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][0] = 'Alternativtext';
-$GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][1] = 'Tragen sie hier ein Text ein, dass als Alternative zum Video dienen soll. Zum Beispiel wenn der Browser das Video Element nicht unterstütz, oder für Barrierefreie Nutzung der Webseite.';
+$GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][1] = 'Tragen sie hier einen Text ein, welcher als Alternative zum Video dienen soll. Dieser wird verwendet, wenn der Browser das Video-Element nicht unterstützt und ist für die barrierefreie Nutzung der Webseite erforderlich.';
 
 /*
  * Reference
