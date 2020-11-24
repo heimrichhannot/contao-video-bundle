@@ -34,6 +34,11 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
     protected $autoplay = false;
 
     /**
+     * @var string
+     */
+    protected $alternativeText = '';
+
+    /**
      * {@inheritdoc}
      */
     public static function getType(): string
@@ -70,7 +75,7 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
      */
     public static function getPalette(): string
     {
-        return 'videoSRC,videoSubtitles';
+        return 'videoSRC,videoSubtitles,videoAlternativeText';
     }
 
     /**
@@ -90,6 +95,15 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
     public function getAutoplay(): bool
     {
         return $this->autoplay;
+    }
+
+    public function getAlternativeText(): string
+    {
+        if (!empty($this->getRawData()['videoAlternativeText'])) {
+            $this->alternativeText = $this->getRawData()['videoAlternativeText'];
+        }
+
+        return $this->alternativeText;
     }
 
     public function getMultipleSrc(): array

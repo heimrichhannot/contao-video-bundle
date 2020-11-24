@@ -18,5 +18,8 @@
                 <track label="{{ subtitle.label }}" kind="subtitles" srclang="{{ subtitle.lang }}" src="{{ subtitle.src }}">
             {% endfor %}
         {% endif %}
+        {% if alternativeText|default() %}
+            {{ alternativeText }}
+        {% endif %}
     </video>
 {% endblock %}

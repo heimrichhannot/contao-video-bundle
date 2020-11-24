@@ -38,3 +38,6 @@ services:
 
   HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
     tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']
+
+  HeimrichHannot\VideoBundle\EventListener\InitializeSystemListener:
+    public: true

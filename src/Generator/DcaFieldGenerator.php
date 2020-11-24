@@ -231,6 +231,14 @@ class DcaFieldGenerator
                 ],
                 'sql' => 'blob NULL',
             ],
+            'videoAlternativeText' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'],
+                'exclude' => true,
+                'search' => true,
+                'inputType' => 'textarea',
+                'eval' => ['tl_class' => 'long clr', 'mandatory' => false],
+                'sql' => 'text NULL',
+            ],
         ];
 
         if (!empty($dca) && !\array_key_exists('posterSRC', $dca['fields'])) {

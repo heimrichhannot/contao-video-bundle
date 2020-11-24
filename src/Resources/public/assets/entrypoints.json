@@ -9,6 +9,14 @@
         "/bundles/heimrichhannotvideo/assets/contao-video-bundle.js"
       ]
     },
+    "contao-video-bundle-be": {
+      "css": [
+        "/bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css"
+      ],
+      "js": [
+        "/bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js"
+      ]
+    },
     "contao-video-bundle-theme": {
       "css": [
         "/bundles/heimrichhannotvideo/assets/alertify.css",
