@@ -41,7 +41,7 @@ class InitializeSystemListener
 
     protected function addBackendAssets(): void
     {
-        if ($this->containerUtil->isFrontend()) {
+        if ($this->containerUtil->isBackend()) {
             $GLOBALS['TL_CSS']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css|static';
             $GLOBALS['TL_JAVASCRIPT']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js|static';
         }
