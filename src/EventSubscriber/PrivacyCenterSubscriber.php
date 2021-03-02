@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -18,7 +18,6 @@ use Twig\Environment;
 
 class PrivacyCenterSubscriber implements EventSubscriberInterface
 {
-    protected $previewImage = [];
     /**
      * @var \HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension
      */
@@ -72,8 +71,8 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
             $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
         }
 
-        if (!empty($this->previewImage) && isset($this->previewImage['src'])) {
-            $previewImagePath = $this->previewImage['src'];
+        if (!empty($event->getContext()['previewImage']) && isset($event->getContext()['previewImage']['src'])) {
+            $previewImagePath = $event->getContext()['previewImage']['src'];
         } else {
             $previewImagePath = 'bundles/heimrichhannotvideo/images/preview_fallback.jpg';
         }

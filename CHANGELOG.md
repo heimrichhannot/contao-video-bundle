@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.9.1] - 2021-03-02
+- fixed previewImage
+
 ## [0.9.0] - 2020-11-24
 - added support for alternative text (#5)
 
