@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.10.0] - 2021-03-10
+- allow php 8 (experimental)
+- fixed issue if no preview image set
+
 ## [0.9.1] - 2021-03-02
 - fixed previewImage
 
