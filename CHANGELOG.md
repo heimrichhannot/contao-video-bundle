@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.10.2] - 2021-05-19
+- extended FileVideo with looping and controls
+
 ## [0.10.1] - 2021-03-27
 - fixed issue if preview image and play-button set
 

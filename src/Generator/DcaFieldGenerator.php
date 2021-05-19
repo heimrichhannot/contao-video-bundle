@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -93,6 +93,20 @@ class DcaFieldGenerator
             ],
             'addPlayButton' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['addPlayButton'],
+                'exclude' => true,
+                'inputType' => 'checkbox',
+                'eval' => ['tl_class' => 'w50'],
+                'sql' => "char(1) NOT NULL default ''",
+            ],
+            'videoRemoveControls' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoRemoveControls'],
+                'exclude' => true,
+                'inputType' => 'checkbox',
+                'eval' => ['tl_class' => 'w50'],
+                'sql' => "char(1) NOT NULL default ''",
+            ],
+            'videoLoop' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoLoop'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
                 'eval' => ['tl_class' => 'w50'],

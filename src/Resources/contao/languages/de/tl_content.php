@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -29,6 +29,8 @@ $GLOBALS['TL_LANG']['tl_content']['videoLinkText'] = ['Link-Text', 'Der angezeig
 $GLOBALS['TL_LANG']['tl_content']['videofullsizeTemplate'] = ['Individuelles Template für Großansicht/Neues Fenster', 'Überschreiben Sie das Standard Template mit einer eigenen Vorlage zur Anzeige eines Videos in der Großansicht/Neues Fenster.'];
 $GLOBALS['TL_LANG']['tl_content']['videoFullSize'] = ['Großansicht/Neues Fenster', 'Großansicht des Videos in einer Lightbox bzw. den Link in einem neuem Browserfenster öffnen.'];
 $GLOBALS['TL_LANG']['tl_content']['videoAutoplay'] = ['Autoplay', 'Das Video automatisch beim Laden der Seite abspielen.'];
+$GLOBALS['TL_LANG']['tl_content']['videoRemoveControls'] = ['Steuerelemente entfernen', 'Alle Steuerelemente des videos werden nicht mehr angezeigt.'];
+$GLOBALS['TL_LANG']['tl_content']['videoLoop'] = ['Wiederholen', 'Das Video in einer Endlosschleife wiedergeben.'];
 
 $GLOBALS['TL_LANG']['tl_content']['videoSRC'][0] = 'Videoquelle und Mediaquery';
 $GLOBALS['TL_LANG']['tl_content']['videoSRC'][1] = 'Wählen sie hier die Video Datei aus und die Media Query in der diese Datei angezeigt werden soll.';

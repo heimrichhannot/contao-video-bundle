@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -32,6 +32,16 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
      * @var bool
      */
     protected $autoplay = false;
+
+    /**
+     * @var bool
+     */
+    protected $controls = true;
+
+    /**
+     * @var bool
+     */
+    protected $loop = false;
 
     /**
      * @var string
@@ -97,6 +107,16 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
         return $this->autoplay;
     }
 
+    public function isLoop(): bool
+    {
+        return $this->loop;
+    }
+
+    public function hasControls(): bool
+    {
+        return $this->controls;
+    }
+
     public function getAlternativeText(): string
     {
         if (!empty($this->getRawData()['videoAlternativeText'])) {
@@ -129,6 +149,29 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
         }
 
         return $subtitles;
+    }
+
+    protected function setProperty(string $property, $value)
+    {
+        switch ($property) {
+            case 'videoRemoveControls':
+                $property = 'controls';
+                $value = !((bool) $value);
+
+                break;
+
+            case 'videoLoop':
+                $property = 'loop';
+                $value = (bool) $value;
+
+                break;
+        }
+
+        if (property_exists($this, $property)) {
+            $this->{$property} = $value;
+        }
+
+        parent::setProperty($property, $value);
     }
 
     private function prepareVideoSource(): array

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -84,6 +84,26 @@ abstract class AbstractVideo implements VideoInterface
                 if ($method->isStatic()) {
                     continue;
                 }
+                $propName = strtolower(substr($method->name, 3, 1)).substr($method->name, 4);
+
+                $result[$propName] = $method->invoke($this);
+            }
+
+            if ('is' == substr($method->name, 0, 2)) {
+                if ($method->isStatic()) {
+                    continue;
+                }
+
+                $propName = strtolower(substr($method->name, 2, 1)).substr($method->name, 3);
+
+                $result[$propName] = $method->invoke($this);
+            }
+
+            if ('has' == substr($method->name, 0, 3)) {
+                if ($method->isStatic()) {
+                    continue;
+                }
+
                 $propName = strtolower(substr($method->name, 3, 1)).substr($method->name, 4);
 
                 $result[$propName] = $method->invoke($this);
