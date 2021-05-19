@@ -106,6 +106,11 @@ class VideoBundle {
     }
 
     static showVideo(element, video) {
+        let container = element.querySelector('.video-container');
+        if (container) {
+            container.classList.remove('video-hidden');
+        }
+
         element.classList.add('initialize');
         video.classList.add('initialize');
 
@@ -114,8 +119,6 @@ class VideoBundle {
 
         video.classList.remove('initialize');
         video.classList.remove('video-hidden');
-
-        element.querySelector('.video-container').classList.remove('video-hidden');
 
         document.dispatchEvent(new CustomEvent('videoInitialized', {detail: video, bubbles: true, cancelable: true}));
     }

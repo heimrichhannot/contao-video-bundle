@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.10.3] - 2021-05-19
+- fixed js code to cause errors on wrong preview image configuration
+
 ## [0.10.2] - 2021-05-19
 - extended FileVideo with looping and controls
 
