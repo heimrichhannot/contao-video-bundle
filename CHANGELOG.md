@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.10.4] - 2021-06-23
+- added 'playsinline' attribute to autoplay settings, to autoplay videos on mobile devices
+
 ## [0.10.3] - 2021-05-19
 - fixed js code to cause errors on wrong preview image configuration
 
