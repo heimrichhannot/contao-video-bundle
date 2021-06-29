@@ -1,0 +1,44 @@
+huh_video:
+  video:
+    youtube:
+      privacy:
+        headline: "Informacja o ochronie danych osobowych"
+        text: "W przypadku odtwarzania naszych filmów YouTube informacje o sposobie korzystania przez użytkownika z YouTube są przekazywane do USA i tam ewentualnie przechowywane."
+        checkbox: "Zapamiętaj na stałe moją decyzję dotyczącą korzystania z filmów YouTube na %host%."
+    vimeo:
+      privacy:
+        headline: "Informacja o ochronie danych osobowych"
+        text: "W przypadku odtwarzania naszych filmów Vimeo, informacje o sposobie korzystania przez użytkownika z Vimeo są przekazywane do USA i tam ewentualnie przechowywane."
+        checkbox: "Zapamiętaj na stałe moją decyzję dotyczącą korzystania z filmów Vimeo na %host%."
+  fields:
+    videoFullsize:
+      cancel: Anuluj
+    videoLinkText:
+      default: Pokaż film
+      play: Odtwórz film
+      window: Otwórz film w nowym oknie
+      article: Materiał wideo
+  template:
+    thumbnail:
+      title: "Odtwórz film %type%"
+    privacy:
+      ok: "OK"
+      showContent: "Pokaż treść"
+      cancel: "Anuluj"
+      # DCA
+huh.list:
+  tl_list_config_element.field:
+    typeSelectorField.youtube:
+      name: Element selector YouTube
+      desc: Wybierz pole, które zawiera boolean selector dla pola YouTube.
+    typeField.youtube:
+      name: Pole YouTube
+      desc: Wybierz pole, które zawiera ID filmu YouTube.
+huh.reader:
+  tl_reader_config_element.field:
+    typeSelectorField.youtube:
+      name: Element selector YouTube
+      desc: Wybierz pole, które zawiera boolean selector dla pola YouTube.
+    typeField.youtube:
+      name: Pole YouTube
+      desc: Wybierz pole, które zawiera ID filmu YouTube.
