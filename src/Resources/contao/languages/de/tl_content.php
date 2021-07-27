@@ -51,10 +51,8 @@ $GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][1] = 'Tragen sie hier 
 /*
  * Reference
  */
-$lang['reference'] = [
-    'videoProvider' => [
-        'youtube' => 'YouTube',
-        'vimeo' => 'Vimeo',
-        'file' => 'Datei',
-    ],
+$lang['reference']['videoProvider'] = [
+    'youtube' => 'YouTube',
+    'vimeo' => 'Vimeo',
+    'file' => 'Datei',
 ];

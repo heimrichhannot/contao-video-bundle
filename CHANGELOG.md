@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.1] - 2021-07-27
+
+- fixed issue in references in translations
+
 ## [0.11.0] - 2021-06-29
 
 - added Polish translations
