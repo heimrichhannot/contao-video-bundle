@@ -56,7 +56,7 @@ class PrivacyCenterSubscriber implements EventSubscriberInterface
 
     public function afterRenderPlayer(AfterRenderPlayerEvent $event)
     {
-        if (!$this->isPrivacyCenterEnabled($event->getRootPage())) {
+        if (!$this->isPrivacyCenterEnabled($event->getRootPage()) || 'file' === $event->getContext()['type']) {
             return;
         }
 

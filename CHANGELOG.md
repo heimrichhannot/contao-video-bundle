@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.2] - 2021-10-28
+- Fixed: filevideos not to be applied to privacy center overlay and acceptance
+
 ## [0.11.1] - 2021-07-27
 
 - fixed issue in references in translations
