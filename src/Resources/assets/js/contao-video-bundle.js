@@ -101,6 +101,7 @@ class VideoBundle {
             VideoBundle.initIframeVideo(element, iframe);
             VideoBundle.showVideo(element, iframe);
         } else if (htmlVideo) {
+            VideoBundle.initHtmlVideo(element, htmlVideo);
             VideoBundle.showVideo(element, htmlVideo);
         }
     }
@@ -185,6 +186,28 @@ class VideoBundle {
 
             return false;
         }
+    }
+    static initHtmlVideo(element, video) {
+        let wrapper = element.closest('.video-wrapper');
+        let button = wrapper.querySelector('button.play-button');
+        if (button) {
+            button.addEventListener('click', e => {
+                video.play();
+                if (!video.hasAttribute("controls")) {
+                    video.setAttribute("controls","controls");
+                }
+            });
+
+            video.addEventListener('pause', e => {
+                button.classList.remove('hidden');
+            });
+
+            video.addEventListener('play', e => {
+                button.classList.add('hidden');
+            });
+
+        }
+
     }
 }
 

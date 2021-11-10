@@ -75,8 +75,13 @@ $play-button-height: 48px;
         height: $play-button-height;
         opacity: .8;
         border: none;
+        z-index: 2;
 
         transition: all .4s cubic-bezier(0.0, 0.0, 0.2, 1);
+
+        &.hidden {
+          display: none;
+        }
 
         &.youtube {
           background-image: url("../img/youtube_play.svg");

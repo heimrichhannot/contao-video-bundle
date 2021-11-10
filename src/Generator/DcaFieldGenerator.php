@@ -194,7 +194,6 @@ class DcaFieldGenerator
                                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'],
                                 'inputType' => 'select',
                                 'eval' => [
-                                    'mandatory' => true,
                                     'includeBlankOption' => true,
                                     'groupStyle' => 'width: 48%',
                                 ],

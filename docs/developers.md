@@ -90,3 +90,4 @@ huh_video:
             query: "(min-width: 1200px)"
             name: "Desktop"
 ```
+**Note: Some browsers do not support media-queries on video element, even more it breaks autoplay. So just remove media-queries(it is not mandatory - just let the media-query field empty) from video source, if you want all browsers to autoplay on load.**

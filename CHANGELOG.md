@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.3] - 2021-11-10
+- Changed: removed mandatory attribute from htmlVideo mediaquery field
+- Fixed: Added play-button to htmlVideo
+
 ## [0.11.2] - 2021-10-28
 - Fixed: filevideos not to be applied to privacy center overlay and acceptance
 
