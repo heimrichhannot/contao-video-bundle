@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.4] - 2022-03-28
+- Added: video toggle for transcripted video and its live region
+
 ## [0.11.3] - 2021-11-10
 - Changed: removed mandatory attribute from htmlVideo mediaquery field
 - Fixed: Added play-button to htmlVideo

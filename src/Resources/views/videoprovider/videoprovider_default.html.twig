@@ -1,5 +1,7 @@
 <!-- indexer::stop -->
 <div class="huh_video videowrapper_default {{ type|default }}">
+    {% block switch %}
+    {% endblock %}
     <div class="video-wrapper" tabindex="0">
         {% block previewImage %}
             {% if previewImage|default() %}

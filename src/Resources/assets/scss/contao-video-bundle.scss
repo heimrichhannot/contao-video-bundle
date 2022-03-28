@@ -155,4 +155,13 @@ $play-button-height: 48px;
   .video-text {
     margin-top: 1rem;
   }
+
+  .video-toggle-ctn {
+    .btn-video-toggle {
+      display: none;
+    }
+    .btn-video-show {
+      display: block;
+    }
+  }
 }

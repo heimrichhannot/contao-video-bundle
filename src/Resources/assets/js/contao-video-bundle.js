@@ -31,6 +31,8 @@ class VideoBundle {
                 VideoBundle.initPrivacy(event.target);
             });
         });
+
+        VideoBundle.initToggleVideo();
     }
 
     static initPrivacy(element) {
@@ -41,7 +43,7 @@ class VideoBundle {
 
             const dialog = alertify.confirm().set({
                 labels: {
-                    ok: element.getAttribute('data-btn-privacy-ok') !== null ? element.getAttribute('data-btn-privacy-ok') : 'OK' ,
+                    ok: element.getAttribute('data-btn-privacy-ok') !== null ? element.getAttribute('data-btn-privacy-ok') : 'OK',
                     cancel: element.getAttribute('data-btn-privacy-cancel') !== null ? element.getAttribute('data-btn-privacy-cancel') : 'Cancel'
                 },
                 onshow: function() {
@@ -94,12 +96,16 @@ class VideoBundle {
 
     static initVideo(element) {
         let container = element.parentNode.querySelector('.video-container'),
-            iframe = container.querySelector('iframe'),
+            iframes = container.querySelectorAll('iframe'),
             htmlVideo = container.querySelector('video');
 
-        if (iframe) {
-            VideoBundle.initIframeVideo(element, iframe);
-            VideoBundle.showVideo(element, iframe);
+
+        if (iframes) {
+            iframes.forEach(iframe => {
+                VideoBundle.initIframeVideo(element, iframe);
+                VideoBundle.showVideo(element, iframe);
+            })
+
         } else if (htmlVideo) {
             VideoBundle.initHtmlVideo(element, htmlVideo);
             VideoBundle.showVideo(element, htmlVideo);
@@ -146,7 +152,7 @@ class VideoBundle {
 
             let dialog = alertify.confirm().set({
                 labels: {
-                    ok: element.getAttribute('data-btn-privacy-ok') !== null ? element.getAttribute('data-btn-privacy-ok') : 'OK' ,
+                    ok: element.getAttribute('data-btn-privacy-ok') !== null ? element.getAttribute('data-btn-privacy-ok') : 'OK',
                     cancel: element.getAttribute('data-btn-privacy-cancel') !== null ? element.getAttribute('data-btn-privacy-cancel') : 'Cancel'
                 },
                 onshow: function() {
@@ -187,6 +193,7 @@ class VideoBundle {
             return false;
         }
     }
+
     static initHtmlVideo(element, video) {
         let wrapper = element.closest('.video-wrapper');
         let button = wrapper.querySelector('button.play-button');
@@ -194,7 +201,7 @@ class VideoBundle {
             button.addEventListener('click', e => {
                 video.play();
                 if (!video.hasAttribute("controls")) {
-                    video.setAttribute("controls","controls");
+                    video.setAttribute("controls", "controls");
                 }
             });
 
@@ -209,14 +216,65 @@ class VideoBundle {
         }
 
     }
+
+    static initToggleVideo() {
+
+        let videoContainers = document.querySelectorAll('.ce_huh_video .huh_video');
+        const initStates = [true, true];
+
+        videoContainers && videoContainers.forEach(ctn => {
+
+            let toggleButtons = ctn.querySelectorAll('.huh_video .video-toggle-ctn button');
+            let liveRegion = ctn.querySelector('#videoToggleLiveRegionOutput');
+
+            const toggleVideo = (index, withLiveRegion = false) => {
+                let states = initStates.slice(0);
+                states[index] = false;
+
+                if (toggleButtons.length > 0) {
+                    states.forEach((state, i) => {
+                        if (state) {
+                            toggleButtons[i].classList.add('btn-video-show');
+                            ctn.querySelector('#' + toggleButtons[i].getAttribute('aria-controls')).style.display = 'none';
+                        } else {
+                            toggleButtons[i].classList.remove('btn-video-show');
+                            ctn.querySelector('#' + toggleButtons[i].getAttribute('aria-controls')).style.display = 'block';
+                        }
+                    })
+
+                    // TODO how to localize this
+                    if (withLiveRegion) {
+                        if (!index) {
+                            liveRegion.textContent = "Audiodeskription steht im folgenden Video zur Verfügung";
+                        } else {
+                            liveRegion.textContent = "Audiodeskription steht im folgenden Video nicht mehr zur Verfügung";
+                        }
+                    }
+                }
+            }
+
+            if (toggleButtons.length > 0) {
+                toggleButtons.forEach((btn, index) => {
+                    btn.addEventListener('click', el => {
+                        toggleVideo(index, true);
+                    })
+                })
+
+                toggleVideo(1);
+            }
+        })
+
+
+    }
 }
 
 document.addEventListener('afterUnlockProtectedCode', (e) => {
     // privacy center -> skip the preview image on first unlock, i.e., if the unlocking has been done by a click
     let video = document.querySelector('[data-identifier="' + e.detail.identifier + '"] .huh_video');
-
-    if (video !== null && e.detail.unlockByClick) {
+    //  removed && e.detail.unlockByClick -> reason why it was here?
+    if (video !== null) {
         VideoBundle.initVideo(video);
+        VideoBundle.initToggleVideo()
     }
 });
 

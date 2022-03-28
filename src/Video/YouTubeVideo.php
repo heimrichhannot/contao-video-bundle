@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -55,6 +55,11 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     protected $posterSRC = '';
 
+    /**
+     * @var string
+     */
+    protected $transcriptedYoutube = '';
+
     public static function getType(): string
     {
         return 'youtube';
@@ -70,7 +75,12 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
 
     public function getSrc(): string
     {
-        return $this->createUrl(false);
+        return $this->createUrl(false, $this->youtube);
+    }
+
+    public function getSecondarySrc(): string
+    {
+        return $this->createUrl(false, $this->transcriptedYoutube);
     }
 
     public function getShowRelated(): bool
@@ -114,7 +124,15 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public function getNoCookieSrc(): string
     {
-        return $this->createUrl(true);
+        return $this->createUrl(true, $this->youtube);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoCookieSecondarySrc(): string
+    {
+        return $this->createUrl(true, $this->transcriptedYoutube);
     }
 
     /**
@@ -122,13 +140,17 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
      */
     public static function getPalette(): string
     {
-        return 'youtube,videoDuration,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
+        return 'youtube,videoDuration,transcriptedYoutube,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
     }
 
-    protected function createUrl(bool $noCookie): string
+    protected function createUrl(bool $noCookie, string $videoId): string
     {
+        if (empty($videoId)) {
+            return '';
+        }
+
         $url = $noCookie ? static::PRIVACY_EMBED_URL : static::DEFAULT_EMBED_URL;
-        $url .= $this->youtube;
+        $url .= $videoId;
 
         $queryParams = [];
         $params = [

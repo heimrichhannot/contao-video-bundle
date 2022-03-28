@@ -1,1 +1,40 @@
 {% extends "@HeimrichHannotVideo/videoprovider/videoprovider_default.html.twig" %}
+
+{% block switch %}
+    {% if secondarySrc|default() %}
+        <div class="video-toggle-ctn">
+            <button class="btn-video-toggle btn-video-show" role="tab"
+                    aria-controls="control-{{ rawData.transcriptedYoutube }}">{{ 'huh_video.template.accessibility.switchToTranscription'|trans }}</button>
+            <button class="btn-video-toggle" role="tab"
+                    aria-controls="control-{{ rawData.youtube }}">{{ 'huh_video.template.accessibility.switchToOriginal'|trans }}</button>
+            <div class="sr-only" id="videoToggleLiveRegionOutput" role="status"></div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+ {% block videoplayer %}
+     <div id="control-{{ rawData.youtube }}" role="tabpanel">
+         {% if previewImage|default() %}
+             <iframe src="about:blank" data-src="{{ src }}"
+                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                     allowfullscreen></iframe>
+         {% else %}
+             <iframe src="{{ src }}" data-src="{{ src }}"
+                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                     allowfullscreen></iframe>
+         {% endif %}
+     </div>
+     {% if secondarySrc|default() %}
+         <div id="control-{{ rawData.transcriptedYoutube }}" role="tabpanel">
+             {% if previewImage|default() %}
+                 <iframe src="about:blank" data-src="{{ secondarySrc }}"
+                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                         allowfullscreen></iframe>
+             {% else %}
+                 <iframe src="{{ secondarySrc }}" data-src="{{ secondarySrc }}"
+                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                         allowfullscreen></iframe>
+             {% endif %}
+         </div>
+     {% endif %}
+ {% endblock %}

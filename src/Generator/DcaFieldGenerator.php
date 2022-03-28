@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2021 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -251,6 +251,28 @@ class DcaFieldGenerator
                 'inputType' => 'textarea',
                 'eval' => ['tl_class' => 'long clr', 'mandatory' => false],
                 'sql' => 'text NULL',
+            ],
+            'transcriptedYoutube' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['transcriptedYoutube'],
+                'exclude' => true,
+                'search' => true,
+                'inputType' => 'text',
+                'eval' => ['decodeEntities' => true, 'tl_class' => 'w50'],
+                'save_callback' => [
+                    ['tl_content', 'extractYouTubeId'],
+                ],
+                'sql' => "varchar(16) NOT NULL default ''",
+            ],
+            'transcriptedVimeo' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['transcriptedVimeo'],
+                'exclude' => true,
+                'search' => true,
+                'inputType' => 'text',
+                'eval' => ['decodeEntities' => true, 'tl_class' => 'w50'],
+                'save_callback' => [
+                    ['tl_content', 'extractVimeoId'],
+                ],
+                'sql' => "varchar(16) NOT NULL default ''",
             ],
         ];
 

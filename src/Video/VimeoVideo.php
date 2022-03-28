@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -39,7 +39,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
      */
     public static function getPalette(): string
     {
-        return 'vimeo';
+        return 'vimeo,transcriptedVimeo';
     }
 
     /**
@@ -63,7 +63,7 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
      */
     public function getNoCookieSrc(): string
     {
-        return  $this->createUrl(true);
+        return $this->createUrl(true);
     }
 
     /**

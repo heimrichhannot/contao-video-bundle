@@ -25,6 +25,9 @@ huh_video:
       ok: "OK"
       showContent: "Inhalt anzeigen"
       cancel: "Abbrechen"
+    accessibility:
+      switchToTranscription: "zu Film mit Audio Transkription"
+      switchToOriginal: "zu Film ohne Audio Transkription"
 
 # DCA
 huh.list:
