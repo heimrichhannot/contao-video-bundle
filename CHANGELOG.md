@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.5] - 2022-04-13
+- Added: reset iframe on video toggle
+
 ## [0.11.4] - 2022-03-28
 - Added: video toggle for transcripted video and its live region
 

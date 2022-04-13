@@ -233,13 +233,23 @@ class VideoBundle {
 
                 if (toggleButtons.length > 0) {
                     states.forEach((state, i) => {
+
+                        let videoCtn = ctn.querySelector('#' + toggleButtons[i].getAttribute('aria-controls'));
+
                         if (state) {
                             toggleButtons[i].classList.add('btn-video-show');
-                            ctn.querySelector('#' + toggleButtons[i].getAttribute('aria-controls')).style.display = 'none';
+                            videoCtn.style.display = 'none';
+                            // Refresh iframe
+                            let iframe = videoCtn.querySelector('iframe');
+                            if(iframe !== null) {
+                                iframe.setAttribute('src', iframe.src);
+                            }
+
                         } else {
                             toggleButtons[i].classList.remove('btn-video-show');
-                            ctn.querySelector('#' + toggleButtons[i].getAttribute('aria-controls')).style.display = 'block';
+                            videoCtn.style.display = 'block';
                         }
+
                     })
 
                     // TODO how to localize this
