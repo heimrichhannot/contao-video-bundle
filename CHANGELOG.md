@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.0] - 2022-05-16
+- Updated: symfony/http-kernel dep up to 5.4
+
 ## [0.11.5] - 2022-04-13
 - Added: reset iframe on video toggle
 
