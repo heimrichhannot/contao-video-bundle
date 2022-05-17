@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 2022-05-16
+- Changed: drop symfony 3 support
+- Changed: refactoring
+
 ## [0.12.0] - 2022-05-16
 - Updated: symfony/http-kernel dep up to 5.4
 

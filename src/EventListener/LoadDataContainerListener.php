@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -99,7 +99,7 @@ class LoadDataContainerListener
         if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
             trigger_error(
                 'HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.',
-                E_USER_WARNING);
+                \E_USER_WARNING);
 
             return;
         }
@@ -111,7 +111,9 @@ class LoadDataContainerListener
             if (!isset($dca['palettes'][$paletteName])) {
                 continue;
             }
-            $dca['palettes'][$paletteName] = str_replace(';{sitemap_legend', ',usePrivacyCenter;{sitemap_legend', $dca['palettes'][$paletteName]);
+            PaletteManipulator::create()
+                ->addField('usePrivacyCenter', 'video_legend', PaletteManipulator::POSITION_APPEND)
+                ->applyToPalette($paletteName, 'tl_page');
         }
 
         $dca['fields']['usePrivacyCenter'] = [

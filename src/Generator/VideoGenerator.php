@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2022 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -21,7 +21,7 @@ use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class VideoGenerator
@@ -81,7 +81,7 @@ class VideoGenerator
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {
         if (isset($options['rootPage'])) {
-            if (!$options['rootPage'] instanceof  PageModel) {
+            if (!$options['rootPage'] instanceof PageModel) {
                 throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".\get_class($options['rootPage']));
             }
 
@@ -115,8 +115,8 @@ class VideoGenerator
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         /** @noinspection PhpParamsInspection */
         $event = $this->eventDispatcher->dispatch(
-            BeforeRenderPlayerEvent::NAME,
-            new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options));
+            new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options),
+            BeforeRenderPlayerEvent::NAME);
         $context = $event->getContext();
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
@@ -131,8 +131,8 @@ class VideoGenerator
         /** @noinspection PhpParamsInspection */
         /** @var AfterRenderPlayerEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            AfterRenderPlayerEvent::NAME,
-            new AfterRenderPlayerEvent($videoBuffer, $event->getVideo(), $context, $event->getParent(), $event->getRootPage(), $event->getOptions())
+            new AfterRenderPlayerEvent($videoBuffer, $event->getVideo(), $context, $event->getParent(), $event->getRootPage(), $event->getOptions()),
+            AfterRenderPlayerEvent::NAME
         );
         $context = $event->getContext();
         $videoBuffer = $event->getBuffer();
