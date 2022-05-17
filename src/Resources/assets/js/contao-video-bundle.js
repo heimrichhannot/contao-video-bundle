@@ -283,8 +283,16 @@ document.addEventListener('afterUnlockProtectedCode', (e) => {
     let video = document.querySelector('[data-identifier="' + e.detail.identifier + '"] .huh_video');
     //  removed && e.detail.unlockByClick -> reason why it was here?
     if (video !== null) {
+
         VideoBundle.initVideo(video);
-        VideoBundle.initToggleVideo()
+        VideoBundle.initToggleVideo();
+
+        let toggle = video.querySelector('.video-toggle-ctn button');
+        if(toggle) {
+            toggle.focus();
+        } else {
+            video.querySelector('[tabindex="0"]').focus();
+        }
     }
 });
 
