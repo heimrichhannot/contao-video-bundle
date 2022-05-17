@@ -8,6 +8,8 @@ const privacyAutoFieldName = 'video-save-privacy';
 
 class VideoBundle {
     static onReady() {
+        console.log('clickasda')
+
         // autoplay videos
         document.querySelectorAll(videoThumbnailSelector).forEach(function(item) {
             if (item.getAttribute('data-autoplay')) {
@@ -16,18 +18,24 @@ class VideoBundle {
         });
 
         document.querySelectorAll(htmlVideoSelector).forEach((item) => {
+            console.log('click')
+
             VideoBundle.initVideo(item);
         });
 
         // handle click event
         EventUtil.addDynamicEventListener('click', videoThumbnailSelector, function(target) {
             VideoBundle.initVideo(target);
+            console.log('clic2k')
+
         });
 
         // handle click event
         document.querySelectorAll('.huh_video.video-link').forEach(function(element) {
             element.addEventListener('click', function(event) {
                 event.preventDefault();
+                console.log('click3')
+
                 VideoBundle.initPrivacy(event.target);
             });
         });
@@ -66,10 +74,12 @@ class VideoBundle {
                     }));
                 }
             });
+            console.log('pri')
 
             alertify.confirm('&nbsp;',
                 element.getAttribute('data-privacy-html').replace(/\\"/g, '"'),
                 () => {
+                console.log('click')
                     if (dialog.elements.content.querySelector('[name=' + privacyAutoFieldName + ']').checked) {
                         localStorage.setItem(localeStorageAcceptPrivacyKey, true);
                     }
@@ -83,6 +93,8 @@ class VideoBundle {
                     // location.href = element.getAttribute('href');
                 },
                 function() {
+                    console.log('click2')
+
                     element.dispatchEvent(new CustomEvent('huh.video.privacy.cancel', {
                         bubbles: true,
                         cancelable: true,
@@ -99,6 +111,8 @@ class VideoBundle {
             iframes = container.querySelectorAll('iframe'),
             htmlVideo = container.querySelector('video');
 
+console.log('html', htmlVideo)
+        console.log('html', iframes)
 
         if (iframes) {
             iframes.forEach(iframe => {
@@ -140,15 +154,21 @@ class VideoBundle {
         document.addEventListener('hidden.bs.modal', function(e) {
             iframe.setAttribute('src', iframe.getAttribute('data-src'));
         });
+        console.log('initifr', element)
 
         iframe.setAttribute('src', iframe.getAttribute('data-src'));
 
         if (element.getAttribute('data-privacy')) {
+            console.log('cancel2')
+
             if (null !== localStorage.getItem(localeStorageAcceptPrivacyKey)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 VideoBundle.showVideo(element, iframe);
+                console.log('cancel prike')
+
                 return false;
             }
+            console.log('cancel3')
 
             let dialog = alertify.confirm().set({
                 labels: {
@@ -188,6 +208,7 @@ class VideoBundle {
                     VideoBundle.showVideo(element, iframe);
                 },
                 function() {
+                console.log('cancel')
                 });
 
             return false;
@@ -281,18 +302,19 @@ class VideoBundle {
 document.addEventListener('afterUnlockProtectedCode', (e) => {
     // privacy center -> skip the preview image on first unlock, i.e., if the unlocking has been done by a click
     let video = document.querySelector('[data-identifier="' + e.detail.identifier + '"] .huh_video');
-    //  removed && e.detail.unlockByClick -> reason why it was here?
     if (video !== null) {
-
         VideoBundle.initVideo(video);
         VideoBundle.initToggleVideo();
 
-        let toggle = video.querySelector('.video-toggle-ctn button');
-        if(toggle) {
-            toggle.focus();
-        } else {
-            video.querySelector('[tabindex="0"]').focus();
+        if(e.detail.unlockByClick) {
+            let toggle = video.querySelector('.video-toggle-ctn button');
+            if(toggle) {
+                toggle.focus();
+            } else {
+                video.querySelector('[tabindex="0"]').focus();
+            }
         }
+
     }
 });
 
