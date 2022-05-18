@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2022-05-18
+- Fixed: remove debug logs
+
 ## [1.0.2] - 2022-05-17
 - Fixed: focus only after unlock video
 
