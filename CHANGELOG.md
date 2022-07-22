@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2022-07-22
+- Added: export js module
+
 ## [1.0.4] - 2022-06-29
 - Fixed: added missing multi column editor dependency
 

@@ -301,3 +301,5 @@ document.addEventListener('afterUnlockProtectedCode', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', VideoBundle.onReady);
+
+export default VideoBundle;
