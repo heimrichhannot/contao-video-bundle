@@ -101,7 +101,7 @@ class VideoBundle {
             iframes = container.querySelectorAll('iframe'),
             htmlVideo = container.querySelector('video');
 
-        if (iframes) {
+        if (iframes && (iframes.length > 0)) {
             iframes.forEach(iframe => {
                 VideoBundle.initIframeVideo(element, iframe);
                 VideoBundle.showVideo(element, iframe);
@@ -115,6 +115,8 @@ class VideoBundle {
 
     static showVideo(element, video) {
         let container = element.querySelector('.video-container');
+        console.log('ctn html',container)
+
         if (container) {
             container.classList.remove('video-hidden');
         }
