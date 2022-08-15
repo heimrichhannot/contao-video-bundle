@@ -115,7 +115,6 @@ class VideoBundle {
 
     static showVideo(element, video) {
         let container = element.querySelector('.video-container');
-        console.log('ctn html',container)
 
         if (container) {
             container.classList.remove('video-hidden');

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2022-08-15
+- Changed: update non encore assets
+- Fixed: removed debug output
+
 ## [1.0.6] - 2022-08-02
 - Fixed: differentiate html and iframe js
 
