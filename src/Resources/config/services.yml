@@ -14,10 +14,8 @@ services:
     resource: ../../EventListener/Dca/*
     public: true
 
-  HeimrichHannot\VideoBundle\EventSubscriber\PrivacyCenterSubscriber:
+  HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
     autoconfigure: true
-    calls:
-      - [setPrivacyCenterExtension, ['@?HeimrichHannot\PrivacyCenterBundle\Twig\PrivacyCenterExtension']]
 
   HeimrichHannot\VideoBundle\Controller\:
     resource: ../../Controller/*

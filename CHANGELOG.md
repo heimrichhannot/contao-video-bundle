@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2022-09-08
+- Changed: refactored privacy center integration
+- Changed: minumum php version is now 7.4
+- Changed: minumum contao version is now 4.9
+
 ## [1.0.7] - 2022-08-15
 - Changed: update non encore assets
 - Fixed: removed debug output

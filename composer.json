@@ -11,11 +11,16 @@
   ],
   "license": "LGPL-3.0-or-later",
   "require": {
-    "php": "^7.1|^8.0",
-    "contao/core-bundle": "^4.4",
+    "php": "^7.4 || ^8.0",
+    "contao/core-bundle": "^4.9",
     "symfony/http-kernel": "^4.0|^5.4",
     "heimrichhannot/contao-utils-bundle": "^2.60",
-    "heimrichhannot/contao-multi-column-editor-bundle": "^2.13"
+    "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
+    "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0",
+    "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
+  },
+  "conflict": {
+    "heimrichhannot/contao-privacy-center-bundle": "<2.8"
   },
   "autoload": {
     "psr-4": {
