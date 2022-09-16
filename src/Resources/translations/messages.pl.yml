@@ -25,7 +25,9 @@ huh_video:
       ok: "OK"
       showContent: "Pokaż treść"
       cancel: "Anuluj"
-      # DCA
+    accessibility:
+      iframeTitle: Video-Player
+
 huh.list:
   tl_list_config_element.field:
     typeSelectorField.youtube:

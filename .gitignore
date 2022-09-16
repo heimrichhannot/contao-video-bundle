@@ -2,3 +2,5 @@ yarn.lock
 .idea
 node_modules
 composer.lock
+.history
+*.code-workspace

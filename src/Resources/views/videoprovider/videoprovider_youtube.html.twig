@@ -17,11 +17,11 @@
          {% if previewImage|default() %}
              <iframe src="about:blank" data-src="{{ src }}"
                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                     allowfullscreen></iframe>
+                     allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
          {% else %}
              <iframe src="{{ src }}" data-src="{{ src }}"
                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                     allowfullscreen></iframe>
+                     allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
          {% endif %}
      </div>
      {% if secondarySrc|default() %}
@@ -29,11 +29,11 @@
              {% if previewImage|default() %}
                  <iframe src="about:blank" data-src="{{ secondarySrc }}"
                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                         allowfullscreen></iframe>
+                         allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
              {% else %}
                  <iframe src="{{ secondarySrc }}" data-src="{{ secondarySrc }}"
                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                         allowfullscreen></iframe>
+                         allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
              {% endif %}
          </div>
      {% endif %}

@@ -24,6 +24,9 @@ huh_video:
     privacy:
       ok: "OK"
       cancel: "Cancel"
+      showContent: "Show content"
+    accessibility:
+      iframeTitle: Video-Player
 
 # DCA
 huh.list:

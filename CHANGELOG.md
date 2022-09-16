@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2022-09-16
+- Added: iframe aria-labels
+
 ## [1.1.0] - 2022-09-08
 - Changed: refactored privacy center integration
 - Changed: minumum php version is now 7.4

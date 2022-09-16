@@ -37,9 +37,9 @@
         <div class="video-container{% if previewImage|default() %} video-hidden{% endif %}">
             {% block videoplayer %}
                 {% if previewImage|default() %}
-                    <iframe src="about:blank" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="about:blank" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
                 {% else %}
-                    <iframe src="{{ src }}" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="{{ src }}" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
                 {% endif %}
             {% endblock %}
         </div>

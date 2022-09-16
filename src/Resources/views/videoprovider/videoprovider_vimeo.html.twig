@@ -2,8 +2,8 @@
 
 {% block videoplayer %}
     {% if previewImage|default() %}
-        <iframe src="about:blank" data-src="{{ src }}" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="about:blank" data-src="{{ src }}" allow="autoplay; fullscreen" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
     {% else %}
-        <iframe src="{{ src }}" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="{{ src }}" allow="autoplay; fullscreen" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
     {% endif %}
 {% endblock %}

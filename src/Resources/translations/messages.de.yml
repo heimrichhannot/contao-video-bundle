@@ -28,6 +28,7 @@ huh_video:
     accessibility:
       switchToTranscription: "zu Film mit Audio Transkription"
       switchToOriginal: "zu Film ohne Audio Transkription"
+      iframeTitle: Video-Player
 
 # DCA
 huh.list:
