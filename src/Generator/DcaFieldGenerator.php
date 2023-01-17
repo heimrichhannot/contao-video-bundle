@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2022 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -171,36 +171,33 @@ class DcaFieldGenerator
             'videoSRC' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC'],
                 'exclude' => false,
-                'inputType' => 'multiColumnEditor',
-                'eval' => [
-                    'tl_class' => 'long clr',
-                    'multiColumnEditor' => [
-                        'minRowCount' => 1,
-                        'skipCopyValuesOnAdd' => true,
-                        'fields' => [
-                            'file' => [
-                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_file'],
-                                'inputType' => 'fileTree',
-                                'eval' => [
-                                    'multiple' => false,
-                                    'filesOnly' => true,
-                                    'fieldType' => 'radio',
-                                    'mandatory' => true,
-                                    'submitOnChange' => true,
-                                    'groupStyle' => 'width: 48%',
-                                ],
-                            ],
-                            'mediaQuery' => [
-                                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'],
-                                'inputType' => 'select',
-                                'eval' => [
-                                    'includeBlankOption' => true,
-                                    'groupStyle' => 'width: 48%',
-                                ],
-                                'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
-                            ],
+                'inputType' => 'group',
+                'palette' => ['file', 'mediaQuery'],
+                'fields' => [
+                    'file' => [
+                        'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_file'],
+                        'inputType' => 'fileTree',
+                        'eval' => [
+                            'tl_class' => 'w50',
+                            'multiple' => false,
+                            'filesOnly' => true,
+                            'fieldType' => 'radio',
+                            'mandatory' => true,
                         ],
                     ],
+                    'mediaQuery' => [
+                        'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'],
+                        'inputType' => 'select',
+                        'eval' => [
+                            'tl_class' => 'w50',
+                            'includeBlankOption' => true,
+                        ],
+                        'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
+                    ],
+                ],
+                'min' => 1,
+                'eval' => [
+                    'tl_class' => 'long clr',
                 ],
                 'sql' => 'blob NULL',
             ],

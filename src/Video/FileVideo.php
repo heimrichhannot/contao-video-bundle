@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2021 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -187,7 +187,7 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
         $mediaQueryConfig = System::getContainer()->getParameter('huh_video')['media_queries'];
 
         foreach ($data as $video) {
-            $mediaQuery = $mediaQueryConfig[$video['mediaQuery']]['query'];
+            $mediaQuery = $mediaQueryConfig[$video['mediaQuery']]['query'] ?? '';
             $videoSrc[] = [
                 'file' => System::getContainer()->get(ModelUtil::class)->getModelInstanceIfId($video['file'], 'tl_files'),
                 'mediaQuery' => $mediaQuery,

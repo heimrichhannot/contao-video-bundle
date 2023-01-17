@@ -117,23 +117,23 @@ class VideoGenerator
 
         $isPrivacyNoticeEnabled = $this->isPrivacyNoticeEnabled($rootPage);
 
-        if ($isPrivacyNoticeEnabled) {
-            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
-        }
-
         $context['dataAttributes'] = [
             'privacyNotice' => $isPrivacyNoticeEnabled,
             'showPlayButton' => $context['playButton'],
-            '',
         ];
 
-//        if ($video instanceof ExternalElementInterface && empty($context['secondarySrc'])) {
-//            $context['videoAriaLabel'] = $this->translator->trans('huh_video.template.accessibility.iframeTitle');
-//            $context['dataAttributes']['element'] = [
-//                'type' => $video->videoElementType(),
-//                'attributes' => $video->videoElementAttributes($context),
-//            ];
-//        }
+        if ($isPrivacyNoticeEnabled) {
+            $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
+            $context['dataAttributes']['privacyModalContent'] = htmlentities($context['privacyNotice']);
+        }
+
+        if ($video instanceof ExternalElementInterface && empty($context['secondarySrc'])) {
+            $context['videoAriaLabel'] = $this->translator->trans('huh_video.template.accessibility.iframeTitle');
+            $context['dataAttributes']['element'] = [
+                'type' => $video->videoElementType(),
+                'attributes' => $video->videoElementAttributes($context),
+            ];
+        }
 
         $event = $this->eventDispatcher->dispatch(
             new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options),
