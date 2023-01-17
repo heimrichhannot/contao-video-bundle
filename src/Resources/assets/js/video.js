@@ -29,6 +29,7 @@ export default class Video {
 
         if ('link' === type) {
             this.applyPrivacySettingsToLink();
+            return;
         }
 
         this.previewImageElement = this.wrapperElement.querySelector('.video-wrapper .video-thumbnail');
@@ -36,6 +37,9 @@ export default class Video {
         this.legacyPrivacyCheck();
 
         this.applyPrivacySettingsToVideo();
+        if ('toggleVideo' in this.configuration) {
+            this.videoToggle();
+        }
     }
 
     applyPrivacySettingsToVideo() {
@@ -66,8 +70,7 @@ export default class Video {
         }
     }
 
-    applyPrivacySettingsToLink()
-    {
+    applyPrivacySettingsToLink() {
         // legacy support
         // @todo Deprecated, remove in next major version
         if (!this.privacyMode) {
@@ -233,7 +236,11 @@ export default class Video {
             if (iframes.length > 0) {
                 iframes.forEach((iframe) => {
                     iframe.src = iframe.dataset.src;
-                    document.dispatchEvent(new CustomEvent('videoInitialized', {detail: iframe, bubbles: true, cancelable: true}));
+                    document.dispatchEvent(new CustomEvent('videoInitialized', {
+                        detail: iframe,
+                        bubbles: true,
+                        cancelable: true
+                    }));
                 });
             } else {
                 let videoElements = this.videoContainerElement.querySelectorAll(':scope > video');
@@ -241,7 +248,11 @@ export default class Video {
                     return false;
                 }
                 videoElements.forEach((element) => {
-                    document.dispatchEvent(new CustomEvent('videoInitialized', {detail: element, bubbles: true, cancelable: true}));
+                    document.dispatchEvent(new CustomEvent('videoInitialized', {
+                        detail: element,
+                        bubbles: true,
+                        cancelable: true
+                    }));
                 });
             }
         }
@@ -252,6 +263,60 @@ export default class Video {
         }
 
         return true;
+    }
+
+    videoToggle() {
+
+        const initStates = [true, true];
+
+        let toggleButtons = this.wrapperElement.querySelectorAll('.huh_video .video-toggle-ctn button');
+        let liveRegion = this.wrapperElement.querySelector('#videoToggleLiveRegionOutput');
+
+        const toggleVideo = (index, withLiveRegion = false) => {
+            let states = initStates.slice(0);
+            states[index] = false;
+
+            if (toggleButtons.length > 0) {
+                states.forEach((state, i) => {
+
+                    let videoCtn = this.wrapperElement.querySelector('#' + toggleButtons[i].getAttribute('aria-controls'));
+
+                    if (state) {
+                        toggleButtons[i].classList.add('btn-video-show');
+                        videoCtn.style.display = 'none';
+                        // Refresh iframe
+                        let iframe = videoCtn.querySelector('iframe');
+                        if(iframe !== null) {
+                            iframe.setAttribute('src', iframe.src);
+                        }
+
+                    } else {
+                        toggleButtons[i].classList.remove('btn-video-show');
+                        videoCtn.style.display = 'block';
+                    }
+
+                })
+
+                // TODO how to localize this
+                if (withLiveRegion) {
+                    if (!index) {
+                        liveRegion.textContent = "Audiodeskription steht im folgenden Video zur Verfügung";
+                    } else {
+                        liveRegion.textContent = "Audiodeskription steht im folgenden Video nicht mehr zur Verfügung";
+                    }
+                }
+            }
+        }
+
+        if (toggleButtons.length > 0) {
+            toggleButtons.forEach((btn, index) => {
+                btn.addEventListener('click', el => {
+                    toggleVideo(index, true);
+                })
+            })
+
+            toggleVideo(1);
+        }
     }
 
     /**

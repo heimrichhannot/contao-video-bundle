@@ -120,6 +120,7 @@ class VideoGenerator
         $context['dataAttributes'] = [
             'privacyMode' => $isPrivacyNoticeEnabled,
             'showPlayButton' => $context['playButton'],
+            'toggleVideo' => !empty($context['secondarySrc']),
         ];
 
         if ($isPrivacyNoticeEnabled) {
