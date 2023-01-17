@@ -1,1 +1,6 @@
-[name=videoAlternativeText]{height:150px!important}
+[name="videoAlternativeText"] {
+  height: 150px !important;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vY29udGFvLXZpZGVvLWJ1bmRsZS1iZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usd0JBQXdCO0FBQzFCIiwiZmlsZSI6ImNvbnRhby12aWRlby1idW5kbGUtYmUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiW25hbWU9XCJ2aWRlb0FsdGVybmF0aXZlVGV4dFwiXSB7XG4gIGhlaWdodDogMTUwcHggIWltcG9ydGFudDtcbn0iXSwic291cmNlUm9vdCI6IiJ9*/
