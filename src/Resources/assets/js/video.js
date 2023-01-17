@@ -9,29 +9,38 @@ export default class Video {
     /** @type {HTMLElement|null} */
     previewImageElement;
     /** @type {boolean} */
-    privacyNotice;
+    privacyMode;
     /** @type {HTMLElement|null} */
     videoContainerElement;
     /** @type {HTMLElement|null} */
     wrapperElement;
+    /** @type {string} */
+    type;
 
     /**
      * @param {Element} wrapperElement
+     * @param {string } type
      */
-    constructor(wrapperElement) {
+    constructor(wrapperElement, type = 'video') {
         this.wrapperElement = wrapperElement;
+        this.type = type;
         this.configuration = this.wrapperElement.dataset
-        this.privacyNotice = ('privacyNotice' in this.configuration);
+        this.privacyMode = ('privacyMode' in this.configuration);
+
+        if ('link' === type) {
+            this.applyPrivacySettingsToLink();
+        }
+
         this.previewImageElement = this.wrapperElement.querySelector('.video-wrapper .video-thumbnail');
         this.videoContainerElement = this.wrapperElement.querySelector('.video-wrapper .video-container');
         this.legacyPrivacyCheck();
 
-        this.applyPrivacySetting();
+        this.applyPrivacySettingsToVideo();
     }
 
-    applyPrivacySetting() {
+    applyPrivacySettingsToVideo() {
         // always show video if privacy is not activated
-        if (!this.privacyNotice) {
+        if (!this.privacyMode) {
             this.showVideo();
             return;
         }
@@ -50,10 +59,37 @@ export default class Video {
             this.showVideo();
         }
 
-        this.privacyDialog();
+        if (this.previewImageElement) {
+            this.previewImageElement.addEventListener('click',
+                () => this.privacyDialog(this.previewImageElement, () => this.showVideo())
+            );
+        }
     }
 
-    privacyDialog() {
+    applyPrivacySettingsToLink()
+    {
+        // legacy support
+        // @todo Deprecated, remove in next major version
+        if (!this.privacyMode) {
+            if ('privacy' in this.configuration) {
+                this.privacyMode = true;
+                console.warn("You're using an outdated video fullsize template. Please adjust your template according to the docs. Since version 1.2.0");
+            }
+        }
+
+        this.wrapperElement.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (this.privacyMode) {
+                this.privacyDialog(this.wrapperElement, (element) => window.open(element.getAttribute('href')));
+            }
+        })
+    }
+
+    /**
+     * @param {HTMLElement|null} element
+     * @param {function} successCallback
+     */
+    privacyDialog(element, successCallback) {
         let dialog = alertify.confirm().set({
             labels: this.privacyDialogLabels(),
             onshow: function() {
@@ -64,10 +100,26 @@ export default class Video {
                         elements: dialog.elements
                     }
                 }));
+                // @todo deprecated, remove in next major version
+                document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onshow', {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: {
+                        elements: dialog.elements
+                    }
+                }));
             },
             defaultFocusOff: true,
             onfocus: function() {
                 document.dispatchEvent(new CustomEvent('huh.video.alertify.onfocus', {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: {
+                        elements: dialog.elements
+                    }
+                }));
+                // @todo deprecated, remove in next major version
+                document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onfocus', {
                     bubbles: true,
                     cancelable: true,
                     detail: {
@@ -86,9 +138,11 @@ export default class Video {
             return;
         }
 
-        let element = this.previewImageElement;
-        if (!this.previewImageElement) {
-            element = this.wrapperElement;
+        if (!element) {
+            element = this.previewImageElement;
+            if (!this.previewImageElement) {
+                element = this.wrapperElement;
+            }
         }
 
         alertify.confirm('&nbsp;',
@@ -104,7 +158,7 @@ export default class Video {
                         elements: dialog.elements
                     }
                 }));
-                this.showVideo()
+                successCallback(element);
             },
             function() {
                 element.dispatchEvent(new CustomEvent('huh.video.privacy.cancel', {
@@ -179,12 +233,16 @@ export default class Video {
             if (iframes.length > 0) {
                 iframes.forEach((iframe) => {
                     iframe.src = iframe.dataset.src;
+                    document.dispatchEvent(new CustomEvent('videoInitialized', {detail: iframe, bubbles: true, cancelable: true}));
                 });
             } else {
                 let videoElements = this.videoContainerElement.querySelectorAll(':scope > video');
                 if (videoElements.length < 1) {
                     return false;
                 }
+                videoElements.forEach((element) => {
+                    document.dispatchEvent(new CustomEvent('videoInitialized', {detail: element, bubbles: true, cancelable: true}));
+                });
             }
         }
 
@@ -200,9 +258,9 @@ export default class Video {
      * @todo Remove in next major version
      */
     legacyPrivacyCheck() {
-        if (!this.privacyNotice && this.previewImageElement) {
+        if (!this.privacyMode && this.previewImageElement) {
             if ('privacy' in this.previewImageElement.dataset) {
-                this.privacyNotice = true;
+                this.privacyMode = true;
                 console.warn("You're using an outdated video templates. Please adjust your template according to the docs. Since version 1.2.0");
             }
         }

@@ -3,10 +3,15 @@ import Video from './video'
 document.addEventListener('DOMContentLoaded', function(){
     let wrapperElements = document.querySelectorAll('.huh_video');
     wrapperElements.forEach((element) => new Video(element));
+
+    // fullsize videos
+    document.querySelectorAll('.huh_video.video-link').forEach(function(element) {
+        new Video(element, 'link');
+    });
 });
 
-import EventUtil from '@hundh/contao-utils-bundle/js/event-util';
-import alertify from 'alertifyjs';
+// import EventUtil from '@hundh/contao-utils-bundle/js/event-util';
+// import alertify from 'alertifyjs';
 
 // const videoThumbnailSelector = '.huh_video > .video-wrapper > .video-thumbnail';
 // const htmlVideoSelector = '.huh_video > .video-wrapper > .video-container';

@@ -118,7 +118,7 @@ class VideoGenerator
         $isPrivacyNoticeEnabled = $this->isPrivacyNoticeEnabled($rootPage);
 
         $context['dataAttributes'] = [
-            'privacyNotice' => $isPrivacyNoticeEnabled,
+            'privacyMode' => $isPrivacyNoticeEnabled,
             'showPlayButton' => $context['playButton'],
         ];
 
