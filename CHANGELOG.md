@@ -2,13 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - 2023-01-18
-- Added: ExternalElementInterface
-- Changed: [Attention!] added data attributes variable to wrapper elements. Please adjust your custom templates.
-- Changed: refactored js code
-- Fixed: compatibility issues with contao 4.13
-- Fixed: palette issues in tl_page and tl_content
-- Fixed: warning with php 8
+## [1.2.0] - 2023-01-18
+- Added: ExternalElementInterface ([#15])
+- Changed: [Attention!] added data attributes variable to wrapper elements. Please adjust your custom templates. ([#15])
+- Changed: refactored js code ([#15])
+- Fixed: compatibility issues with contao 4.13 ([#15])
+- Fixed: palette issues in tl_page and tl_content ([#15])
+- Fixed: warning with php 8 ([#15])
 
 ## [1.1.1] - 2022-09-16
 - Added: iframe aria-labels
@@ -202,3 +202,5 @@ All notable changes to this project will be documented in this file.
 
 Initial version
 
+
+[#15]: https://github.com/heimrichhannot/contao-video-bundle/pull/15
