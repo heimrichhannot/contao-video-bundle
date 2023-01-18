@@ -16,7 +16,7 @@
     "symfony/http-kernel": "^4.4 || ^5.4",
     "heimrichhannot/contao-utils-bundle": "^2.224",
     "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
-    "mvo/contao-group-widget": "^1.5",
+    "heimrichhannot/contao-twig-support-bundle": "^1.5",
     "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0",
     "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
   },
