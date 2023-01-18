@@ -13,9 +13,10 @@
   "require": {
     "php": "^7.4 || ^8.0",
     "contao/core-bundle": "^4.9",
-    "symfony/http-kernel": "^4.0|^5.4",
-    "heimrichhannot/contao-utils-bundle": "^2.60",
+    "symfony/http-kernel": "^4.4 || ^5.4",
+    "heimrichhannot/contao-utils-bundle": "^2.224",
     "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
+    "heimrichhannot/contao-twig-support-bundle": "^1.5",
     "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0",
     "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
   },

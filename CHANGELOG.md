@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased] - 2023-01-18
+- Added: ExternalElementInterface
+- Changed: [Attention!] added data attributes variable to wrapper elements. Please adjust your custom templates.
+- Changed: refactored js code
+- Fixed: compatibility issues with contao 4.13
+- Fixed: palette issues in tl_page and tl_content
+- Fixed: warning with php 8
+
 ## [1.1.1] - 2022-09-16
 - Added: iframe aria-labels
 
