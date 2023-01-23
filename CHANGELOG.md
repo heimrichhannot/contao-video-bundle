@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2023-01-23
+- Added: encore contracts support ([#16])
+
 ## [1.2.0] - 2023-01-18
 - Added: ExternalElementInterface ([#15])
 - Changed: [Attention!] added data attributes variable to wrapper elements. Please adjust your custom templates. ([#15])
@@ -203,4 +206,5 @@ All notable changes to this project will be documented in this file.
 Initial version
 
 
+[#16]: https://github.com/heimrichhannot/contao-video-bundle/pull/16
 [#15]: https://github.com/heimrichhannot/contao-video-bundle/pull/15
