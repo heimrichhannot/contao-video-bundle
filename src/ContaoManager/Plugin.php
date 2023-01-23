@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -38,10 +38,6 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
             $loadAfter[] = HeimrichHannotContaoListBundle::class;
         }
 
-        if (class_exists('HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle')) {
-            $loadAfter[] = HeimrichHannotContaoEncoreBundle::class;
-        }
-
         return [
             BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter($loadAfter),
         ];
@@ -53,10 +49,6 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
     {
         $loader->load('@HeimrichHannotVideoBundle/Resources/config/services.yml');
-
-        if (class_exists('HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle')) {
-            $loader->load('@HeimrichHannotVideoBundle/Resources/config/config_encore.yml');
-        }
     }
 
     /**
