@@ -8,6 +8,11 @@ services:
     resource: '../../{Asset,Controller}/*'
     autoconfigure: true
 
+  HeimrichHannot\VideoBundle\Asset\FrontendAsset:
+    public: true
+    autoconfigure: true
+    autowire: true
+
   HeimrichHannot\VideoBundle\Generator\VideoGenerator:
     public: true
 
