@@ -41,7 +41,8 @@ huh.video.privacy.cancel | User canceled privacy prompt
    
 1. Implement optional interfaces:
     * `PreviewImageInterface` - Video support preview images
-    * `NoCookieUrlInterface` - Videoprovider supports no cookie embedding
+    * `NoCookieUrlInterface` - Video provider supports no cookie embedding
+    * `ExternalElementInterface` - Video provider tag can be inserted dynamically
 
 1. Add video translations within `huh_video.video.youtube`
 
@@ -70,7 +71,7 @@ huh.video.privacy.cancel | User canceled privacy prompt
    
 ## Add custom video link texts
 
-Add your wanted translation as [symfony translation](https://symfony.com/doc/3.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example: 
+Add your wanted translation as [symfony translation](https://symfony.com/doc/4.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example: 
 
 ```yaml
 # Projekt: app/Resources/translations/messages.en.yml

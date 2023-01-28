@@ -4,6 +4,15 @@ services:
     bind:
       $bundleConfig: '%huh_video%'
 
+  HeimrichHannot\VideoBundle\:
+    resource: '../../{Asset,Controller}/*'
+    autoconfigure: true
+
+  HeimrichHannot\VideoBundle\Asset\FrontendAsset:
+    public: true
+    autoconfigure: true
+    autowire: true
+
   HeimrichHannot\VideoBundle\Generator\VideoGenerator:
     public: true
 
@@ -17,9 +26,6 @@ services:
   HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
     autoconfigure: true
 
-  HeimrichHannot\VideoBundle\Controller\:
-    resource: ../../Controller/*
-
   HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener:
     public: true
 
@@ -28,11 +34,6 @@ services:
 
   HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener:
     public: true
-
-  HeimrichHannot\VideoBundle\Asset\FrontendAsset:
-    public: true
-    calls:
-      - [setEncoreFrontendAsset, ['@?HeimrichHannot\EncoreBundle\Asset\FrontendAsset']]
 
   HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
     tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']

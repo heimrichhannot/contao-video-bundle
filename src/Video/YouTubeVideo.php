@@ -1,14 +1,14 @@
 <?php
 
 /*
- * Copyright (c) 2022 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
 
 namespace HeimrichHannot\VideoBundle\Video;
 
-class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface
+class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface, ExternalElementInterface
 {
     const PRIVACY_EMBED_URL = 'https://www.youtube-nocookie.com/embed/';
     const DEFAULT_EMBED_URL = 'https://www.youtube.com/embed/';
@@ -141,6 +141,21 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
     public static function getPalette(): string
     {
         return 'youtube,videoDuration,transcriptedYoutube,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
+    }
+
+    public function videoElementType(): string
+    {
+        return 'iframe';
+    }
+
+    public function videoElementAttributes(array $context): array
+    {
+        return [
+            'src' => $context['src'],
+            'allow' => 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture',
+            'allowfullscreen' => true,
+            'aria-label' => $context['videoAriaLabel'],
+        ];
     }
 
     protected function createUrl(bool $noCookie, string $videoId): string

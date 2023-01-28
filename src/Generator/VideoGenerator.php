@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2022 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -15,8 +15,10 @@ use Contao\PageModel;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
+use HeimrichHannot\VideoBundle\Video\ExternalElementInterface;
 use HeimrichHannot\VideoBundle\Video\NoCookieUrlInterface;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -54,11 +56,15 @@ class VideoGenerator
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
+    /**
+     * @var Utils
+     */
+    private $utils;
 
     /**
      * VideoGenerator constructor.
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher)
+    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, Utils $utils)
     {
         $this->twig = $twig;
         $this->modelUtil = $modelUtil;
@@ -67,6 +73,7 @@ class VideoGenerator
         $this->translator = $translator;
         $this->templateUtil = $templateUtil;
         $this->eventDispatcher = $eventDispatcher;
+        $this->utils = $utils;
     }
 
     /**
@@ -108,16 +115,36 @@ class VideoGenerator
 
         $context['playButton'] = $video->getAddPlayButton();
 
-        if ($this->isPrivacyNoticeEnabled($rootPage)) {
+        $isPrivacyNoticeEnabled = $this->isPrivacyNoticeEnabled($rootPage);
+
+        $context['dataAttributes'] = [
+            'privacyMode' => $isPrivacyNoticeEnabled,
+            'showPlayButton' => $context['playButton'],
+            'toggleVideo' => !empty($context['secondarySrc']),
+        ];
+
+        if ($isPrivacyNoticeEnabled) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
+            $context['dataAttributes']['privacyModalContent'] = htmlentities($context['privacyNotice']);
         }
 
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        /** @noinspection PhpParamsInspection */
+        if ($video instanceof ExternalElementInterface && empty($context['secondarySrc'])) {
+            $context['videoAriaLabel'] = $this->translator->trans('huh_video.template.accessibility.iframeTitle');
+            $context['dataAttributes']['element'] = [
+                'type' => $video->videoElementType(),
+                'attributes' => $video->videoElementAttributes($context),
+            ];
+        }
+
         $event = $this->eventDispatcher->dispatch(
             new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options),
             BeforeRenderPlayerEvent::NAME);
+
         $context = $event->getContext();
+        $context['dataAttributes'] = $this->utils->html()->generateDataAttributesString(
+            $context['dataAttributes'],
+            ['array_handling' => 'encode']
+        );
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
 
@@ -127,8 +154,6 @@ class VideoGenerator
             $videoBuffer = "\n<!-- TWIG TEMPLATE START: $strRelPath -->\n$videoBuffer\n<!-- TWIG TEMPLATE END: $strRelPath -->\n";
         }
 
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        /** @noinspection PhpParamsInspection */
         /** @var AfterRenderPlayerEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new AfterRenderPlayerEvent($videoBuffer, $event->getVideo(), $context, $event->getParent(), $event->getRootPage(), $event->getOptions()),

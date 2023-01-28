@@ -1,12 +1,15 @@
 <?php
 
 /*
- * Copyright (c) 2022 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\DataContainer;
+use Contao\System;
+use HeimrichHannot\TwigSupportBundle\Filesystem\TwigTemplateLocator;
 
 $arrDca = &$GLOBALS['TL_DCA']['tl_page'];
 
@@ -20,7 +23,7 @@ $arrDca['palettes']['__selector__'][] = 'overrideEnablePrivacyNotice';
  * Palettes
  */
 PaletteManipulator::create()
-    ->addLegend('video_legend', 'publish_legend', PaletteManipulator::POSITION_AFTER)
+    ->addLegend('video_legend', 'website_legend', PaletteManipulator::POSITION_AFTER)
     ->addField(['overrideNoCookieVideoUrlSettings', 'overrideEnablePrivacyNotice', 'videofullsizeTemplate', 'videoprivacyTemplate'], 'video_legend', PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('root', 'tl_page')
     ->applyToPalette('rootfallback', 'tl_page');
@@ -71,8 +74,8 @@ $fields = [
         'default' => 'videofullsize_default',
         'exclude' => true,
         'inputType' => 'select',
-        'options_callback' => function (Contao\DataContainer $dc) {
-            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['videofullsize_'])->getCachedChoices();
+        'options_callback' => function (DataContainer $dc) {
+            return System::getContainer()->get(TwigTemplateLocator::class)->getTemplateGroup('videofullsize_');
         },
         'eval' => ['tl_class' => 'w50 clr'],
         'sql' => "varchar(64) NOT NULL default ''",
@@ -82,8 +85,8 @@ $fields = [
         'exclude' => true,
         'inputType' => 'select',
         'default' => 'videoprivacy_default.twig',
-        'options_callback' => function (Contao\DataContainer $dc) {
-            return System::getContainer()->get('huh.utils.choice.twig_template')->setContext(['videoprivacy_'])->getCachedChoices();
+        'options_callback' => function (DataContainer $dc) {
+            return System::getContainer()->get(TwigTemplateLocator::class)->getTemplateGroup('videoprivacy_');
         },
         'eval' => ['tl_class' => 'w50', 'mandatory' => true],
         'sql' => "varchar(64) NOT NULL default ''",
