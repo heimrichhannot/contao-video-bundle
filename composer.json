@@ -26,7 +26,8 @@
   },
   "autoload": {
     "psr-4": {
-      "HeimrichHannot\\VideoBundle\\": "src/"
+      "HeimrichHannot\\VideoBundle\\": "src/",
+      "einhornimmond\\VideoBundle\\": "src/"
     }
   },
   "extra": {

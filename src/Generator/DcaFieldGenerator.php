@@ -204,6 +204,42 @@ class DcaFieldGenerator
                 ],
                 'sql' => 'blob NULL',
             ],
+            'multiResolutionVideoSRC' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC'],
+                'exclude' => false,
+                'inputType' => 'multiColumnEditor',
+                'eval' => [
+                    'tl_class' => 'long clr',
+                    'multiColumnEditor' => [
+                        'minRowCount' => 1,
+                        'skipCopyValuesOnAdd' => true,
+                        'fields' => [
+                            'file' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'],
+                                'inputType' => 'fileTree',
+                                'eval' => [
+                                    'multiple' => false,
+                                    'filesOnly' => true,
+                                    'fieldType' => 'radio',
+                                    'mandatory' => true,
+                                    'submitOnChange' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                            ],
+                            'mediaQuery' => [
+                                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_mediaQuery'],
+                                'inputType' => 'select',
+                                'eval' => [
+                                    'includeBlankOption' => true,
+                                    'groupStyle' => 'width: 48%',
+                                ],
+                                'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
+                            ],
+                        ],
+                    ],
+                ],
+                'sql' => 'blob NULL',
+            ],
             'videoSubtitles' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSubtitles'],
                 'exclude' => false,
