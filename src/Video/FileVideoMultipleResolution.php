@@ -12,6 +12,7 @@ use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\UtilsBundle\File\FileUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\VideoBundle\Video\FileVideo;
 
 class FileVideoMultipleResolution extends FileVideo 
 {
