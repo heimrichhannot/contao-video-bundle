@@ -10,6 +10,7 @@ namespace HeimrichHannot\VideoBundle\Generator;
 
 use Contao\Controller;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
+use HeimrichHannot\VideoBundle\Video\FileVideoMultipleResolution;
 
 class DcaFieldGenerator
 {
@@ -204,39 +205,18 @@ class DcaFieldGenerator
                 ],
                 'sql' => 'blob NULL',
             ],
-            'multiResolutionVideoSRC' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC'],
-                'exclude' => false,
-                'inputType' => 'multiColumnEditor',
+            'multiResolutionVideoSRC' => [                
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'],
+                'inputType' => 'fileTree',
                 'eval' => [
-                    'tl_class' => 'long clr',
-                    'multiColumnEditor' => [
-                        'minRowCount' => 1,
-                        'skipCopyValuesOnAdd' => true,
-                        'fields' => [
-                            'file' => [
-                                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'],
-                                'inputType' => 'fileTree',
-                                'eval' => [
-                                    'multiple' => false,
-                                    'filesOnly' => true,
-                                    'fieldType' => 'radio',
-                                    'mandatory' => true,
-                                    'submitOnChange' => true,
-                                    'groupStyle' => 'width: 48%',
-                                ],
-                            ],
-                            'mediaQuery' => [
-                                'label' => &$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_mediaQuery'],
-                                'inputType' => 'select',
-                                'eval' => [
-                                    'includeBlankOption' => true,
-                                    'groupStyle' => 'width: 48%',
-                                ],
-                                'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
-                            ],
-                        ],
-                    ],
+                    'multiple' => true,
+                    'filesOnly' => true,
+                    'fieldType' => 'checkbox',
+                    'mandatory' => true,
+                    'submitOnChange' => true,
+                    'groupStyle' => 'width: 48%',
+                    'rgxp' => 'custom',
+                    'customRgxp' => FileVideoMultipleResolution::getFilePathRegExp()
                 ],
                 'sql' => 'blob NULL',
             ],

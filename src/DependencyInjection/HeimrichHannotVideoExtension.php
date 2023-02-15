@@ -9,7 +9,7 @@
 namespace HeimrichHannot\VideoBundle\DependencyInjection;
 
 use HeimrichHannot\VideoBundle\Video\FileVideo;
-use einhornimmond\VideoBundle\Video\FileVideoMultipleResolution;
+use HeimrichHannot\VideoBundle\Video\FileVideoMultipleResolution;
 use HeimrichHannot\VideoBundle\Video\VimeoVideo;
 use HeimrichHannot\VideoBundle\Video\YouTubeVideo;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

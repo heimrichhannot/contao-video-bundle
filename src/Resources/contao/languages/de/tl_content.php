@@ -40,7 +40,7 @@ $GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'][0] = 'Mediaquery';
 $GLOBALS['TL_LANG']['tl_content']['videoSRC_mediaQuery'][1] = 'Wählen Sie die Mediaquery für das Video aus.';
 
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC'][0] = 'Videoquelle und Mediaquery';
-$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC'][1] = 'Wählen sie hier die Video Dateien aus und die Media Query in der diese Datei angezeigt werden soll.';
+$GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC'][1] = 'Wählen Sie eine oder mehrere Dateien mit dem Video aus. Sie können verschiedene Auflösungen desselben Videos wählen. Dabei sollte die Pixelbreite am Ende des Dateinamens stehen, z.B. video_1080.mp4 und die Media Query in der diese Datei angezeigt werden soll.';
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'][0] = 'Videodateien';
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'][1] = 'Wählen Sie eine oder mehrere Dateien mit dem Video aus. Sie können verschiedene Auflösungen desselben Videos wählen. Dabei sollte die Pixelbreite am Ende des Dateinamens stehen, z.B. video_1080.mp4';
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_mediaQuery'][0] = 'Mediaquery';

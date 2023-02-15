@@ -1,0 +1,35 @@
+{% extends "@HeimrichHannotVideo/videoprovider/videoprovider_tabbed.html.twig" %}
+
+{% block previewImage %}
+    {% if playButton|default() %}
+        <div class="video-thumbnail">
+            <div class="image_container">
+                {% block playbutton %}
+                    <button class="play-button {{ type|default }}" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
+                {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block videoplayer %}
+    <video
+    id="video_player_{{id}}"
+    {% if previewImage|default() %} poster="{{ previewImage.picture.img.src }}"{% endif %}
+    {% if autoplay|default() == true %} autoplay playsinline muted{% endif %}
+    {% if controls|default() == true %} controls="controls"{% endif %}
+    {% if loop|default() == true %} loop{% endif%} 
+    preload="metadata" 
+    data-files='{{ filesJson|raw }}' 
+    data-resolutions='{{ resolutionsJson|raw }}'   
+    >
+        {% if subtitles|default() %}
+            {% for subtitle in subtitles %}
+                <track label="{{ subtitle.label }}" kind="subtitles" srclang="{{ subtitle.lang }}" src="{{ subtitle.src }}">
+            {% endfor %}
+        {% endif %}
+        {% if alternativeText|default() %}
+            {{ alternativeText }}
+        {% endif %}
+    </video>     
+{% endblock %}        
