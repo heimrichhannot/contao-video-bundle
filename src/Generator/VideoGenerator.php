@@ -8,10 +8,12 @@
 
 namespace HeimrichHannot\VideoBundle\Generator;
 
+use Contao\BackendTemplate;
 use Contao\Config;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
+use Contao\System;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
@@ -87,6 +89,16 @@ class VideoGenerator
      */
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
+
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request))
+        {
+            $objTemplate = new BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['CTE'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE][0] . ' ###';
+
+            return $objTemplate->parse();
+        }
+
         if (isset($options['rootPage'])) {
             if (!$options['rootPage'] instanceof PageModel) {
                 throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".\get_class($options['rootPage']));
