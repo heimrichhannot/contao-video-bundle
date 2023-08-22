@@ -25,6 +25,5 @@ $dca['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] 
  * Fields.
  */
 $arrFields = \HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::getVideoFields();
-$arrFields['vimeo']['sql'] = "varchar(128) NOT NULL default ''";
 
 $dca['fields'] = array_merge($dca['fields'], $arrFields);
