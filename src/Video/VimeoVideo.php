@@ -104,7 +104,12 @@ class VimeoVideo extends AbstractVideo implements PreviewImageInterface, NoCooki
         }
 
         if (!empty($queryParams)) {
-            $url .= '?'.http_build_query($queryParams);
+            $addParamString = '?';
+            if (false !== stripos($url, '?')) {
+                $addParamString = '&';
+            }
+
+            $url .= $addParamString . http_build_query($queryParams);
         }
 
         return $url;

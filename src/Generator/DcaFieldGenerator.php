@@ -276,6 +276,8 @@ class DcaFieldGenerator
             ],
         ];
 
+        $videoFields['vimeo']['sql'] = "varchar(128) NOT NULL default ''";
+
         if (!empty($dca) && !\array_key_exists('posterSRC', $dca['fields'])) {
             $videoFields['posterSRC'] = $GLOBALS['TL_DCA']['tl_content']['fields']['posterSRC'];
         }
