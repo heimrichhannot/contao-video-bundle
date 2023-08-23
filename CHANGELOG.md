@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2023-08-23
+- Added: support for additional url parameter for vimeo ([#18], [@zonky2])
+
 ## [1.3.1] - 2023-05-08
 - Fixed: generate content element in backend 
 
@@ -209,5 +212,8 @@ All notable changes to this project will be documented in this file.
 Initial version
 
 
-[#16]: https://github.com/heimrichhannot/contao-video-bundle/pull/16
 [#15]: https://github.com/heimrichhannot/contao-video-bundle/pull/15
+[#16]: https://github.com/heimrichhannot/contao-video-bundle/pull/16
+[#18]: https://github.com/heimrichhannot/contao-video-bundle/pull/18
+
+[@zonky2]: https://github.com/zonky2
