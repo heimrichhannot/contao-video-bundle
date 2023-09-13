@@ -1,13 +1,14 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\FrontendTemplate;
 use Contao\Module;
 use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
@@ -15,24 +16,15 @@ use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
 
+/**
+ * @Hook("parseArticles")
+ */
 class ParseArticlesListener
 {
-    /**
-     * @var array
-     */
-    private $bundleConfig;
-    /**
-     * @var VideoProviderCollection
-     */
-    private $videoProviderCollection;
-    /**
-     * @var VideoGenerator
-     */
-    private $videoGenerator;
-    /**
-     * @var FrontendAsset
-     */
-    private $frontendAsset;
+    private array $bundleConfig;
+    private VideoProviderCollection $videoProviderCollection;
+    private VideoGenerator $videoGenerator;
+    private FrontendAsset $frontendAsset;
 
     public function __construct(array $bundleConfig, VideoProviderCollection $videoProviderCollection, VideoGenerator $videoGenerator, FrontendAsset $frontendAsset)
     {
@@ -42,10 +34,7 @@ class ParseArticlesListener
         $this->frontendAsset = $frontendAsset;
     }
 
-    /**
-     * Hook("parseArticles").
-     */
-    public function onParseArticles(FrontendTemplate $template, array $newsEntry, Module $module): void
+    public function __invoke(FrontendTemplate $template, array $newsEntry, Module $module): void
     {
         if (!isset($this->bundleConfig['enable_news_support']) || true !== $this->bundleConfig['enable_news_support']) {
             return;

@@ -1,37 +1,28 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\CoreBundle\ServiceAnnotation\Hook;
+
+/**
+ * @Hook("sqlGetFromDca")
+ */
 class SqlGetDataListener
 {
-    /**
-     * @var array
-     */
-    private $bundleConfig;
+    private array $bundleConfig;
 
-    /**
-     * LoadDataContainerListener constructor.
-     */
     public function __construct(array $bundleConfig)
     {
         $this->bundleConfig = $bundleConfig;
     }
 
-    /**
-     * Hook loadDataContainer.
-     */
-    public function onSqlGetFromDca($sqlDcaData)
-    {
-        return $this->preparePageTable($sqlDcaData);
-    }
-
-    protected function preparePageTable($sqlDcaData)
+    public function __invoke($sqlDcaData)
     {
         return $this->enablePrivacyCenterSupport($sqlDcaData);
     }
@@ -45,7 +36,7 @@ class SqlGetDataListener
         if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
             trigger_error(
                 'HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.',
-                E_USER_WARNING);
+                \E_USER_WARNING);
 
             return $sqlDcaData;
         }

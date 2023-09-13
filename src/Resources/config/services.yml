@@ -5,7 +5,7 @@ services:
       $bundleConfig: '%huh_video%'
 
   HeimrichHannot\VideoBundle\:
-    resource: '../../{Asset,Controller}/*'
+    resource: '../../{Asset,Controller,EventListener}/*'
     autoconfigure: true
 
   HeimrichHannot\VideoBundle\Asset\FrontendAsset:
@@ -23,20 +23,5 @@ services:
     resource: ../../EventListener/Dca/*
     public: true
 
-  HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
-    autoconfigure: true
-
-  HeimrichHannot\VideoBundle\EventListener\LoadDataContainerListener:
-    public: true
-
-  HeimrichHannot\VideoBundle\EventListener\SqlGetDataListener:
-    public: true
-
-  HeimrichHannot\VideoBundle\EventListener\ParseArticlesListener:
-    public: true
-
   HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
     tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']
-
-  HeimrichHannot\VideoBundle\EventListener\InitializeSystemListener:
-    public: true

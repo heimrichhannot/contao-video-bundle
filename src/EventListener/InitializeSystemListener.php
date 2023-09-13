@@ -1,47 +1,31 @@
 <?php
 
 /*
- * Copyright (c) 2020 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
-use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
+use Contao\CoreBundle\ServiceAnnotation\Hook;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 
 /**
  * @Hook("initializeSystem")
  */
 class InitializeSystemListener
 {
-    /**
-     * @var ContainerUtil
-     */
-    protected $containerUtil;
+    private Utils $utils;
 
-    public function __construct(ContainerUtil $containerUtil)
+    public function __construct(Utils $utils)
     {
-        $this->containerUtil = $containerUtil;
+        $this->utils = $utils;
     }
 
     public function __invoke(): void
     {
-        $this->addBackendAssets();
-        $hookKeys = array_keys($GLOBALS['TL_HOOKS']['loadDataContainer']);
-
-        if (($hookPosition = array_search('huh_video', $hookKeys, true)) > array_search('multiColumnEditor', $hookKeys, true)) {
-            $tmp = $GLOBALS['TL_HOOKS']['loadDataContainer']['multiColumnEditor'];
-            unset($GLOBALS['TL_HOOKS']['loadDataContainer']['multiColumnEditor']);
-            array_insert($GLOBALS['TL_HOOKS']['loadDataContainer'], $hookPosition, ['multiColumnEditor' => $tmp]);
-
-            return;
-        }
-    }
-
-    protected function addBackendAssets(): void
-    {
-        if ($this->containerUtil->isBackend()) {
+        if ($this->utils->container()->isBackend()) {
             $GLOBALS['TL_CSS']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.css|static';
             $GLOBALS['TL_JAVASCRIPT']['be_videobundle'] = 'bundles/heimrichhannotvideo/assets/contao-video-bundle-be.js|static';
         }

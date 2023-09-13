@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2023-09-13
+- Added: missing license file
+- Changed: refactored hooks to current contao standard
+- Fixed: issues with hook ordering
+
 ## [1.4.0] - 2023-08-23
 - Added: support for additional url parameter for vimeo ([#18], [@zonky2])
 

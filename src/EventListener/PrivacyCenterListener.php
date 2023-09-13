@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2022 Heimrich & Hannot GmbH
+ * Copyright (c) 2023 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0-or-later
  */
@@ -13,27 +13,24 @@ use Contao\StringUtil;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeConfiguration;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeGenerator;
 use HeimrichHannot\PrivacyCenterBundle\Generator\SplashImage;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
-    private ModelUtil                                                         $modelUtil;
     private TranslatorInterface $translator;
-    private Environment         $twig;
     private ContainerInterface $container;
+    private Utils $utils;
 
-    public function __construct(ContainerInterface $container, ModelUtil $modelUtil, TranslatorInterface $translator, Environment $twig)
+    public function __construct(ContainerInterface $container, TranslatorInterface $translator, Utils $utils)
     {
-        $this->modelUtil = $modelUtil;
         $this->translator = $translator;
-        $this->twig = $twig;
         $this->container = $container;
+        $this->utils = $utils;
     }
 
     public static function getSubscribedEvents()
@@ -54,10 +51,10 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         $videoProviderLocalStorage = [];
 
         foreach ($localStorageAttributes as $item) {
-            if (null === $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute) {
+            if (null === $this->utils->model()->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute) {
                 continue;
             }
-            $videoProviderLocalStorage[$item['videoProvider']] = $this->modelUtil->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
+            $videoProviderLocalStorage[$item['videoProvider']] = $this->utils->model()->findModelInstancesBy('tl_tracking_object', 'id', $item['localStorageAttribute'])->localStorageAttribute;
         }
 
         if (!empty($event->getContext()['previewImage']) && isset($event->getContext()['previewImage']['src'])) {
@@ -78,8 +75,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
             ->setShowSplashImage(true)
             ->setShowPreview(true)
             ->setSplashImage($splashImage)
-            ->setUnlockButtonText($this->translator->trans('huh_video.template.privacy.showContent'))
-        ;
+            ->setUnlockButtonText($this->translator->trans('huh_video.template.privacy.showContent'));
 
         $event->setBuffer($this->container->get(ProtectedCodeGenerator::class)->generateProtectedCode(
             $event->getBuffer(),
