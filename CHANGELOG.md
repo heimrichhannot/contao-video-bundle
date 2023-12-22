@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2023-12-22
+- Changed: refactored list- and readerbundle integration to ConfigElementType
+- Fixed: hard dependency to contao/list-bundle and contao/reader-bundle is osme 
+
 ## [1.5.0] - 2023-09-13
 - Added: missing license file
 - Changed: refactored hooks to current contao standard

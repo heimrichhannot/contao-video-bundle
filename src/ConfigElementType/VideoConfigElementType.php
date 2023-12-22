@@ -8,18 +8,13 @@
 
 namespace HeimrichHannot\VideoBundle\ConfigElementType;
 
-use HeimrichHannot\ListBundle\ConfigElementType\ListConfigElementData;
-use HeimrichHannot\ListBundle\ConfigElementType\ListConfigElementTypeInterface;
-use HeimrichHannot\ListBundle\Item\ItemInterface;
-use HeimrichHannot\ListBundle\Model\ListConfigElementModel;
-use HeimrichHannot\ReaderBundle\ConfigElementType\ReaderConfigElementData;
-use HeimrichHannot\ReaderBundle\ConfigElementType\ReaderConfigElementTypeInterface;
-use HeimrichHannot\ReaderBundle\Model\ReaderConfigElementModel;
+use HeimrichHannot\ConfigElementTypeBundle\ConfigElementType\ConfigElementData;
+use HeimrichHannot\ConfigElementTypeBundle\ConfigElementType\ConfigElementResult;
+use HeimrichHannot\ConfigElementTypeBundle\ConfigElementType\ConfigElementTypeInterface;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
-use Twig\Error\LoaderError;
 
-class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderConfigElementTypeInterface
+class VideoConfigElementType implements ConfigElementTypeInterface
 {
     /**
      * @var VideoProviderCollection
@@ -41,39 +36,22 @@ class VideoConfigElementType implements ListConfigElementTypeInterface, ReaderCo
         return 'huh_video';
     }
 
-    public function getPalette(): string
+    public function getPalette(string $prependPalette, string $appendPalette): string
     {
-        return '{video_legend},imageSelectorField;';
+        return $prependPalette.'{video_legend},imageSelectorField;'.$appendPalette;
     }
 
-    public function addToListItemData(ListConfigElementData $configElementData): void
+    public function applyConfiguration(ConfigElementData $configElementData): ConfigElementResult
     {
-        $this->addToItemData($configElementData->getItem(), $configElementData->getListConfigElement());
-    }
-
-    public function addToReaderItemData(ReaderConfigElementData $configElementData): void
-    {
-        $this->addToItemData($configElementData->getItem(), $configElementData->getReaderConfigElement());
-    }
-
-    /**
-     * @param ItemInterface|\HeimrichHannot\ReaderBundle\Item\ItemInterface $item
-     * @param ListConfigElementModel|ReaderConfigElementModel               $config
-     *
-     * @throws LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    protected function addToItemData($item, $config)
-    {
-        $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($item->getRaw());
+        $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($configElementData->getItemData());
 
         if (!$video) {
-            return;
+            return new ConfigElementResult(ConfigElementResult::TYPE_NONE, null);
         }
-        $videoBuffer = $this->videoGenerator->generate($video, $this);
 
-        $item->setFormattedValue(
-            $config->templateVariable, $videoBuffer);
+        return new ConfigElementResult(
+            ConfigElementResult::TYPE_FORMATTED_VALUE,
+            $this->videoGenerator->generate($video, $this)
+        );
     }
 }

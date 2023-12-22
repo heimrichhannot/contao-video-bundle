@@ -100,8 +100,8 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         $isPrivacyCenterEnabled = false;
 
         if (class_exists(ProtectedCodeGenerator::class) && $this->container->has(ProtectedCodeGenerator::class)
-            && $rootPage && $rootPage->usePrivacyCenter) {
-            $isPrivacyCenterEnabled = (bool) $rootPage->usePrivacyCenter;
+            && $rootPage && $rootPage->addPrivacyCenter) {
+            $isPrivacyCenterEnabled = (bool) $rootPage->addPrivacyCenter;
         }
 
         return $isPrivacyCenterEnabled;
