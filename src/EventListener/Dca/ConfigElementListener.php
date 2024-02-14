@@ -11,31 +11,29 @@ namespace HeimrichHannot\VideoBundle\EventListener\Dca;
 use Contao\Controller;
 use Contao\DataContainer;
 use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ConfigElementListener
 {
-    /**
-     * @var ModelUtil
-     */
-    private $modelUtil;
+    private Utils $utils;
+    private TranslatorInterface $translator;
 
-    public function __construct(ModelUtil $modelUtil)
+    public function __construct(Utils $utils, TranslatorInterface $translator)
     {
-        $this->modelUtil = $modelUtil;
+        $this->utils = $utils;
+        $this->translator = $translator;
     }
 
     public function onLoadCallback(DataContainer $dc): void
     {
-        $element = $this->modelUtil->findModelInstanceByIdOrAlias($dc->table, $dc->id);
+        $element = $this->utils->model()->findModelInstanceByIdOrAlias($dc->table, $dc->id);
 
-        if (!$element) {
+        if (!$element || $element->type !== VideoConfigElementType::getType()) {
             return;
         }
 
-        if (VideoConfigElementType::getType() === $element->type) {
-            Controller::loadLanguageFile('tl_list_config_element');
-            $GLOBALS['TL_LANG'][$dc->table]['imageSelectorField'][1] = $GLOBALS['TL_LANG']['tl_list_config_element']['imageSelectorField']['videoSelector'];
-        }
+        $GLOBALS['TL_LANG'][$dc->table]['imageSelectorField'][1] = $this->translator->trans('tl_list_config_element.imageSelectorField.videoSelector', [], 'contao_tl_list_config_element');
     }
 }
