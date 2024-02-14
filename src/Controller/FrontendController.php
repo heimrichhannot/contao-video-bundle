@@ -62,7 +62,6 @@ class FrontendController extends AbstractController
         if (!$entity) {
             return new Response('No entity with video found', 404);
         }
-        $provider = $entity->videoProvider;
 
         try {
             $videoClass = $this->videoProviderCollection->getClassByVideoProvider($entity->videoProvider);

@@ -8,7 +8,9 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_LANG']['CTE'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] = [
+use HeimrichHannot\VideoBundle\Controller\ContentElement\ExtendedVideoElementController;
+
+$GLOBALS['TL_LANG']['CTE'][ExtendedVideoElementController::TYPE] = [
     'Advanced video player',
     'A content element allowing embedding videos from different video providers',
 ];
