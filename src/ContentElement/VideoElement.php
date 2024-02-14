@@ -11,7 +11,6 @@ namespace HeimrichHannot\VideoBundle\ContentElement;
 use Contao\BackendTemplate;
 use Contao\ContentElement;
 use Contao\System;
-use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;

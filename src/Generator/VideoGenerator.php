@@ -239,7 +239,6 @@ class VideoGenerator
         $context['text'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text');
         $context['checkbox'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.checkbox', ['%host%' => \Contao\Environment::get('host')]);
         $context['videoContext'] = $videoContext;
-        $template = $this->getPrivacyTemplate($rootPage);
 
         return $this->twig->render($this->getPrivacyTemplate($rootPage), $context);
     }

@@ -8,9 +8,7 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener\Dca;
 
-use Contao\Controller;
 use Contao\DataContainer;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType;
 use Symfony\Contracts\Translation\TranslatorInterface;
