@@ -9,6 +9,10 @@
 namespace HeimrichHannot\VideoBundle\Generator;
 
 use Contao\Controller;
+use Contao\DataContainer;
+use Contao\System;
+use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
+use HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 
 class DcaFieldGenerator
@@ -19,9 +23,10 @@ class DcaFieldGenerator
     /**
      * Update dca for video bundle. Returns the string containing a legend and the selector field for the video subpalette.
      *
+     * @param string $table
      * @return string
      */
-    public static function addSingleLegendPalette(string $table)
+    public static function addSingleLegendPalette(string $table): string
     {
         Controller::loadDataContainer($table);
         Controller::loadLanguageFile('tl_content');
@@ -54,7 +59,7 @@ class DcaFieldGenerator
     /**
      * Add the default video bundle subpalettes.
      */
-    public static function addSubpalettes(array &$dca)
+    public static function addSubpalettes(array &$dca): void
     {
         $dca['subpalettes']['addPreviewImage'] = 'posterSRC,size,addPlayButton';
         $dca['subpalettes']['videoFullsize'] = 'videoLinkText';
@@ -67,7 +72,7 @@ class DcaFieldGenerator
      *
      * @return array
      */
-    public static function getVideoFields(array $dca = [])
+    public static function getVideoFields(array $dca = []): array
     {
         Controller::loadDataContainer('tl_content');
 
@@ -77,8 +82,8 @@ class DcaFieldGenerator
             'videoProvider' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoProvider'],
                 'inputType' => 'select',
-                'options_callback' => function (\DataContainer $dc) {
-                    return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
+                'options_callback' => function (DataContainer $dc) {
+                    return System::getContainer()->get(VideoProviderCollection::class)->getVideoProvider();
                 },
                 'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['videoProvider'],
                 'eval' => ['submitOnChange' => true, 'maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
@@ -148,8 +153,8 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'inputType' => 'select',
                 'default' => 'huh_video.fields.videoLinkText.default',
-                'options_callback' => function (\DataContainer $dc) {
-                    return \Contao\System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
+                'options_callback' => function (DataContainer $dc) {
+                    return System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
                 },
                 'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
                 'sql' => "varchar(255) NOT NULL default ''",
@@ -197,7 +202,7 @@ class DcaFieldGenerator
                                     'includeBlankOption' => true,
                                     'groupStyle' => 'width: 48%',
                                 ],
-                                'options_callback' => [\HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer::class, 'getMediaQueries'],
+                                'options_callback' => [VideoFieldContainer::class, 'getMediaQueries'],
                             ],
                         ],
                     ],
@@ -235,8 +240,8 @@ class DcaFieldGenerator
                                     'includeBlankOption' => true,
                                     'groupStyle' => 'width: 48%',
                                 ],
-                                'options_callback' => function (\DataContainer $dc) {
-                                    return \Contao\System::getLanguages(true);
+                                'options_callback' => function (DataContainer $dc) {
+                                    return System::getLanguages(true);
                                 },
                             ],
                         ],

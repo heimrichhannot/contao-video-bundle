@@ -61,16 +61,18 @@ class LoadDataContainerListener
         }
 
         $dca = &$GLOBALS['TL_DCA']['tl_news'];
-        $videoPalette = DcaFieldGenerator::addSingleLegendPalette('tl_news');
+        DcaFieldGenerator::addSingleLegendPalette('tl_news');
+
+        $paletteManipulator = PaletteManipulator::create()
+            ->addLegend('video_legend', 'image_legend', PaletteManipulator::POSITION_BEFORE)
+            ->addField('addVideo', 'video_legend', PaletteManipulator::POSITION_APPEND);
 
         foreach ($dca['palettes'] as $paletteName => $palette) {
             if (!\is_string($palette)) {
                 continue;
             }
-            $paletteManipulator = PaletteManipulator::create()
-                ->addLegend('video_legend', 'image_legend', PaletteManipulator::POSITION_BEFORE)
-                ->addField('addVideo', 'video_legend', PaletteManipulator::POSITION_APPEND)
-                ->applyToPalette($paletteName, 'tl_news');
+
+            $paletteManipulator->applyToPalette($paletteName, 'tl_news');
         }
     }
 

@@ -45,7 +45,7 @@ class HeimrichHannotVideoExtension extends Extension
         $container->setParameter('huh_video', $config);
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'huh_video';
     }

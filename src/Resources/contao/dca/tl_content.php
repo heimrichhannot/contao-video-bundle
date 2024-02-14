@@ -6,24 +6,29 @@
  * @license LGPL-3.0-or-later
  */
 
+use HeimrichHannot\VideoBundle\Controller\ContentElement\ExtendedVideoElementController;
+use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
+use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
+
 $dca = &$GLOBALS['TL_DCA']['tl_content'];
 
-$dca['config']['onload_callback'][] = [\HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener::class, 'updateVideoPaletteWithLegend'];
+$dca['config']['onload_callback'][] = [ModifiyVideoPaletteListener::class, 'updateVideoPaletteWithLegend'];
 
-$dca['palettes'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE] =
+$dca['palettes'][ExtendedVideoElementController::TYPE] =
     '{type_legend},type,name,headline;
 	{video_legend},videoProvider;
 	{player_legend},videoFullsize,videoAutoplay,videoRemoveControls,videoLoop;
+	{text_legend:hide},text;
 	{template_legend:hide},customTpl;
 	{protected_legend:hide},protected;
 	{expert_legend:hide},cssID,space;
 	{invisible_legend:hide},invisible,start,stop;';
 
-\HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::addSubpalettes($dca);
+DcaFieldGenerator::addSubpalettes($dca);
 
 /**
  * Fields.
  */
-$arrFields = \HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::getVideoFields();
+$arrFields = DcaFieldGenerator::getVideoFields();
 
 $dca['fields'] = array_merge($dca['fields'], $arrFields);

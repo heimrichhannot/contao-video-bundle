@@ -6,6 +6,8 @@
  * @license LGPL-3.0-or-later
  */
 
+$lang = &$GLOBALS['TL_LANG']['tl_content'];
+
 $GLOBALS['TL_LANG']['tl_content']['previewImage_legend'] = 'Vorschaubild-Einstellungen';
 $GLOBALS['TL_LANG']['tl_content']['video_legend'] = 'Video-Einstellungen';
 

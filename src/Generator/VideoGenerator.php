@@ -13,11 +13,10 @@ use Contao\Config;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\PageModel;
-use Contao\System;
 use HeimrichHannot\UtilsBundle\Image\ImageUtil;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
 use HeimrichHannot\UtilsBundle\Util\Utils;
+use HeimrichHannot\VideoBundle\Controller\ContentElement\ExtendedVideoElementController;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Video\ExternalElementInterface;
@@ -34,10 +33,6 @@ class VideoGenerator
      * @var Environment
      */
     private $twig;
-    /**
-     * @var ModelUtil
-     */
-    private $modelUtil;
     /**
      * @var ImageUtil
      */
@@ -58,18 +53,14 @@ class VideoGenerator
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
-    /**
-     * @var Utils
-     */
-    private $utils;
+    private Utils $utils;
 
     /**
      * VideoGenerator constructor.
      */
-    public function __construct(Environment $twig, ModelUtil $modelUtil, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, Utils $utils)
+    public function __construct(Environment $twig, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, Utils $utils)
     {
         $this->twig = $twig;
-        $this->modelUtil = $modelUtil;
         $this->imageUtil = $imageUtil;
         $this->bundleConfig = $bundleConfig;
         $this->translator = $translator;
@@ -89,12 +80,10 @@ class VideoGenerator
      */
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {
-        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
-
-        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request))
+        if ($this->utils->container()->isBackend())
         {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['CTE'][\HeimrichHannot\VideoBundle\ContentElement\VideoElement::TYPE][0] . ' ###';
+            $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['CTE'][ExtendedVideoElementController::TYPE][0] . ' ###';
 
             return $objTemplate->parse();
         }
@@ -219,8 +208,7 @@ class VideoGenerator
             return;
         }
 
-        /** @var FilesModel $imageModel */
-        $imageModel = $this->modelUtil->findModelInstancesBy('tl_files', 'uuid', $video->getPreviewImage());
+        $imageModel = FilesModel::findByUuid($video->getPreviewImage());
 
         //TODO: Load image from external source
 

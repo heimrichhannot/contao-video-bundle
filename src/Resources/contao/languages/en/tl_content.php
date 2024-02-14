@@ -6,6 +6,8 @@
  * @license LGPL-3.0-or-later
  */
 
+$lang = &$GLOBALS['TL_LANG']['tl_content'];
+
 $GLOBALS['TL_LANG']['tl_content']['previewImage_legend'] = 'Preview image settings';
 $GLOBALS['TL_LANG']['tl_content']['video_legend'] = 'Video settings';
 
@@ -51,3 +53,9 @@ $GLOBALS['TL_LANG']['tl_content']['videoAutoplay'][1] = 'Automatically play the 
 
 $GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][0] = 'Alternative text';
 $GLOBALS['TL_LANG']['tl_content']['videoAlternativeText'][1] = 'Enter a text here that should serve as an alternative to the video. For example, if the browser does not support the video element, or for barrier-free use of the website.';
+
+$lang['reference']['videoProvider'] = [
+    'youtube' => 'YouTube',
+    'vimeo' => 'Vimeo',
+    'file' => 'File',
+];
