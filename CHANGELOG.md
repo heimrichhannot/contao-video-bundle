@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.1] - 2024-02-27
+- Fixed: content element text field mandatory
+
 ## [1.7.0] - 2024-02-14
 - Added: migration command to migration from youtube bundle ([#19])
 - Changed: refactored content element to controller ([#19])

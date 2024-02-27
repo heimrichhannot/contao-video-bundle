@@ -5,7 +5,7 @@ services:
       $bundleConfig: '%huh_video%'
 
   HeimrichHannot\VideoBundle\:
-    resource: '../../{Asset,Command,Controller,EventListener}/*'
+    resource: '../../{Asset,Command,Controller,DataContainer,EventListener}/*'
     autoconfigure: true
 
   HeimrichHannot\VideoBundle\Asset\FrontendAsset:
