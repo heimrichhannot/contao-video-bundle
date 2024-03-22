@@ -55,6 +55,12 @@ Update database afterwards.
         * Check "Add video" in your news item
         * output "videoplayer" variable in your news template
 
+### Adapt templates
+
+If you want to overwrite the templates, such as the `videoprovider_default.html.twig`, you can create a copy in the template folder.
+
+Template path: `templates/bundles/HeimrichHannotVideoBundle/videoprovider/`
+
 ### Help
 
 #### IE Support
