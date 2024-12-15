@@ -66,37 +66,36 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    console.log('jquery ready');
+    //console.log('jquery ready');
     var dummy = $('#size-dummy');
-    console.log("dummy: %o", dummy);
+    //console.log("dummy: %o", dummy);
     $('video').each(function(index, value) {
         var files = $(value).data('files');
         var resolutions = $(value).data('resolutions');
         var id = $(value).parents('.video-wrapper').attr('id');
         var autoChoosenVideoIndex = -1;
 
-        console.log("files: %o, id: %o, resolutions: %o, width: %o", files, id, resolutions, dummy.width());
+        //console.log("files: %o, id: %o, resolutions: %o, width: %o", files, id, resolutions, dummy.width());
         resolutions.forEach((value, index) => {
-            if(value == dummy.width()) {
+            if(value <= dummy.width()) {
                 autoChoosenVideoIndex = index;
             }
         });
         if(autoChoosenVideoIndex != -1) {
-            console.log("call showVideo for index: %o", autoChoosenVideoIndex);
+            //console.log("call showVideo for index: %o", autoChoosenVideoIndex);
             showVideo(id, autoChoosenVideoIndex);
         }        
     });
     $('video').on('loadstart', function() {
-        console.log('Video load start');
     });
     
 
 }); 
 function showVideo(id, index) {
     //console.log("show video with id: %o and video: %o", id, video)
-    console.log("show video id: %o, index: %o", id, index);
+    //console.log("show video id: %o, index: %o", id, index);
     var video = $('#video_player_' + id);
-    console.log("video player: %s, video: %o", '#video_player_' + id, video);
+    //console.log("video player: %s, video: %o", '#video_player_' + id, video);
 
     const files = $(video).data('files');
     const file = files[index];
@@ -107,10 +106,10 @@ function showVideo(id, index) {
     });
     video.parents('.tab').children('ul').children('li').removeClass('active');
     $('ul li#' + id + (index + 1)).addClass('active');
-    console.log("search: %s li: %o", '.tab ul li', video.parents('.tab').children('ul').children('li'));
+    //console.log("search: %s li: %o", '.tab ul li', video.parents('.tab').children('ul').children('li'));
     var videoDOM = video.get(0);
     var sources = video.children('source');
-    console.log("sources: %o", sources);
+    //console.log("sources: %o", sources);
     videoDOM.pause();    
     sources.remove();
     videoDOM.load();

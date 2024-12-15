@@ -10,7 +10,7 @@ namespace HeimrichHannot\VideoBundle\Generator;
 
 use Contao\Controller;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
-use HeimrichHannot\VideoBundle\Video\FileVideoMultipleResolution;
+use HeimrichHannot\VideoBundle\Video\RemoteFileVideoMultipleResolution;
 
 class DcaFieldGenerator
 {
@@ -82,7 +82,7 @@ class DcaFieldGenerator
                     return \Contao\System::getContainer()->get(\HeimrichHannot\VideoBundle\Collection\VideoProviderCollection::class)->getVideoProvider();
                 },
                 'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['videoProvider'],
-                'eval' => ['submitOnChange' => true, 'maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
+                'eval' => ['submitOnChange' => true, 'maxlength' => 64, 'includeBlankOption' => true],
                 'sql' => "varchar(64) NOT NULL default ''",
             ],
             'addPreviewImage' => [
@@ -214,11 +214,36 @@ class DcaFieldGenerator
                     'fieldType' => 'checkbox',
                     'mandatory' => true,
                     'submitOnChange' => true,
-                    'groupStyle' => 'width: 48%',
-                    'rgxp' => 'custom',
-                    'customRgxp' => FileVideoMultipleResolution::getFilePathRegExp()
+                    'groupStyle' => 'width: 48%'
                 ],
                 'sql' => 'blob NULL',
+            ],
+            'videoRemoteFile' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoRemoteFile'],
+                'exclude' => false,
+                'inputType' => 'text',
+                'eval' => [
+                    'maxlength' => 255, 
+                    'tl_class' => 'w50',
+                    'mandatory' => true,
+                    'rgxp' => 'custom',
+                    'customRgxp' => RemoteFileVideoMultipleResolution::getFilePathRegExp()
+                ],
+                'sql' => "varchar(255) NOT NULL default ''",
+            ],
+            'videoRemoteResolutions' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_content']['videoRemoteResolutions'],
+                'exclude' => false,
+                'inputType' => 'text',
+                'default' => '1080,720,480,360',
+                'eval' => [
+                    'maxlength' => 255, 
+                    'tl_class' => 'w50 clr',
+                    'mandatory' => true,
+                    'rgxp' => 'custom',
+                    'customRgxp' => RemoteFileVideoMultipleResolution::getResolutionsRegExp()
+                ],
+                'sql' => "varchar(255) NOT NULL default ''",
             ],
             'videoSubtitles' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoSubtitles'],

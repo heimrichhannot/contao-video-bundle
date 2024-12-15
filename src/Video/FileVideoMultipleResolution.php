@@ -22,17 +22,17 @@ class FileVideoMultipleResolution extends FileVideo
     /**
      * @var string
      */
-    private $video_id = '';
+    protected $video_id = '';
 
     /**
      * @var array
      */
-    private $resolutions = null;
+    protected $resolutions = [];
 
     /**
      * @var array 
      */
-    private $files = null;
+    protected $files = [];
 
     /**
      * {@inheritdoc}
@@ -96,9 +96,9 @@ class FileVideoMultipleResolution extends FileVideo
         return '~^.*/(.*)_([0-9]*)\..*$~';
     }
 
-    private function parseVideoSource(): void 
+    protected function parseVideoSource(): void 
     {
-        if($this->files && $this->resolutions) {
+        if(count($this->files) && count($this->resolutions)) {
             return;
         }
         $data = StringUtil::deserialize($this->getRawData()['multiResolutionVideoSRC']);

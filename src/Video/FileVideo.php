@@ -93,7 +93,11 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
      */
     public function getSrc(): string
     {
-        $path = $this->prepareVideoSource()[0]['file']->path;
+        $path = null;
+        $videoSrc = $this->prepareVideoSource();
+        if(count($videoSrc)) {
+            $path = $this->prepareVideoSource()[0]['file']->path;
+        } 
 
         if (null === $path) {
             return '';

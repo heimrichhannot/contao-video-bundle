@@ -46,6 +46,12 @@ $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_file'][1] = 'Wählen 
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_mediaQuery'][0] = 'Mediaquery';
 $GLOBALS['TL_LANG']['tl_content']['multiResolutionVideoSRC_mediaQuery'][1] = 'Wählen Sie die Mediaquery für das Video aus.';
 
+
+$GLOBALS['TL_LANG']['tl_content']['videoRemoteFile'][0] = 'Videodatei auf einem anderen Server';
+$GLOBALS['TL_LANG']['tl_content']['videoRemoteFile'][1] = 'Url zur Videodatei auf einem anderen Server, xxx wird durch Auflösung ersetzt.';
+$GLOBALS['TL_LANG']['tl_content']['videoRemoteResolutions'][0] = 'Auflösungen für Video auf anderem Server';
+$GLOBALS['TL_LANG']['tl_content']['videoRemoteResolutions'][1] = 'Verschiedene Auflösungen in denen das Video vorliegt, ersetzt jeweils xxx im Dateinamen.';
+
 $GLOBALS['TL_LANG']['tl_content']['videoSubtitles'][0] = 'Untertitel';
 $GLOBALS['TL_LANG']['tl_content']['videoSubtitles'][1] = 'Untertitel aus einer Datei für das Video einstellen. Es muss eine valide .vtt Datei sein. Es können Untertitel für unterschiedliche Sprachen eingetragen werden.';
 $GLOBALS['TL_LANG']['tl_content']['videoSubtitles_file'][0] = 'Unteriteldatei';

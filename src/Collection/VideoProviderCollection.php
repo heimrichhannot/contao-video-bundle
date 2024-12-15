@@ -46,7 +46,7 @@ class VideoProviderCollection
             return $this->bundleConfig['video_provider'][$provider]['class'];
         }
 
-        throw new \Exception('No configuration exists for given provider. Leider');
+        throw new \Exception('No configuration exists for given provider');
     }
 
     /**

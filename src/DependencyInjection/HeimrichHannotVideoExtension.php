@@ -10,6 +10,7 @@ namespace HeimrichHannot\VideoBundle\DependencyInjection;
 
 use HeimrichHannot\VideoBundle\Video\FileVideo;
 use HeimrichHannot\VideoBundle\Video\FileVideoMultipleResolution;
+use HeimrichHannot\VideoBundle\Video\RemoteFileVideoMultipleResolution;
 use HeimrichHannot\VideoBundle\Video\VimeoVideo;
 use HeimrichHannot\VideoBundle\Video\YouTubeVideo;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -41,6 +42,10 @@ class HeimrichHannotVideoExtension extends Extension
 
         if(!isset($config['video_provider']['file_multi'])) {
             $config['video_provider']['file_multi']['class'] = FileVideoMultipleResolution::class;
+        }
+
+        if(!isset($config['video_provider']['remote_file_multi'])) {
+            $config['video_provider']['remote_file_multi']['class'] = RemoteFileVideoMultipleResolution::class;
         }
 
         // Support deperecated option
