@@ -1,0 +1,119 @@
+<!-- indexer::stop -->
+<div class="videowrapper_default {{ type|default }}" {{ dataAttributes|default|raw }}>
+    {% block switch %}
+    {% endblock %}
+    <div id="{{ id }}" class="video-wrapper" tabindex="0">
+    <div class="tab">
+        <ul class="video-player-tab nav nav-tabs" data-tabs="tabs">
+            {% for resolution in resolutionsDesc %}
+                <li id="{{ (id ~ loop.revindex) }}" class="clickable">
+                    <a onclick="showVideo('{{id}}', {{loop.revindex0}})">{{resolution}}p</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="video-player-tab-content tab-content">
+            <div class="tab-pane">
+                {% block previewImage %}
+                    {% if previewImage|default() %}
+                        <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
+                            <figure class="image_container">
+                                {% if previewImage.picture|default() %}
+                                    {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}
+                                {% else %}
+                                    <img src="{{ previewImage.src }}" alt="{{ previewImage.alt|default("Video Preview Image") }}">
+                                {% endif %}
+                                {% if videoDuration|default() %}
+                                    <span class="duration">
+                                {% if videoDuration matches '/^\\d+$/' %}
+                                    {% if videoDuration/3600 >=1 %}
+                                        {{ videoDuration|date('H:i:s') }}
+                                    {% else %}
+                                        {{ videoDuration|date('i:s') }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ videoDuration }}
+                                {% endif %}
+                                </span>
+                                {% endif %}
+                                {% if playButton|default() %}
+                                    {% block playbutton %}
+                                        <button class="play-button {{ type|default }}" tabindex="0" aria-label="{{ 'huh_video.fields.videoLinkText.play'|trans }}{% if text|default() %}: {{ text|raw }}{% endif %}"></button>
+                                    {% endblock %}
+                                {% endif %}
+                            </figure>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                <div class="video-container{% if previewImage|default() %} video-hidden{% endif %}">
+                    {% block videoplayer %}
+                        {% if previewImage|default() %}
+                            <iframe src="about:blank" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
+                        {% else %}
+                            <iframe src="{{ src }}" data-src="{{ src }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen aria-label="{{ 'huh_video.template.accessibility.iframeTitle'|trans }}"></iframe>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if text|default() %}
+        <div class="video-text">
+            {{ text|raw }}
+        </div>
+    {% endif %}
+</div>
+<div id='size-dummy'></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    //console.log('jquery ready');
+    var dummy = $('#size-dummy');
+    //console.log("dummy: %o", dummy);
+    $('video').each(function(index, value) {
+        var files = $(value).data('files');
+        var resolutions = $(value).data('resolutions');
+        var id = $(value).parents('.video-wrapper').attr('id');
+        var autoChoosenVideoIndex = -1;
+
+        //console.log("files: %o, id: %o, resolutions: %o, width: %o", files, id, resolutions, dummy.width());
+        resolutions.forEach((value, index) => {
+            if(value <= dummy.width()) {
+                autoChoosenVideoIndex = index;
+            }
+        });
+        if(autoChoosenVideoIndex != -1) {
+            //console.log("call showVideo for index: %o", autoChoosenVideoIndex);
+            showVideo(id, autoChoosenVideoIndex);
+        }        
+    });
+    $('video').on('loadstart', function() {
+    });
+    
+
+}); 
+function showVideo(id, index) {
+    //console.log("show video with id: %o and video: %o", id, video)
+    //console.log("show video id: %o, index: %o", id, index);
+    var video = $('#video_player_' + id);
+    //console.log("video player: %s, video: %o", '#video_player_' + id, video);
+
+    const files = $(video).data('files');
+    const file = files[index];
+    var source = $('<source>').attr({
+        src: file.path,
+        type: 'video/' + file.extension,
+        title: file.filename
+    });
+    video.parents('.tab').children('ul').children('li').removeClass('active');
+    $('ul li#' + id + (index + 1)).addClass('active');
+    //console.log("search: %s li: %o", '.tab ul li', video.parents('.tab').children('ul').children('li'));
+    var videoDOM = video.get(0);
+    var sources = video.children('source');
+    //console.log("sources: %o", sources);
+    videoDOM.pause();    
+    sources.remove();
+    videoDOM.load();
+    video.append(source);
+}
+</script>
+<!-- indexer::continue -->
