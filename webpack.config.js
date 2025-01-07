@@ -1,7 +1,7 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-.setOutputPath('src/Resources/public/assets/')
+.setOutputPath('public/assets/')
 .addEntry('contao-video-bundle', './assets/js/contao-video-bundle.js')
 .addEntry('contao-video-bundle-be', './assets/js/contao-video-bundle-be.js')
 .addEntry('contao-video-bundle-theme', './assets/js/contao-video-bundle-theme.js')
