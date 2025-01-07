@@ -19,12 +19,10 @@ class HeimrichHannotVideoExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
-        $config = $this->deprecatedOptionsMapping($config);
 
         if (!isset($config['video_provider']['youtube'])) {
             $config['video_provider']['youtube']['class'] = YouTubeVideo::class;
@@ -38,42 +36,11 @@ class HeimrichHannotVideoExtension extends Extension
             $config['video_provider']['file']['class'] = FileVideo::class;
         }
 
-        // Support deperecated option
-        // @todo: remove in version 1.0
-        $config['videoProvider'] = $config['video_provider'];
-
         $container->setParameter('huh_video', $config);
     }
 
     public function getAlias(): string
     {
         return 'huh_video';
-    }
-
-    /**
-     * Support deprecated options.
-     *
-     * @todo Remove in version 1.0
-     */
-    protected function deprecatedOptionsMapping(array $config): array
-    {
-        if (true === $config['enableNewsSupport'] && true !== $config['enable_news_support']) {
-            $config['enable_news_support'] = true;
-        }
-        $config['enableNewsSupport'] = $config['enable_news_support'];
-
-        if (true === $config['defaultEnableNoCookieVideoUrl'] && true !== $config['default_use_no_cookie_video_url']) {
-            $config['default_use_no_cookie_video_url'] = true;
-        }
-        $config['defaultEnableNoCookieVideoUrl'] = $config['default_use_no_cookie_video_url'];
-
-        if (true === $config['defaultEnablePrivacyNotice'] && true !== $config['default_display_privacy_notice']) {
-            $config['default_display_privacy_notice'] = true;
-        }
-        $config['defaultEnablePrivacyNotice'] = $config['default_display_privacy_notice'];
-
-        $config['video_provider'] = array_merge($config['videoProvider'], $config['video_provider']);
-
-        return $config;
     }
 }

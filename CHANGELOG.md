@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-DEV] - 2025-01-07
+- Changed: dropped list bundle support (for the moment as not available for contao 5)
+- Changed: modernized bundle structure
+- Removed: support for deprecated config key videoProvider
+- Removed: support for deprecated config option names
+
+
 ## [1.7.1] - 2024-02-27
 - Fixed: content element text field mandatory
 
