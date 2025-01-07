@@ -13,6 +13,7 @@ use Contao\StringUtil;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeConfiguration;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeGenerator;
 use HeimrichHannot\PrivacyCenterBundle\Generator\SplashImage;
+use HeimrichHannot\PrivacyCenterBundle\Model\TrackingObjectModel;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use Psr\Container\ContainerInterface;
@@ -42,8 +43,6 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
 
     public function afterRenderPlayer(AfterRenderPlayerEvent $event)
     {
-        return;
-
         if (!$this->isPrivacyCenterEnabled($event->getRootPage()) || 'file' === $event->getContext()['type']) {
             return;
         }
@@ -107,5 +106,19 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         }
 
         return $isPrivacyCenterEnabled;
+    }
+
+    public function onFieldsMceLocalStorageAttribute($dc)
+    {
+        $attributes = TrackingObjectModel::findAll();
+        $options = [];
+
+        foreach ($attributes as $attribute) {
+            $options[$attribute->id] = $attribute->title.' (ID: '.$attribute->id.')';
+        }
+
+        natcasesort($options);
+
+        return $options;
     }
 }

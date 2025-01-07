@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [2.0.0-DEV] - 2025-01-07
 - Changed: migrated fullsize and privacy templates to new contao template system (NEED MANUAL ADJUSTMENT!)
+- Changed: use new contao image handling
 - Changed: dropped list bundle support (for the moment as not available for contao 5)
 - Changed: modernized bundle structure
-- Changed: remove twig support bundle integration
+- Changed: dropped twig support bundle integration
 - Removed: support for deprecated config key videoProvider
 - Removed: support for deprecated config option names
 
@@ -14,7 +15,7 @@ All notable changes to this project will be documented in this file.
 - If you have custom fullsize or privacy templates, move and rename them according to the new contao template system
     e.g. `templates/videofullsize_default.html.twig` -> `contao/templates/[.twig-root]/huh_video/fullsize.html.twig`
          `templates/videofullsize_custom.html.twig`  -> `contao/templates/[.twig-root]/huh_video/fullsize/custom.html.twig`
-
+- If you worked with preview images in your templates, adjust them as `previewImage` is now a `Figure` object
 
 ## [1.7.1] - 2024-02-27
 - Fixed: content element text field mandatory

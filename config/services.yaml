@@ -27,3 +27,6 @@ services:
 
   HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer:
     public: true
+
+  HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
+    public: true

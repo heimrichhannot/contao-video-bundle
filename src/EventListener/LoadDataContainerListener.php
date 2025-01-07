@@ -128,7 +128,7 @@ class LoadDataContainerListener
                             'exclude' => true,
                             'filter' => true,
                             'inputType' => 'select',
-                            'options_callback' => [PageContainer::class, 'onMceLocalStorageAttribute'],
+                            'options_callback' => [PrivacyCenterListener::class, 'onFieldsMceLocalStorageAttribute'],
                             'eval' => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
                         ],
                     ],
