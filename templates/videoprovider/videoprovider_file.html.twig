@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block videoplayer %}
-    <video{% if previewImage|default() %} poster="{{ previewImage.picture.img.src }}"{% endif %}{% if autoplay|default() == true %} autoplay playsinline muted{% endif %}{% if controls|default() == true %} controls="controls"{% endif %}{% if loop|default() == true %} loop{% endif%} preload="metadata">
+    <video{% if previewImage|default() %} poster="{{ previewImage.image.imageSrc }}"{% endif %}{% if autoplay|default() == true %} autoplay playsinline muted{% endif %}{% if controls|default() == true %} controls="controls"{% endif %}{% if loop|default() == true %} loop{% endif%} preload="metadata">
         {% if multipleSrc|default() %}
             {% for video in multipleSrc %}
                 <source src="{{ video.file.path }}"{% if video.mediaQuery|default() %} type="video/{{ video.file.extension }}" media="{{ video.mediaQuery }}" {% endif %}{% if video.file.name|default() %} title="{{ video.file.name }}"{% endif %}>

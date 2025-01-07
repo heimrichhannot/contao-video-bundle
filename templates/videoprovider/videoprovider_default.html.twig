@@ -1,3 +1,7 @@
+{%- import "@ContaoCore/Image/Studio/_macros.html.twig" as studio -%}
+
+{% dump %}
+
 <!-- indexer::stop -->
 <div class="huh_video videowrapper_default {{ type|default }}" {{ dataAttributes|default|raw }}>
     {% block switch %}
@@ -7,11 +11,8 @@
             {% if previewImage|default() %}
                 <div class="video-thumbnail{% if previewImage|default() %} video-hidden{% endif %}" data-contao-video-bundle="1" title="{{ 'huh_video.template.thumbnail.title'|trans({"%type%": type}) }}"{% if privacyNotice|default() %} data-privacy="true" data-privacy-html="{{ privacyNotice }}"{% endif %} data-btn-privacy-ok="{{ 'huh_video.template.privacy.ok'|trans }}" data-btn-privacy-cancel="{{ 'huh_video.template.privacy.cancel'|trans }}"{% if autoplay|default() %} data-autoplay="true"{% endif %}>
                     <figure class="image_container">
-                        {% if previewImage.picture|default() %}
-                            {{ include('@HeimrichHannotContaoUtils/picture.html.twig', previewImage.picture) }}
-                        {% else %}
-                            <img src="{{ previewImage.src }}" alt="{{ previewImage.alt|default("Video Preview Image") }}">
-                        {% endif %}
+                        {{ studio.picture(previewImage) }}
+
                         {% if videoDuration|default() %}
                             <span class="duration">
                         {% if videoDuration matches '/^\\d+$/' %}

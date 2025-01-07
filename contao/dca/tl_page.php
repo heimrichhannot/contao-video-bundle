@@ -80,7 +80,7 @@ $fields = [
         'exclude' => true,
         'inputType' => 'select',
         'default' => 'videoprivacy_default.twig',
-        'eval' => ['tl_class' => 'w50', 'mandatory' => true],
+        'eval' => ['tl_class' => 'w50'],
         'sql' => "varchar(64) NOT NULL default ''",
     ],
 ];

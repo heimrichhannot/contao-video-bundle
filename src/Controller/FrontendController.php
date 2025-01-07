@@ -9,7 +9,7 @@
 namespace HeimrichHannot\VideoBundle\Controller;
 
 use Contao\Model;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,10 +24,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontendController extends AbstractController
 {
     /**
-     * @var ModelUtil
-     */
-    private $modelUtil;
-    /**
      * @var VideoGenerator
      */
     private $videoGenerator;
@@ -39,9 +35,8 @@ class FrontendController extends AbstractController
     /**
      * FrontendController constructor.
      */
-    public function __construct(ModelUtil $modelUtil, VideoGenerator $videoGenerator, VideoProviderCollection $videoProviderCollection)
+    public function __construct(VideoGenerator $videoGenerator, VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
     {
-        $this->modelUtil = $modelUtil;
         $this->videoGenerator = $videoGenerator;
         $this->videoProviderCollection = $videoProviderCollection;
     }
@@ -57,7 +52,7 @@ class FrontendController extends AbstractController
     public function showVideoByEntityAction($entity, $id)
     {
         /** @var Model|null $entity */
-        $entity = $this->modelUtil->findModelInstanceByPk('tl_'.$entity, $id);
+        $entity = $this->utils->model()->findModelInstanceByPk('tl_'.$entity, $id);
 
         if (!$entity) {
             return new Response('No entity with video found', 404);

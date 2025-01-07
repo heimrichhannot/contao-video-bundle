@@ -24,3 +24,6 @@ services:
   HeimrichHannot\VideoBundle\EventListener\Dca\:
     resource: ../src/EventListener/Dca/*
     public: true
+
+  HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer:
+    public: true

@@ -10,8 +10,7 @@ namespace HeimrichHannot\VideoBundle\EventListener\Dca;
 
 use Contao\DataContainer;
 use Contao\Message;
-use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
@@ -19,26 +18,16 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 class ModifiyVideoPaletteListener
 {
     /**
-     * @var ContainerUtil
-     */
-    private $containerUtil;
-    /**
      * @var VideoProviderCollection
      */
     private $videoProviderCollection;
-    /**
-     * @var ModelUtil
-     */
-    private $modelUtil;
 
     /**
      * ModifiyVideoPaletteListener constructor.
      */
-    public function __construct(ContainerUtil $containerUtil, ModelUtil $modelUtil, VideoProviderCollection $videoProviderCollection)
+    public function __construct(VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
     {
-        $this->containerUtil = $containerUtil;
         $this->videoProviderCollection = $videoProviderCollection;
-        $this->modelUtil = $modelUtil;
     }
 
     /**
@@ -59,14 +48,14 @@ class ModifiyVideoPaletteListener
 
     protected function updateVideoPalette($dataContainer, bool $withoutLegend = false)
     {
-        if (!$this->containerUtil->isBackend()) {
+        if (!$this->utils->container()->isBackend()) {
             return;
         }
 
         if (false === strpos($dataContainer->getPalette(), 'videoProvider')) {
             return;
         }
-        $model = $this->modelUtil->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
+        $model = $this->utils->model()->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
 
         if (!isset($model->videoProvider)) {
             return;
