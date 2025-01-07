@@ -70,24 +70,16 @@ $fields = [
         'sql' => "char(1) NOT NULL default ''",
     ],
     'videofullsizeTemplate' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_page']['videofullsizeTemplate'],
         'default' => 'videofullsize_default',
         'exclude' => true,
         'inputType' => 'select',
-        'options_callback' => function (DataContainer $dc) {
-            return System::getContainer()->get(TwigTemplateLocator::class)->getTemplateGroup('videofullsize_');
-        },
         'eval' => ['tl_class' => 'w50 clr'],
         'sql' => "varchar(64) NOT NULL default ''",
     ],
     'videoprivacyTemplate' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_page']['videoprivacyTemplate'],
         'exclude' => true,
         'inputType' => 'select',
         'default' => 'videoprivacy_default.twig',
-        'options_callback' => function (DataContainer $dc) {
-            return System::getContainer()->get(TwigTemplateLocator::class)->getTemplateGroup('videoprivacy_');
-        },
         'eval' => ['tl_class' => 'w50', 'mandatory' => true],
         'sql' => "varchar(64) NOT NULL default ''",
     ],

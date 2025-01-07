@@ -3,6 +3,8 @@ services:
     autowire: true
     bind:
       $bundleConfig: '%huh_video%'
+      Contao\CoreBundle\Twig\Finder\FinderFactory: '@contao.twig.finder_factory'
+
 
   HeimrichHannot\VideoBundle\:
     resource: '../src/{Asset,Controller,DataContainer,EventListener}/*'

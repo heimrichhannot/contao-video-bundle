@@ -15,7 +15,6 @@
     "contao/core-bundle": "^4.13 || ^5.0",
     "heimrichhannot/contao-encore-contracts": "^1.0",
     "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
-    "heimrichhannot/contao-twig-support-bundle": "^1.5",
     "heimrichhannot/contao-utils-bundle": "^2.224",
     "symfony/deprecation-contracts": "^2.0 || ^3.0",
     "symfony/http-kernel": "^4.4 || ^5.4",
