@@ -8,15 +8,13 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
 use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
-/**
- * @Hook("loadDataContainer", priority=1)
- */
+#[AsHook('loadDataContainer', priority: 1)]
 class LoadDataContainerListener
 {
     public const PALETTE_VIDEO = 'videoProvider';

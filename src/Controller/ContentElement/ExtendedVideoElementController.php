@@ -2,10 +2,10 @@
 
 namespace HeimrichHannot\VideoBundle\Controller\ContentElement;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\BackendTemplate;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
-use Contao\CoreBundle\ServiceAnnotation\ContentElement;
 use Contao\Template;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @ContentElement(ExtendedVideoElementController::TYPE, category="media", template="ce_video")
- */
+#[AsContentElement(ExtendedVideoElementController::TYPE, category: 'media', template: 'ce_video')]
 class ExtendedVideoElementController extends AbstractContentElementController
 {
     public const TYPE = 'huh_video';

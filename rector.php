@@ -16,7 +16,6 @@ return RectorConfig::configure()
     ])
     ->withRules([
         AddVoidReturnTypeWhereNoReturnRector::class,
-        # In Vorbereitung für PHP 8.4:
         ExplicitNullableParamTypeRector::class
     ])
 
@@ -24,13 +23,13 @@ return RectorConfig::configure()
     ->withSets([
         LevelSetList::UP_TO_PHP_74,
         SymfonySetList::SYMFONY_44,
-//        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
 //        # Erst mit Symfony 6 (Contao 5) nutzen:
 //        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-//        ContaoSetList::CONTAO_49,
-//        ContaoSetList::FQCN,
-//        ContaoLevelSetList::UP_TO_CONTAO_49,
-//        ContaoSetList::ANNOTATIONS_TO_ATTRIBUTES,
+        ContaoSetList::CONTAO_49,
+        ContaoSetList::FQCN,
+        ContaoLevelSetList::UP_TO_CONTAO_49,
+        ContaoSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ])
     ->withSkip([
         \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [

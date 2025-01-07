@@ -8,7 +8,7 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\FrontendTemplate;
 use Contao\Module;
 use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
@@ -16,9 +16,7 @@ use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
 
-/**
- * @Hook("parseArticles")
- */
+#[AsHook('parseArticles')]
 class ParseArticlesListener
 {
     private array $bundleConfig;

@@ -8,12 +8,10 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
 
-/**
- * @Hook("sqlGetFromDca")
- */
+#[AsHook('sqlGetFromDca')]
 class SqlGetDataListener
 {
     private array $bundleConfig;
