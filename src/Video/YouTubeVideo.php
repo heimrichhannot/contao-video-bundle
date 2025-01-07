@@ -10,8 +10,8 @@ namespace HeimrichHannot\VideoBundle\Video;
 
 class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCookieUrlInterface, ExternalElementInterface
 {
-    const PRIVACY_EMBED_URL = 'https://www.youtube-nocookie.com/embed/';
-    const DEFAULT_EMBED_URL = 'https://www.youtube.com/embed/';
+    public const PRIVACY_EMBED_URL = 'https://www.youtube-nocookie.com/embed/';
+    public const DEFAULT_EMBED_URL = 'https://www.youtube.com/embed/';
 
     /**
      * The youtube video id.
@@ -65,9 +65,6 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return 'youtube';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getTemplate(): string
     {
         return '@HeimrichHannotVideo/videoprovider/videoprovider_youtube.html.twig';
@@ -103,41 +100,26 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         return $this->videoDuration;
     }
 
-    /**
-     * @return string
-     */
     public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasPreviewImage(): bool
     {
         return $this->addPreviewImage && \is_string($this->getPreviewImage());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNoCookieSrc(): string
     {
         return $this->createUrl(true, $this->youtube);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNoCookieSecondarySrc(): string
     {
         return $this->createUrl(true, $this->transcriptedYoutube);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getPalette(): string
     {
         return 'youtube,videoDuration,transcriptedYoutube,ytHd,videoShowRelated,ytModestBranding,ytShowInfo';
@@ -188,7 +170,7 @@ class YouTubeVideo extends AbstractVideo implements PreviewImageInterface, NoCoo
         }
 
         if (!empty($queryParams)) {
-            $url .= '?'.http_build_query($queryParams);
+            $url .= '?' . http_build_query($queryParams);
         }
 
         return $url;

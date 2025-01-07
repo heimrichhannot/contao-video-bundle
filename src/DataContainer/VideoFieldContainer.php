@@ -21,7 +21,7 @@ class VideoFieldContainer
         if (\is_array($config['media_queries'])) {
             foreach ($config['media_queries'] as $key => $query) {
                 if (!empty($query['name'])) {
-                    $queries[$key] = $query['name'].' ['.$query['query'].']';
+                    $queries[$key] = $query['name'] . ' [' . $query['query'] . ']';
                 } else {
                     $queries[$key] = $query['query'];
                 }

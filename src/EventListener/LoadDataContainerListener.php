@@ -8,9 +8,9 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
-use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
@@ -20,8 +20,9 @@ class LoadDataContainerListener
     public const PALETTE_VIDEO = 'videoProvider';
     public const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
-    public function __construct(private array $bundleConfig)
-    {
+    public function __construct(
+        private array $bundleConfig,
+    ) {
     }
 
     public function __invoke(string $table): void
@@ -100,7 +101,10 @@ class LoadDataContainerListener
             'label' => &$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'],
             'exclude' => true,
             'inputType' => 'checkbox',
-            'eval' => ['tl_class' => 'w50', 'submitOnChange' => true],
+            'eval' => [
+                'tl_class' => 'w50',
+                'submitOnChange' => true,
+            ],
             'sql' => "char(1) NOT NULL default ''",
         ];
         $dca['fields']['privacyCenterLocalStorageAttribute'] = [
@@ -116,7 +120,12 @@ class LoadDataContainerListener
                             'filter' => true,
                             'inputType' => 'select',
                             'options_callback' => [PageContainer::class, 'onMceVideoProviderOptionsCallback'],
-                            'eval' => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                            'eval' => [
+                                'groupStyle' => 'width: 49%',
+                                'mandatory' => true,
+                                'includeBlankOption' => true,
+                                'submitOnChange' => true,
+                            ],
                         ],
                         'localStorageAttribute' => [
                             'label' => &$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'],
@@ -124,7 +133,12 @@ class LoadDataContainerListener
                             'filter' => true,
                             'inputType' => 'select',
                             'options_callback' => [PrivacyCenterListener::class, 'onFieldsMceLocalStorageAttribute'],
-                            'eval' => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                            'eval' => [
+                                'groupStyle' => 'width: 49%',
+                                'mandatory' => true,
+                                'includeBlankOption' => true,
+                                'submitOnChange' => true,
+                            ],
                         ],
                     ],
                 ],

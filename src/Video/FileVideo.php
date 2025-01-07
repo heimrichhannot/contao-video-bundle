@@ -16,8 +16,8 @@ use HeimrichHannot\UtilsBundle\Util\Utils;
 
 class FileVideo extends AbstractVideo implements PreviewImageInterface, MultipleSourceVideoInterface, SubtitleInterface
 {
-    const TYPE = 'file';
-    const TEMPLATE = '@HeimrichHannotVideo/videoprovider/videoprovider_file.html.twig';
+    public const TYPE = 'file';
+    public const TEMPLATE = '@HeimrichHannotVideo/videoprovider/videoprovider_file.html.twig';
 
     /**
      * @var bool
@@ -49,49 +49,31 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
      */
     protected $alternativeText = '';
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getTemplate(): string
     {
         return self::TEMPLATE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasPreviewImage(): bool
     {
         return $this->addPreviewImage && \is_string($this->getPreviewImage());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getPalette(): string
     {
         return 'videoSRC,videoSubtitles,videoAlternativeText';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSrc(): string
     {
         $path = $this->prepareVideoSource()[0]['file']->path;

@@ -16,11 +16,14 @@ class AfterRenderPlayerEvent extends Event
 {
     public const NAME = 'huh.video.after_render_player';
 
-    /**
-     * AfterRenderPlayerEvent constructor.
-     */
-    public function __construct(private string $buffer, private VideoInterface $video, private array $context, private $parent, private ?PageModel $rootPage, private array $options)
-    {
+    public function __construct(
+        private string $buffer,
+        private VideoInterface $video,
+        private array $context,
+        private $parent,
+        private ?PageModel $rootPage,
+        private array $options,
+    ) {
     }
 
     public function getBuffer(): string
@@ -53,9 +56,6 @@ class AfterRenderPlayerEvent extends Event
         $this->context = $context;
     }
 
-    /**
-     * @return mixed
-     */
     public function getParent()
     {
         return $this->parent;

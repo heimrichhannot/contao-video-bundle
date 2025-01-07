@@ -17,11 +17,10 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 
 class ModifiyVideoPaletteListener
 {
-    /**
-     * ModifiyVideoPaletteListener constructor.
-     */
-    public function __construct(private readonly VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
-    {
+    public function __construct(
+        private readonly VideoProviderCollection $videoProviderCollection,
+        private readonly Utils $utils,
+    ) {
     }
 
     /**
@@ -90,7 +89,7 @@ class ModifiyVideoPaletteListener
             $palette = $dca['subpalettes']['addVideo'];
             $palette = str_replace(
                 'videoProvider',
-                'videoProvider,'.$videoProviderFields,
+                'videoProvider,' . $videoProviderFields,
                 $palette
             );
 
@@ -99,7 +98,7 @@ class ModifiyVideoPaletteListener
                 $previewPalette = ',addPreviewImage';
                 $palette = str_replace(
                     $position,
-                    $position.$previewPalette,
+                    $position . $previewPalette,
                     $palette
                 );
             }
@@ -112,7 +111,7 @@ class ModifiyVideoPaletteListener
 
                 $palette = str_replace(
                     ',videoProvider',
-                    ',videoProvider,'.$videoProviderFields,
+                    ',videoProvider,' . $videoProviderFields,
                     $palette
                 );
 

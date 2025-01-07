@@ -2,10 +2,10 @@
 
 namespace HeimrichHannot\VideoBundle\Controller\ContentElement;
 
-use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\BackendTemplate;
 use Contao\ContentModel;
 use Contao\CoreBundle\Controller\ContentElement\AbstractContentElementController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsContentElement;
 use Contao\Template;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
@@ -23,14 +23,13 @@ class ExtendedVideoElementController extends AbstractContentElementController
     public const TYPE = 'huh_video';
 
     public function __construct(
-        private readonly VideoProviderCollection  $videoProviderCollection,
-        private readonly VideoGenerator           $videoGenerator,
-        private readonly Utils                    $utils,
-        private readonly FrontendAsset            $frontendAsset,
-        private readonly TranslatorInterface      $translator,
-        private readonly EventDispatcherInterface $eventDispatcher
-    )
-    {
+        private readonly VideoProviderCollection $videoProviderCollection,
+        private readonly VideoGenerator $videoGenerator,
+        private readonly Utils $utils,
+        private readonly FrontendAsset $frontendAsset,
+        private readonly TranslatorInterface $translator,
+        private readonly EventDispatcherInterface $eventDispatcher,
+    ) {
     }
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
@@ -43,6 +42,7 @@ class ExtendedVideoElementController extends AbstractContentElementController
                 $template->title = $this->translator->trans('tl_content.reference.videoProvider.' . $video::getType(), [], 'contao_tl_content');
                 $template->wildcard = $video->getHeadlineText();
             }
+
             return $template->getResponse();
         }
 
@@ -61,6 +61,7 @@ class ExtendedVideoElementController extends AbstractContentElementController
 
         $template->video = $videoBuffer ?? '';
         $this->frontendAsset->addFrontendAsset();
+
         return $template->getResponse();
     }
 }

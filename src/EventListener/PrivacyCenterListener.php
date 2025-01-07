@@ -23,8 +23,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
-    public function __construct(private readonly ContainerInterface $container, private readonly TranslatorInterface $translator, private readonly Utils $utils)
-    {
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly TranslatorInterface $translator,
+        private readonly Utils $utils,
+    ) {
     }
 
     public static function getSubscribedEvents()
@@ -65,7 +68,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         }
 
         ($configuration = new ProtectedCodeConfiguration())
-            ->setDescription($this->translator->trans('huh_video.video.'.$event->getVideo()::getType().'.privacy.text'))
+            ->setDescription($this->translator->trans('huh_video.video.' . $event->getVideo()::getType() . '.privacy.text'))
             ->setShowSplashImage(true)
             ->setShowPreview(true)
             ->setSplashImage($splashImage)
@@ -83,13 +86,13 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         $services = [];
 
         if (class_exists(ProtectedCodeGenerator::class)) {
-            $services[] = '?'.ProtectedCodeGenerator::class;
+            $services[] = '?' . ProtectedCodeGenerator::class;
         }
 
         return $services;
     }
 
-    protected function isPrivacyCenterEnabled(PageModel $rootPage = null)
+    protected function isPrivacyCenterEnabled(?PageModel $rootPage = null)
     {
         $isPrivacyCenterEnabled = false;
 
@@ -107,7 +110,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         $options = [];
 
         foreach ($attributes as $attribute) {
-            $options[$attribute->id] = $attribute->title.' (ID: '.$attribute->id.')';
+            $options[$attribute->id] = $attribute->title . ' (ID: ' . $attribute->id . ')';
         }
 
         natcasesort($options);

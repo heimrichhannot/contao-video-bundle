@@ -8,9 +8,9 @@ use Contao\DataContainer;
 
 class PageContainer
 {
-
-    public function __construct(private readonly FinderFactory $finderFactory)
-    {
+    public function __construct(
+        private readonly FinderFactory $finderFactory,
+    ) {
     }
 
     #[AsCallback(table: 'tl_page', target: 'fields.videofullsizeTemplate.options')]
@@ -23,7 +23,7 @@ class PageContainer
             ->extension('html.twig')
             ->withVariants();
 
-        return  $finder->asTemplateOptions();
+        return $finder->asTemplateOptions();
     }
 
     #[AsCallback(table: 'tl_page', target: 'fields.videoprivacyTemplate.options')]
@@ -36,6 +36,6 @@ class PageContainer
             ->extension('html.twig')
             ->withVariants();
 
-        return  $finder->asTemplateOptions();
+        return $finder->asTemplateOptions();
     }
 }

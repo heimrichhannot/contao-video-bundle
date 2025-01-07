@@ -9,7 +9,6 @@
 namespace HeimrichHannot\VideoBundle\Video;
 
 use Contao\StringUtil;
-use ReflectionClass;
 
 abstract class AbstractVideo implements VideoInterface
 {
@@ -38,9 +37,6 @@ abstract class AbstractVideo implements VideoInterface
      */
     protected $addPlayButton = false;
 
-    /**
-     * AbstractVideo constructor.
-     */
     public function __construct(array $data)
     {
         $this->setData($data);
@@ -77,14 +73,14 @@ abstract class AbstractVideo implements VideoInterface
     {
         $result = [];
 
-        $class = new ReflectionClass(static::class);
+        $class = new \ReflectionClass(static::class);
 
         foreach ($class->getMethods() as $method) {
             if (str_starts_with($method->name, 'get') && 'getData' !== $method->name) {
                 if ($method->isStatic()) {
                     continue;
                 }
-                $propName = strtolower(substr($method->name, 3, 1)).substr($method->name, 4);
+                $propName = strtolower(substr($method->name, 3, 1)) . substr($method->name, 4);
 
                 $result[$propName] = $method->invoke($this);
             }
@@ -94,7 +90,7 @@ abstract class AbstractVideo implements VideoInterface
                     continue;
                 }
 
-                $propName = strtolower(substr($method->name, 2, 1)).substr($method->name, 3);
+                $propName = strtolower(substr($method->name, 2, 1)) . substr($method->name, 3);
 
                 $result[$propName] = $method->invoke($this);
             }
@@ -104,7 +100,7 @@ abstract class AbstractVideo implements VideoInterface
                     continue;
                 }
 
-                $propName = strtolower(substr($method->name, 3, 1)).substr($method->name, 4);
+                $propName = strtolower(substr($method->name, 3, 1)) . substr($method->name, 4);
 
                 $result[$propName] = $method->invoke($this);
             }
@@ -128,9 +124,6 @@ abstract class AbstractVideo implements VideoInterface
         return $this->videoLinkText;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeadlineText(): string
     {
         return $this->headlineText;
@@ -145,8 +138,6 @@ abstract class AbstractVideo implements VideoInterface
      * Set object property.
      *
      * If you overwrite this method, it is recommended to just adjust needed values and call parent::setProperty() afterwards
-     *
-     * @param $value
      */
     protected function setProperty(string $property, $value)
     {

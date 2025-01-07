@@ -8,9 +8,6 @@
 
 namespace HeimrichHannot\VideoBundle\Generator;
 
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 use Contao\BackendTemplate;
 use Contao\Config;
 use Contao\ContentModel;
@@ -31,14 +28,20 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class VideoGenerator
 {
-    /**
-     * VideoGenerator constructor.
-     */
-    public function __construct(private readonly Environment             $twig, private array $bundleConfig, private readonly TranslatorInterface $translator, private readonly EventDispatcherInterface $eventDispatcher, private readonly Utils  $utils, private readonly Studio $studio)
-    {
+    public function __construct(
+        private readonly Environment $twig,
+        private array $bundleConfig,
+        private readonly TranslatorInterface $translator,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly Utils $utils,
+        private readonly Studio $studio,
+    ) {
     }
 
     /**
@@ -52,8 +55,7 @@ class VideoGenerator
      */
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {
-        if ($this->utils->container()->isBackend())
-        {
+        if ($this->utils->container()->isBackend()) {
             $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['CTE'][ExtendedVideoElementController::TYPE][0] . ' ###';
 
@@ -62,11 +64,11 @@ class VideoGenerator
 
         if (isset($options['rootPage'])) {
             if (!$options['rootPage'] instanceof PageModel) {
-                throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".$options['rootPage']::class);
+                throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was " . $options['rootPage']::class);
             }
 
             if ('root' === $options['rootPage']->type) {
-                throw new \InvalidArgumentException("Option rootPage only allows PageModel instances of type 'root'. Type ".$options['rootPage']->type.' given.');
+                throw new \InvalidArgumentException("Option rootPage only allows PageModel instances of type 'root'. Type " . $options['rootPage']->type . ' given.');
             }
             $rootPage = $options['rootPage'];
         } else {
@@ -116,7 +118,9 @@ class VideoGenerator
         $context = $event->getContext();
         $context['dataAttributes'] = $this->utils->html()->generateDataAttributesString(
             $context['dataAttributes'],
-            ['array_handling' => 'encode']
+            [
+                'array_handling' => 'encode',
+            ]
         );
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
@@ -152,7 +156,7 @@ class VideoGenerator
         return $videoBuffer;
     }
 
-    public function getFullsizeTemplate(PageModel $rootPage = null): string
+    public function getFullsizeTemplate(?PageModel $rootPage = null): string
     {
         $template = 'huh_video/fullsize';
 
@@ -163,7 +167,7 @@ class VideoGenerator
         return $template;
     }
 
-    public function getPrivacyTemplate(PageModel $rootPage = null): string
+    public function getPrivacyTemplate(?PageModel $rootPage = null): string
     {
         $template = 'huh_video/privacy';
 
@@ -184,7 +188,7 @@ class VideoGenerator
 
         $imageModel = FilesModel::findByUuid($video->getPreviewImage());
 
-        //TODO: Load image from external source
+        // TODO: Load image from external source
 
         if (!$imageModel) {
             unset($context['previewImage']);
@@ -207,19 +211,22 @@ class VideoGenerator
         $context['previewImage'] = $figureBuilder->build();
     }
 
-    protected function generatePrivacyNote(VideoInterface $video, array &$videoContext, PageModel $rootPage = null): string
+    protected function generatePrivacyNote(VideoInterface $video, array &$videoContext, ?PageModel $rootPage = null): string
     {
-        $context['headline'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.headline');
-        $context['text'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.text');
-        $context['checkbox'] = $this->translator->trans('huh_video.video.'.$video::getType().'.privacy.checkbox', ['%host%' => \Contao\Environment::get('host')]);
+        $context['headline'] = $this->translator->trans('huh_video.video.' . $video::getType() . '.privacy.headline');
+        $context['text'] = $this->translator->trans('huh_video.video.' . $video::getType() . '.privacy.text');
+        $context['checkbox'] = $this->translator->trans('huh_video.video.' . $video::getType() . '.privacy.checkbox', [
+            '%host%' => \Contao\Environment::get('host'),
+        ]);
         $context['videoContext'] = $videoContext;
 
         $template = new FrontendTemplate($this->getPrivacyTemplate($rootPage));
         $template->setData($context);
+
         return $template->parse();
     }
 
-    protected function isNoCookiesEnabled(PageModel $rootPage = null)
+    protected function isNoCookiesEnabled(?PageModel $rootPage = null)
     {
         $noCookiesEnabled = false;
 
@@ -234,7 +241,7 @@ class VideoGenerator
         return $noCookiesEnabled;
     }
 
-    protected function isPrivacyNoticeEnabled(PageModel $rootPage = null)
+    protected function isPrivacyNoticeEnabled(?PageModel $rootPage = null)
     {
         $isPrivacyNoticeEnabled = false;
 

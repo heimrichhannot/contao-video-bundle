@@ -19,27 +19,32 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class FrontendController.
  */
-#[Route(path: '/huh_video', name: 'huh_video_', defaults: ['_scope' => 'frontend', '_token_check' => false])]
+#[Route(path: '/huh_video', name: 'huh_video_', defaults: [
+    '_scope' => 'frontend',
+    '_token_check' => false,
+])]
 class FrontendController extends AbstractController
 {
-    /**
-     * FrontendController constructor.
-     */
-    public function __construct(private readonly VideoGenerator $videoGenerator, private readonly VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
-    {
+    public function __construct(
+        private readonly VideoGenerator $videoGenerator,
+        private readonly VideoProviderCollection $videoProviderCollection,
+        private readonly Utils $utils,
+    ) {
     }
 
     /**
-     *
      * @param string $entity Table name without tl_ prefix
      * @param int    $id
+     *
      * @return Response
      */
-    #[Route(path: '/videobyentity/{entity}/{id}', name: 'video-by-entity', requirements: ['id' => '\d+'])]
+    #[Route(path: '/videobyentity/{entity}/{id}', name: 'video-by-entity', requirements: [
+        'id' => '\d+',
+    ])]
     public function showVideoByEntityAction($entity, $id)
     {
         /** @var Model|null $entity */
-        $entity = $this->utils->model()->findModelInstanceByPk('tl_'.$entity, $id);
+        $entity = $this->utils->model()->findModelInstanceByPk('tl_' . $entity, $id);
 
         if (!$entity) {
             return new Response('No entity with video found', 404);
@@ -48,7 +53,9 @@ class FrontendController extends AbstractController
         try {
             $videoClass = $this->videoProviderCollection->getClassByVideoProvider($entity->videoProvider);
 
-            return new Response($this->videoGenerator->generate(new $videoClass($entity->row()), ['ignoreFullsize' => true]));
+            return new Response($this->videoGenerator->generate(new $videoClass($entity->row()), [
+                'ignoreFullsize' => true,
+            ]));
         } catch (\Exception) {
             return new Response('No video found for given entity', 404);
         }

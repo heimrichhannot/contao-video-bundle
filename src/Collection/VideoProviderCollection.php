@@ -12,19 +12,13 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 
 class VideoProviderCollection
 {
-    /**
-     * VideoCollection constructor.
-     */
     public function __construct(
-        private array $bundleConfig
-    )
-    {
+        private array $bundleConfig,
+    ) {
     }
 
     /**
      * Return all video provider as array.
-     *
-     * @return array
      */
     public function getVideoProvider(): array
     {
@@ -49,8 +43,6 @@ class VideoProviderCollection
 
     /**
      * Return a video object base.
-     *
-     * @param string $selector
      */
     public function getVideoByRawDataWithSelector(array $data, ?string $selector = 'addVideo'): ?VideoInterface
     {
