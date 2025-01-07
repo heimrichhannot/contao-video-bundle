@@ -3,11 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [2.0.0-DEV] - 2025-01-07
+- Changed: allow contao 5
 - Changed: migrated fullsize and privacy templates to new contao template system (NEED MANUAL ADJUSTMENT!)
 - Changed: use new contao image handling
 - Changed: dropped list bundle support (for the moment as not available for contao 5)
 - Changed: modernized bundle structure
 - Changed: dropped twig support bundle integration
+- Changed: allow utils bundle v3
+- Changed: dropped support for php lower than 8.1
 - Removed: support for deprecated config key videoProvider
 - Removed: support for deprecated config option names
 

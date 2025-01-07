@@ -1,11 +1,10 @@
 {
   "name": "contao-video-bundle",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
-  "repository": "git@bitbucket.org:heimrichhannot/contao-video-bundle.git",
+  "repository": "https://github.com/heimrichhannot/contao-video-bundle",
   "author": "Thomas Körner <t.koerner@heimrich-hannot.de>",
   "dependencies": {
-    "@hundh/contao-utils-bundle": "^1.6",
     "alertifyjs": "^1.11"
   },
   "devDependencies": {

@@ -17,8 +17,6 @@ use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\PageModel;
 use Contao\StringUtil;
-use HeimrichHannot\UtilsBundle\Image\ImageUtil;
-use HeimrichHannot\UtilsBundle\Template\TemplateUtil;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Controller\ContentElement\ExtendedVideoElementController;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
@@ -38,10 +36,6 @@ class VideoGenerator
      */
     private $twig;
     /**
-     * @var ImageUtil
-     */
-    private $imageUtil;
-    /**
      * @var array
      */
     private $bundleConfig;
@@ -50,28 +44,23 @@ class VideoGenerator
      */
     private $translator;
     /**
-     * @var TemplateUtil
-     */
-    private $templateUtil;
-    /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
-    private Utils $utils;
 
     /**
      * VideoGenerator constructor.
      */
-    public function __construct(Environment $twig, ImageUtil $imageUtil, array $bundleConfig, TranslatorInterface $translator, TemplateUtil $templateUtil, EventDispatcherInterface $eventDispatcher, Utils $utils,
-                                private readonly Studio $studio)
+    public function __construct(
+        Environment             $twig, array $bundleConfig, TranslatorInterface $translator, EventDispatcherInterface $eventDispatcher,
+        private readonly Utils  $utils,
+        private readonly Studio $studio
+    )
     {
         $this->twig = $twig;
-        $this->imageUtil = $imageUtil;
         $this->bundleConfig = $bundleConfig;
         $this->translator = $translator;
-        $this->templateUtil = $templateUtil;
         $this->eventDispatcher = $eventDispatcher;
-        $this->utils = $utils;
     }
 
     /**
