@@ -33,7 +33,7 @@ class ModifiyVideoPaletteListener
     /**
      * @param DataContainer $dataContainer
      */
-    public function updateVideoPaletteWithLegend($dataContainer)
+    public function updateVideoPaletteWithLegend($dataContainer): void
     {
         $this->updateVideoPalette($dataContainer);
     }
@@ -41,7 +41,7 @@ class ModifiyVideoPaletteListener
     /**
      * @param DataContainer $dataContainer
      */
-    public function updateVideoPaletteWithoutLegend($dataContainer)
+    public function updateVideoPaletteWithoutLegend($dataContainer): void
     {
         $this->updateVideoPalette($dataContainer, true);
     }

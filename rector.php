@@ -15,15 +15,15 @@ return RectorConfig::configure()
         __DIR__ . '/src',
     ])
     ->withRules([
-//        AddVoidReturnTypeWhereNoReturnRector::class,
+        AddVoidReturnTypeWhereNoReturnRector::class,
         # In Vorbereitung für PHP 8.4:
-        # ExplicitNullableParamTypeRector::class
+        ExplicitNullableParamTypeRector::class
     ])
 
     ->withImportNames(importShortClasses: false, removeUnusedImports: true)
     ->withSets([
         LevelSetList::UP_TO_PHP_74,
-//        SymfonySetList::SYMFONY_44,
+        SymfonySetList::SYMFONY_44,
 //        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
 //        # Erst mit Symfony 6 (Contao 5) nutzen:
 //        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
