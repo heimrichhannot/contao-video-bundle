@@ -30,7 +30,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
     ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AfterRenderPlayerEvent::NAME => 'afterRenderPlayer',
@@ -81,7 +81,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         ));
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         $services = [];
 
@@ -92,7 +92,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         return $services;
     }
 
-    protected function isPrivacyCenterEnabled(?PageModel $rootPage = null)
+    protected function isPrivacyCenterEnabled(?PageModel $rootPage = null): bool
     {
         $isPrivacyCenterEnabled = false;
 
@@ -104,7 +104,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         return $isPrivacyCenterEnabled;
     }
 
-    public function onFieldsMceLocalStorageAttribute($dc)
+    public function onFieldsMceLocalStorageAttribute($dc): array
     {
         $attributes = TrackingObjectModel::findAll();
         $options = [];

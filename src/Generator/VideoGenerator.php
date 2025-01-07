@@ -17,6 +17,8 @@ use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\PageModel;
 use Contao\StringUtil;
+use HeimrichHannot\UtilsBundle\Util\HtmlUtil\GenerateDataAttributesStringArrayHandling;
+use HeimrichHannot\UtilsBundle\Util\HtmlUtil\GenerateDataAttributesStringOptions;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Controller\ContentElement\ExtendedVideoElementController;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
@@ -118,9 +120,7 @@ class VideoGenerator
         $context = $event->getContext();
         $context['dataAttributes'] = $this->utils->html()->generateDataAttributesString(
             $context['dataAttributes'],
-            [
-                'array_handling' => 'encode',
-            ]
+            GenerateDataAttributesStringOptions::create()->setArrayHandling(GenerateDataAttributesStringArrayHandling::ENCODE)
         );
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);

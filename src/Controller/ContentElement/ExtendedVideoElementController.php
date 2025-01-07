@@ -32,7 +32,7 @@ class ExtendedVideoElementController extends AbstractContentElementController
     ) {
     }
 
-    protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
     {
         $video = $this->videoProviderCollection->getVideoByRawDataWithSelector($model->row(), null);
 

@@ -30,3 +30,4 @@ services:
 
   HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
     public: true
+    autoconfigure: true
