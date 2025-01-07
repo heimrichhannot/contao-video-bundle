@@ -11,9 +11,8 @@
   ],
   "license": "LGPL-3.0-or-later",
   "require": {
-    "php": "^7.4 || ^8.0",
-    "contao/core-bundle": "^4.9",
-    "heimrichhannot/contao-config-element-type-bundle": "^0.2",
+    "php": "^8.1",
+    "contao/core-bundle": "^4.13 || ^5.0",
     "heimrichhannot/contao-encore-contracts": "^1.0",
     "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
     "heimrichhannot/contao-twig-support-bundle": "^1.5",
@@ -32,10 +31,6 @@
     }
   },
   "extra": {
-    "contao-manager-plugin": "HeimrichHannot\\VideoBundle\\ContaoManager\\Plugin",
-    "foxy": true
-  },
-  "suggest": {
-    "heimrichhannot/contao-encore-bundle": "Manage dependencies with Symfony Webpack Encore."
+    "contao-manager-plugin": "HeimrichHannot\\VideoBundle\\ContaoManager\\Plugin"
   }
 }

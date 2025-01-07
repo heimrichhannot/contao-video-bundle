@@ -28,18 +28,8 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
      */
     public function getBundles(ParserInterface $parser): array
     {
-        $loadAfter = [ContaoCoreBundle::class];
-
-        if (class_exists('HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle')) {
-            $loadAfter[] = HeimrichHannotContaoEncoreBundle::class;
-        }
-
-        if (class_exists('HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle')) {
-            $loadAfter[] = HeimrichHannotContaoListBundle::class;
-        }
-
         return [
-            BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter($loadAfter),
+            BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }
 
@@ -48,7 +38,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
      */
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
     {
-        $loader->load('@HeimrichHannotVideoBundle/Resources/config/services.yml');
+        $loader->load('@HeimrichHannotVideoBundle/config/services.yaml');
     }
 
     /**
@@ -56,7 +46,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
      */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
     {
-        $file = '@HeimrichHannotVideoBundle/Resources/config/routing.yml';
+        $file = '@HeimrichHannotVideoBundle/config/routing.yaml';
 
         return $resolver->resolve($file)->load($file);
     }

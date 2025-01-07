@@ -41,12 +41,6 @@ class LoadDataContainerListener
                 $this->preparePageTable();
 
                 break;
-
-            case 'tl_list_config_element':
-            case 'tl_reader_config_element':
-                $this->prepareConfigElementTable($table);
-
-                break;
         }
     }
 
@@ -74,12 +68,6 @@ class LoadDataContainerListener
 
             $paletteManipulator->applyToPalette($paletteName, 'tl_news');
         }
-    }
-
-    protected function prepareConfigElementTable($table)
-    {
-        $dca = &$GLOBALS['TL_DCA'][$table];
-        $dca['config']['onload_callback'][] = [ConfigElementListener::class, 'onLoadCallback'];
     }
 
     protected function preparePageTable()

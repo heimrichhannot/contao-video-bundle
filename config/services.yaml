@@ -5,7 +5,7 @@ services:
       $bundleConfig: '%huh_video%'
 
   HeimrichHannot\VideoBundle\:
-    resource: '../../{Asset,Command,Controller,DataContainer,EventListener}/*'
+    resource: '../src/{Asset,Controller,DataContainer,EventListener}/*'
     autoconfigure: true
 
   HeimrichHannot\VideoBundle\Asset\FrontendAsset:
@@ -20,8 +20,5 @@ services:
     public: true
 
   HeimrichHannot\VideoBundle\EventListener\Dca\:
-    resource: ../../EventListener/Dca/*
+    resource: ../src/EventListener/Dca/*
     public: true
-
-  HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType:
-    tags: ['huh.list.config_element_type', 'huh.reader.config_element_type']

@@ -10,5 +10,4 @@
 
 $lang = &$GLOBALS['TL_LANG']['tl_reader_config_element'];
 
-$lang['reference'][\HeimrichHannot\VideoBundle\ConfigElementType\VideoConfigElementType::getType()] = 'Video (Advanced video player)';
-$lang['video_legend'] = 'Video settings';
+$lang['video_legend'] = 'Video-Einstellungen';
