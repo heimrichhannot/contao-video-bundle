@@ -8,6 +8,9 @@
 
 namespace HeimrichHannot\VideoBundle\Generator;
 
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Contao\BackendTemplate;
 use Contao\Config;
 use Contao\ContentModel;
@@ -68,9 +71,9 @@ class VideoGenerator
      * - ignoreFullsize: (bool) Ignore the video fullsize property
      * - rootPage: (PageModel) Set the root page instead of determine it.
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function generate(VideoInterface $video, $parent, array $options = []): string
     {

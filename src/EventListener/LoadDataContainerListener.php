@@ -8,9 +8,9 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
+use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
-use HeimrichHannot\VideoBundle\EventListener\Dca\ConfigElementListener;
 use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
@@ -81,7 +81,7 @@ class LoadDataContainerListener
             return;
         }
 
-        if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
+        if (!class_exists(HeimrichHannotContaoMultiColumnEditorBundle::class)) {
             trigger_error(
                 'HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.',
                 \E_USER_WARNING);
