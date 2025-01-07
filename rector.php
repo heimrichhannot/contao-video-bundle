@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Contao\Rector\Set\ContaoLevelSetList;
 use Contao\Rector\Set\ContaoSetList;
 use Rector\Config\RectorConfig;
+use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
@@ -21,8 +22,8 @@ return RectorConfig::configure()
 
     ->withImportNames(importShortClasses: false, removeUnusedImports: true)
     ->withSets([
-        LevelSetList::UP_TO_PHP_80,
-        SymfonySetList::SYMFONY_44,
+        LevelSetList::UP_TO_PHP_81,
+        SymfonySetList::SYMFONY_54,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
 //        # Erst mit Symfony 6 (Contao 5) nutzen:
 //        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
@@ -31,7 +32,7 @@ return RectorConfig::configure()
         ContaoSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ])
     ->withSkip([
-        \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
+        ClosureToArrowFunctionRector::class => [
             __DIR__.'/src/Generator/DcaFieldGenerator.php'
         ]
     ])

@@ -19,7 +19,7 @@ class BeforeRenderPlayerEvent extends Event
     /**
      * BeforeRenderPlayerEvent constructor.
      */
-    public function __construct(private VideoInterface $video, private array $context, private mixed $parent, private ?PageModel $rootPage, private array $options)
+    public function __construct(private readonly VideoInterface $video, private array $context, private readonly mixed $parent, private readonly ?PageModel $rootPage, private readonly array $options)
     {
     }
 

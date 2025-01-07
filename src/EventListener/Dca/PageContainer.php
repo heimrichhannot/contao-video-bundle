@@ -16,7 +16,7 @@ class PageContainer
     /**
      * PageContainer constructor.
      */
-    public function __construct(private VideoProviderCollection $videoProviderCollection)
+    public function __construct(private readonly VideoProviderCollection $videoProviderCollection)
     {
     }
 

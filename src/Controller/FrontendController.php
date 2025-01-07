@@ -25,7 +25,7 @@ class FrontendController extends AbstractController
     /**
      * FrontendController constructor.
      */
-    public function __construct(private VideoGenerator $videoGenerator, private VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
+    public function __construct(private readonly VideoGenerator $videoGenerator, private readonly VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
     {
     }
 

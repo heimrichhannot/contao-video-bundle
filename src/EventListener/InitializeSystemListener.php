@@ -14,7 +14,7 @@ use HeimrichHannot\UtilsBundle\Util\Utils;
 #[AsHook('initializeSystem')]
 class InitializeSystemListener
 {
-    public function __construct(private Utils $utils)
+    public function __construct(private readonly Utils $utils)
     {
     }
 

@@ -24,11 +24,11 @@ class ExtendedVideoElementController extends AbstractContentElementController
 
     public function __construct(
         VideoProviderCollection $videoProviderCollection,
-        private VideoGenerator $videoGenerator,
-        private Utils $utils,
-        private FrontendAsset $frontendAsset,
-        private TranslatorInterface $translator,
-        private EventDispatcherInterface $eventDispatcher
+        private readonly VideoGenerator $videoGenerator,
+        private readonly Utils $utils,
+        private readonly FrontendAsset $frontendAsset,
+        private readonly TranslatorInterface $translator,
+        private readonly EventDispatcherInterface $eventDispatcher
     )
     {
         $this->videoProviderCollection = $videoProviderCollection;

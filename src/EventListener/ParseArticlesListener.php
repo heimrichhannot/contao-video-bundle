@@ -19,7 +19,7 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 #[AsHook('parseArticles')]
 class ParseArticlesListener
 {
-    public function __construct(private array $bundleConfig, private VideoProviderCollection $videoProviderCollection, private VideoGenerator $videoGenerator, private FrontendAsset $frontendAsset)
+    public function __construct(private array $bundleConfig, private readonly VideoProviderCollection $videoProviderCollection, private readonly VideoGenerator $videoGenerator, private readonly FrontendAsset $frontendAsset)
     {
     }
 

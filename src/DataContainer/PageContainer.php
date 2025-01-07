@@ -9,7 +9,7 @@ use Contao\DataContainer;
 class PageContainer
 {
 
-    public function __construct(private FinderFactory $finderFactory)
+    public function __construct(private readonly FinderFactory $finderFactory)
     {
     }
 

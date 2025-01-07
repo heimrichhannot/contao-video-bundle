@@ -14,7 +14,7 @@ use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditor
 #[AsHook('sqlGetFromDca')]
 class SqlGetDataListener
 {
-    public function __construct(private array $bundleConfig)
+    public function __construct(private readonly array $bundleConfig)
     {
     }
 

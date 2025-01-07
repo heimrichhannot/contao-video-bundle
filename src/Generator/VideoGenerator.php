@@ -37,7 +37,7 @@ class VideoGenerator
     /**
      * VideoGenerator constructor.
      */
-    public function __construct(private Environment             $twig, private array $bundleConfig, private TranslatorInterface $translator, private EventDispatcherInterface $eventDispatcher, private readonly Utils  $utils, private readonly Studio $studio)
+    public function __construct(private readonly Environment             $twig, private array $bundleConfig, private readonly TranslatorInterface $translator, private readonly EventDispatcherInterface $eventDispatcher, private readonly Utils  $utils, private readonly Studio $studio)
     {
     }
 

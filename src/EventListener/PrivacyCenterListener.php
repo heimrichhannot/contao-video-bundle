@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
-    public function __construct(private ContainerInterface $container, private TranslatorInterface $translator, private Utils $utils)
+    public function __construct(private readonly ContainerInterface $container, private readonly TranslatorInterface $translator, private readonly Utils $utils)
     {
     }
 

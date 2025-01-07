@@ -20,7 +20,7 @@ class ModifiyVideoPaletteListener
     /**
      * ModifiyVideoPaletteListener constructor.
      */
-    public function __construct(private VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
+    public function __construct(private readonly VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
     {
     }
 
@@ -46,7 +46,7 @@ class ModifiyVideoPaletteListener
             return;
         }
 
-        if (!str_contains($dataContainer->getPalette(), 'videoProvider')) {
+        if (!str_contains((string) $dataContainer->getPalette(), 'videoProvider')) {
             return;
         }
         $model = $this->utils->model()->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
@@ -66,7 +66,7 @@ class ModifiyVideoPaletteListener
 
         $isSubpalette = false;
 
-        if (str_contains($dataContainer->getPalette(), 'addVideo')) {
+        if (str_contains((string) $dataContainer->getPalette(), 'addVideo')) {
             $isSubpalette = true;
         }
 
