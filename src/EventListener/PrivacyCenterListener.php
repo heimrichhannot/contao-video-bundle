@@ -23,15 +23,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
-    private TranslatorInterface $translator;
-    private ContainerInterface $container;
-    private Utils $utils;
-
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator, Utils $utils)
+    public function __construct(private ContainerInterface $container, private TranslatorInterface $translator, private Utils $utils)
     {
-        $this->translator = $translator;
-        $this->container = $container;
-        $this->utils = $utils;
     }
 
     public static function getSubscribedEvents()

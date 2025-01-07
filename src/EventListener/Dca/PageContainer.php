@@ -14,15 +14,10 @@ use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 class PageContainer
 {
     /**
-     * @var VideoProviderCollection
-     */
-    private $videoProviderCollection;
-    /**
      * PageContainer constructor.
      */
-    public function __construct(VideoProviderCollection $videoProviderCollection)
+    public function __construct(private VideoProviderCollection $videoProviderCollection)
     {
-        $this->videoProviderCollection = $videoProviderCollection;
     }
 
     /**

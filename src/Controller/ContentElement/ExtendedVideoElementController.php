@@ -12,7 +12,6 @@ use HeimrichHannot\VideoBundle\Asset\FrontendAsset;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Event\BeforeRenderPlayerEvent;
 use HeimrichHannot\VideoBundle\Generator\VideoGenerator;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -22,28 +21,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ExtendedVideoElementController extends AbstractContentElementController
 {
     public const TYPE = 'huh_video';
-    private VideoGenerator $videoGenerator;
-    private Utils $utils;
-    private FrontendAsset $frontendAsset;
-    private TranslatorInterface $translator;
-    /** @var EventDispatcher */
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         VideoProviderCollection $videoProviderCollection,
-        VideoGenerator $videoGenerator,
-        Utils $utils,
-        FrontendAsset $frontendAsset,
-        TranslatorInterface $translator,
-        EventDispatcherInterface $eventDispatcher
+        private VideoGenerator $videoGenerator,
+        private Utils $utils,
+        private FrontendAsset $frontendAsset,
+        private TranslatorInterface $translator,
+        private EventDispatcherInterface $eventDispatcher
     )
     {
         $this->videoProviderCollection = $videoProviderCollection;
-        $this->videoGenerator = $videoGenerator;
-        $this->utils = $utils;
-        $this->frontendAsset = $frontendAsset;
-        $this->translator = $translator;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
 

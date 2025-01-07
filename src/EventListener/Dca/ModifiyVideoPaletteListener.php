@@ -18,16 +18,10 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 class ModifiyVideoPaletteListener
 {
     /**
-     * @var VideoProviderCollection
-     */
-    private $videoProviderCollection;
-
-    /**
      * ModifiyVideoPaletteListener constructor.
      */
-    public function __construct(VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
+    public function __construct(private VideoProviderCollection $videoProviderCollection, private readonly Utils $utils)
     {
-        $this->videoProviderCollection = $videoProviderCollection;
     }
 
     /**
@@ -52,7 +46,7 @@ class ModifiyVideoPaletteListener
             return;
         }
 
-        if (false === strpos($dataContainer->getPalette(), 'videoProvider')) {
+        if (!str_contains($dataContainer->getPalette(), 'videoProvider')) {
             return;
         }
         $model = $this->utils->model()->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
@@ -72,7 +66,7 @@ class ModifiyVideoPaletteListener
 
         $isSubpalette = false;
 
-        if (false !== strpos($dataContainer->getPalette(), 'addVideo')) {
+        if (str_contains($dataContainer->getPalette(), 'addVideo')) {
             $isSubpalette = true;
         }
 

@@ -148,7 +148,7 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
             $subtitles[] = [
                 'src' => $utils->file()->getPathFromUuid($element['file'][0]),
                 'lang' => $element['language'],
-                'label' => System::getLanguages(true)[$element['language']],
+                'label' => System::getContainer()->get('contao.intl.locales')->getEnabledLocales(null, true)[$element['language']],
             ];
         }
 

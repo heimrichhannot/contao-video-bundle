@@ -14,11 +14,8 @@ use HeimrichHannot\UtilsBundle\Util\Utils;
 #[AsHook('initializeSystem')]
 class InitializeSystemListener
 {
-    private Utils $utils;
-
-    public function __construct(Utils $utils)
+    public function __construct(private Utils $utils)
     {
-        $this->utils = $utils;
     }
 
     public function __invoke(): void

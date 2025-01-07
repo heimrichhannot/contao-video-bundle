@@ -13,16 +13,10 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 class VideoProviderCollection
 {
     /**
-     * @var array
-     */
-    private $bundleConfig;
-
-    /**
      * VideoCollection constructor.
      */
-    public function __construct(array $bundleConfig)
+    public function __construct(private array $bundleConfig)
     {
-        $this->bundleConfig = $bundleConfig;
     }
 
     /**
@@ -67,7 +61,7 @@ class VideoProviderCollection
         try {
             /** @var string|VideoInterface $videoClass */
             $videoClass = $this->getClassByVideoProvider($data['videoProvider']);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return null;
         }
 

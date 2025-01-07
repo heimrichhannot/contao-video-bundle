@@ -19,17 +19,8 @@ use HeimrichHannot\VideoBundle\Video\VideoInterface;
 #[AsHook('parseArticles')]
 class ParseArticlesListener
 {
-    private array $bundleConfig;
-    private VideoProviderCollection $videoProviderCollection;
-    private VideoGenerator $videoGenerator;
-    private FrontendAsset $frontendAsset;
-
-    public function __construct(array $bundleConfig, VideoProviderCollection $videoProviderCollection, VideoGenerator $videoGenerator, FrontendAsset $frontendAsset)
+    public function __construct(private array $bundleConfig, private VideoProviderCollection $videoProviderCollection, private VideoGenerator $videoGenerator, private FrontendAsset $frontendAsset)
     {
-        $this->bundleConfig = $bundleConfig;
-        $this->videoProviderCollection = $videoProviderCollection;
-        $this->videoGenerator = $videoGenerator;
-        $this->frontendAsset = $frontendAsset;
     }
 
     public function __invoke(FrontendTemplate $template, array $newsEntry, Module $module): void

@@ -20,11 +20,8 @@ class LoadDataContainerListener
     public const PALETTE_VIDEO = 'videoProvider';
     public const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
-    private array $bundleConfig;
-
-    public function __construct(array $bundleConfig)
+    public function __construct(private array $bundleConfig)
     {
-        $this->bundleConfig = $bundleConfig;
     }
 
     public function __invoke(string $table): void

@@ -80,7 +80,7 @@ abstract class AbstractVideo implements VideoInterface
         $class = new ReflectionClass(static::class);
 
         foreach ($class->getMethods() as $method) {
-            if ('get' == substr($method->name, 0, 3) && 'getData' !== $method->name) {
+            if (str_starts_with($method->name, 'get') && 'getData' !== $method->name) {
                 if ($method->isStatic()) {
                     continue;
                 }
@@ -89,7 +89,7 @@ abstract class AbstractVideo implements VideoInterface
                 $result[$propName] = $method->invoke($this);
             }
 
-            if ('is' == substr($method->name, 0, 2)) {
+            if (str_starts_with($method->name, 'is')) {
                 if ($method->isStatic()) {
                     continue;
                 }
@@ -99,7 +99,7 @@ abstract class AbstractVideo implements VideoInterface
                 $result[$propName] = $method->invoke($this);
             }
 
-            if ('has' == substr($method->name, 0, 3)) {
+            if (str_starts_with($method->name, 'has')) {
                 if ($method->isStatic()) {
                     continue;
                 }

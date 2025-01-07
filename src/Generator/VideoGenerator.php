@@ -35,35 +35,10 @@ use Twig\Environment;
 class VideoGenerator
 {
     /**
-     * @var Environment
-     */
-    private $twig;
-    /**
-     * @var array
-     */
-    private $bundleConfig;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
      * VideoGenerator constructor.
      */
-    public function __construct(
-        Environment             $twig, array $bundleConfig, TranslatorInterface $translator, EventDispatcherInterface $eventDispatcher,
-        private readonly Utils  $utils,
-        private readonly Studio $studio
-    )
+    public function __construct(private Environment             $twig, private array $bundleConfig, private TranslatorInterface $translator, private EventDispatcherInterface $eventDispatcher, private readonly Utils  $utils, private readonly Studio $studio)
     {
-        $this->twig = $twig;
-        $this->bundleConfig = $bundleConfig;
-        $this->translator = $translator;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -87,7 +62,7 @@ class VideoGenerator
 
         if (isset($options['rootPage'])) {
             if (!$options['rootPage'] instanceof PageModel) {
-                throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".\get_class($options['rootPage']));
+                throw new \InvalidArgumentException("Option rootPage only allows \Contao\PageModel instances. Input was ".$options['rootPage']::class);
             }
 
             if ('root' === $options['rootPage']->type) {

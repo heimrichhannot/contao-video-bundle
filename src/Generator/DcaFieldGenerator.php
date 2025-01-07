@@ -241,7 +241,7 @@ class DcaFieldGenerator
                                     'groupStyle' => 'width: 48%',
                                 ],
                                 'options_callback' => function (DataContainer $dc) {
-                                    return System::getLanguages(true);
+                                    return System::getContainer()->get('contao.intl.locales')->getEnabledLocales(null, true);
                                 },
                             ],
                         ],
