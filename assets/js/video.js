@@ -71,15 +71,6 @@ export default class Video {
     }
 
     applyPrivacySettingsToLink() {
-        // legacy support
-        // @todo Deprecated, remove in next major version
-        if (!this.privacyMode) {
-            if ('privacy' in this.configuration) {
-                this.privacyMode = true;
-                console.warn("You're using an outdated video fullsize template. Please adjust your template according to the docs. Since version 1.2.0");
-            }
-        }
-
         this.wrapperElement.addEventListener('click', (event) => {
             event.preventDefault();
             if (this.privacyMode) {
@@ -103,26 +94,10 @@ export default class Video {
                         elements: dialog.elements
                     }
                 }));
-                // @todo deprecated, remove in next major version
-                document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onshow', {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: {
-                        elements: dialog.elements
-                    }
-                }));
             },
             defaultFocusOff: true,
             onfocus: function() {
                 document.dispatchEvent(new CustomEvent('huh.video.alertify.onfocus', {
-                    bubbles: true,
-                    cancelable: true,
-                    detail: {
-                        elements: dialog.elements
-                    }
-                }));
-                // @todo deprecated, remove in next major version
-                document.dispatchEvent(new CustomEvent('huh.video.event.alertify.onfocus', {
                     bubbles: true,
                     cancelable: true,
                     detail: {
@@ -318,18 +293,4 @@ export default class Video {
             toggleVideo(1);
         }
     }
-
-    /**
-     * @todo Remove in next major version
-     */
-    legacyPrivacyCheck() {
-        if (!this.privacyMode && this.previewImageElement) {
-            if ('privacy' in this.previewImageElement.dataset) {
-                this.privacyMode = true;
-                console.warn("You're using an outdated video templates. Please adjust your template according to the docs. Since version 1.2.0");
-            }
-        }
-    }
-
-
 }
