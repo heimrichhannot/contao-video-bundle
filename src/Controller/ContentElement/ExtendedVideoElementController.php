@@ -23,17 +23,15 @@ class ExtendedVideoElementController extends AbstractContentElementController
     public const TYPE = 'huh_video';
 
     public function __construct(
-        VideoProviderCollection $videoProviderCollection,
-        private readonly VideoGenerator $videoGenerator,
-        private readonly Utils $utils,
-        private readonly FrontendAsset $frontendAsset,
-        private readonly TranslatorInterface $translator,
+        private readonly VideoProviderCollection  $videoProviderCollection,
+        private readonly VideoGenerator           $videoGenerator,
+        private readonly Utils                    $utils,
+        private readonly FrontendAsset            $frontendAsset,
+        private readonly TranslatorInterface      $translator,
         private readonly EventDispatcherInterface $eventDispatcher
     )
     {
-        $this->videoProviderCollection = $videoProviderCollection;
     }
-
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {

@@ -7,9 +7,6 @@
  */
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\DataContainer;
-use Contao\System;
-use HeimrichHannot\TwigSupportBundle\Filesystem\TwigTemplateLocator;
 
 $arrDca = &$GLOBALS['TL_DCA']['tl_page'];
 

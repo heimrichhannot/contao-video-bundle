@@ -38,6 +38,7 @@
     "symplify/easy-coding-standard": "^12.5",
     "phpstan/phpstan": "^1.12",
     "phpstan/phpstan-symfony": "^1.4",
-    "contao/manager-plugin": "^2.13"
+    "contao/manager-plugin": "^2.13",
+    "contao/core-bundle": "^4.13"
   }
 }

@@ -15,7 +15,9 @@ class VideoProviderCollection
     /**
      * VideoCollection constructor.
      */
-    public function __construct(private array $bundleConfig)
+    public function __construct(
+        private array $bundleConfig
+    )
     {
     }
 
@@ -24,11 +26,13 @@ class VideoProviderCollection
      *
      * @return array
      */
-    public function getVideoProvider()
+    public function getVideoProvider(): array
     {
         if (isset($this->bundleConfig['video_provider'])) {
             return array_keys($this->bundleConfig['video_provider']);
         }
+
+        return [];
     }
 
     /**
