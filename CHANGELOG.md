@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Removed: support for deprecated config option names
 - Removed: support for deprecated privacy mode attribute
 - Removed: support for deprecated huh.video.event.alertify.onshow and huh.video.event.alertify.onfocus events
+- Removed: deprecated VideoFieldContainer class
 
 ### Upgrade steps
 - If you have custom fullsize or privacy templates, move and rename them according to the new contao template system

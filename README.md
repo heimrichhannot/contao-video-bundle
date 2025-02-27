@@ -55,6 +55,34 @@ Update database afterwards.
         * Check "Add video" in your news item
         * output "videoplayer" variable in your news template
 
+
+### Customize
+
+#### Add custom video link texts
+
+Add your wanted translation as [symfony translation](https://symfony.com/doc/4.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example:
+
+```yaml
+# Projekt: app/Resources/translations/messages.en.yml
+# Bundle: src/Resources/translations/messages.en.yml
+huh_video:
+  fields:
+    videoLinkText:
+      amazing: "Show this amazing video!"
+```
+
+#### Add custom media queries for file system videos
+
+The `name` is optional and is used for better explanation to the backend user
+```yaml
+huh_video:
+    media_queries:
+        xxl:
+            query: "(min-width: 1200px)"
+            name: "Desktop"
+```
+**Note: Some browsers do not support media-queries on video element, even more it breaks autoplay. So just remove media-queries(it is not mandatory - just let the media-query field empty) from video source, if you want all browsers to autoplay on load.**
+
 ### Help
 
 #### IE Support

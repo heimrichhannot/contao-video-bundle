@@ -14,6 +14,7 @@ use Contao\System;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
+use HeimrichHannot\VideoBundle\EventListener\Dca\OnMediaQueryOptionCallbackListener;
 
 class DcaFieldGenerator
 {
@@ -230,7 +231,7 @@ class DcaFieldGenerator
                                     'includeBlankOption' => true,
                                     'groupStyle' => 'width: 48%',
                                 ],
-                                'options_callback' => [VideoFieldContainer::class, 'getMediaQueries'],
+                                'options_callback' => [OnMediaQueryOptionCallbackListener::class, 'onMediaQueryOptionsCallback'],
                             ],
                         ],
                     ],

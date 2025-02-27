@@ -25,9 +25,6 @@ services:
     resource: ../src/EventListener/Dca/*
     public: true
 
-  HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer:
-    public: true
-
   HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
     public: true
     autoconfigure: true
