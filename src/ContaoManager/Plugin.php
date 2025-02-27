@@ -20,6 +20,7 @@ use HeimrichHannot\VideoBundle\HeimrichHannotVideoBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Routing\RouteCollection;
 
 class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPluginInterface
 {
@@ -28,25 +29,19 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
      */
     public function getBundles(ParserInterface $parser): array
     {
-        $loadAfter = [ContaoCoreBundle::class];
-
-        if (class_exists('HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle')) {
-            $loadAfter[] = HeimrichHannotContaoEncoreBundle::class;
-        }
-
-        if (class_exists('HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle')) {
-            $loadAfter[] = HeimrichHannotContaoListBundle::class;
-        }
-
         return [
-            BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter($loadAfter),
+            BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter([
+                ContaoCoreBundle::class,
+                HeimrichHannotContaoEncoreBundle::class,
+                HeimrichHannotContaoListBundle::class,
+            ]),
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig)
+    public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
         $loader->load('@HeimrichHannotVideoBundle/Resources/config/services.yml');
     }
@@ -54,7 +49,7 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
     /**
      * {@inheritdoc}
      */
-    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         $file = '@HeimrichHannotVideoBundle/Resources/config/routing.yml';
 

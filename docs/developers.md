@@ -6,19 +6,19 @@
 
 Events are fired as symfony events.
 
-Event name                     | Description
------------------------------- | -----------
-BeforeRenderPlayer | Customize the video player context before rendering
-AfterRenderPlayer | Work with the rendered player buffer before output.
+| Event name         | Description                                         |
+|--------------------|-----------------------------------------------------|
+| BeforeRenderPlayer | Customize the video player context before rendering |
+| AfterRenderPlayer  | Work with the rendered player buffer before output. |
 
 ### JavaScript events
 
-Event name | Description
----------- | -----------
-huh.video.alertify.onshow | Proxy for alertify onshow event
-huh.video.alertify.onfocus | Proxy for alertify onfocus event
-huh.video.privacy.accept | User accepted privacy prompt
-huh.video.privacy.cancel | User canceled privacy prompt
+| Event name                 | Description                      |
+|----------------------------|----------------------------------|
+| huh.video.alertify.onshow  | Proxy for alertify onshow event  |
+| huh.video.alertify.onfocus | Proxy for alertify onfocus event |
+| huh.video.privacy.accept   | User accepted privacy prompt     |
+| huh.video.privacy.cancel   | User canceled privacy prompt     |
 
 ## Add new video provider
 
@@ -68,27 +68,3 @@ huh.video.privacy.cancel | User canceled privacy prompt
     $palette = \HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator::addSingleLegendPalette($dca);
     $dca['palettes']['default'] = str_replace('{image_legend}', $palette.'{image_legend}', $dca['palettes']['default']);
     ```
-   
-## Add custom video link texts
-
-Add your wanted translation as [symfony translation](https://symfony.com/doc/4.4/translation.html) withing `huh_video.fields.videoLinkText` key. Example: 
-
-```yaml
-# Projekt: app/Resources/translations/messages.en.yml
-# Bundle: src/Resources/translations/messages.en.yml
-huh_video:
-  fields:
-    videoLinkText:
-      amazing: "Show this amazing video!"
-```
-    
-## Add custom media queries for file system videos
-The `name` is optional and is used for better explanation to the backend user
-```yaml
-huh_video:
-    media_queries:
-        xxl:
-            query: "(min-width: 1200px)"
-            name: "Desktop"
-```
-**Note: Some browsers do not support media-queries on video element, even more it breaks autoplay. So just remove media-queries(it is not mandatory - just let the media-query field empty) from video source, if you want all browsers to autoplay on load.**

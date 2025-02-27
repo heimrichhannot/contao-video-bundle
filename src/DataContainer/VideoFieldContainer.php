@@ -10,11 +10,23 @@ namespace HeimrichHannot\VideoBundle\DataContainer;
 
 use Contao\DataContainer;
 use Contao\System;
+use HeimrichHannot\VideoBundle\EventListener\Dca\OnMediaQueryOptionCallbackListener;
 
+/**
+ * @deprecated Use OnMediaQueryOptionCallbackListener instead.
+ */
 class VideoFieldContainer
 {
     public function getMediaQueries(?DataContainer $dc): array
     {
+        trigger_deprecation(
+            'heimrichhannot/contao-video-bundle',
+            '1.8.0',
+            'Using %s has been deprecated and will no longer be supported in the future. Use %s instead.',
+            VideoFieldContainer::class,
+            OnMediaQueryOptionCallbackListener::class
+        );
+
         $config = System::getContainer()->getParameter('huh_video');
         $queries = [];
 

@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class HeimrichHannotVideoBundle extends Bundle
 {
-    public function getContainerExtension()
+    public function getContainerExtension(): HeimrichHannotVideoExtension
     {
         return new HeimrichHannotVideoExtension();
     }

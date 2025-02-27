@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 2025-02-27
+- Changed: refactored media query options callback listener
+- Fixed: exception with non public service
+- Fixed: some deprecation warnings
+- Deprecated: [VideoFieldContainer](src/DataContainer/VideoFieldContainer.php)
+
 ## [1.7.1] - 2024-02-27
 - Fixed: content element text field mandatory
 
