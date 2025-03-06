@@ -34,7 +34,6 @@ export default class Video {
 
         this.previewImageElement = this.wrapperElement.querySelector('.video-wrapper .video-thumbnail');
         this.videoContainerElement = this.wrapperElement.querySelector('.video-wrapper .video-container');
-        this.legacyPrivacyCheck();
 
         this.applyPrivacySettingsToVideo();
         if ('toggleVideo' in this.configuration) {
