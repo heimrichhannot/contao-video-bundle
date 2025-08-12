@@ -12,7 +12,6 @@ use Contao\Controller;
 use Contao\DataContainer;
 use Contao\System;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
-use HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 use HeimrichHannot\VideoBundle\EventListener\Dca\OnMediaQueryOptionCallbackListener;
 
