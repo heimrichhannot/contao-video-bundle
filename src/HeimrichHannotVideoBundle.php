@@ -9,12 +9,11 @@
 namespace HeimrichHannot\VideoBundle;
 
 use HeimrichHannot\VideoBundle\DependencyInjection\HeimrichHannotVideoExtension;
-use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class HeimrichHannotVideoBundle extends Bundle
 {
-    public function getContainerExtension(): ?ExtensionInterface
+    public function getContainerExtension(): HeimrichHannotVideoExtension
     {
         return new HeimrichHannotVideoExtension();
     }

@@ -19,9 +19,15 @@ All notable changes to this project will be documented in this file.
 
 ### Upgrade steps
 - If you have custom fullsize or privacy templates, move and rename them according to the new contao template system
-    e.g. `templates/videofullsize_default.html.twig` -> `contao/templates/[.twig-root]/huh_video/fullsize.html.twig`
-         `templates/videofullsize_custom.html.twig`  -> `contao/templates/[.twig-root]/huh_video/fullsize/custom.html.twig`
+  e.g. `templates/videofullsize_default.html.twig` -> `contao/templates/[.twig-root]/huh_video/fullsize.html.twig`
+  `templates/videofullsize_custom.html.twig`  -> `contao/templates/[.twig-root]/huh_video/fullsize/custom.html.twig`
 - If you worked with preview images in your templates, adjust them as `previewImage` is now a `Figure` object
+
+## [1.8.0] - 2025-02-27
+- Changed: refactored media query options callback listener
+- Fixed: exception with non public service
+- Fixed: some deprecation warnings
+- Deprecated: [VideoFieldContainer](src/DataContainer/VideoFieldContainer.php)
 
 ## [1.7.1] - 2024-02-27
 - Fixed: content element text field mandatory
