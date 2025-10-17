@@ -14,32 +14,36 @@ use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ModifiyVideoPaletteListener
 {
     public function __construct(
         private readonly VideoProviderCollection $videoProviderCollection,
         private readonly Utils $utils,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
-    /**
-     * @param DataContainer $dataContainer
-     */
-    public function updateVideoPaletteWithLegend($dataContainer): void
+    public function updateVideoPaletteWithLegend(DataContainer|null $dc = null): void
     {
-        $this->updateVideoPalette($dataContainer);
+        if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
+            return;
+        }
+
+        $this->updateVideoPalette($dc);
     }
 
-    /**
-     * @param DataContainer $dataContainer
-     */
-    public function updateVideoPaletteWithoutLegend($dataContainer): void
+    public function updateVideoPaletteWithoutLegend(DataContainer|null $dc = null): void
     {
-        $this->updateVideoPalette($dataContainer, true);
+        if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
+            return;
+        }
+
+        $this->updateVideoPalette($dc, true);
     }
 
-    protected function updateVideoPalette($dataContainer, bool $withoutLegend = false)
+    protected function updateVideoPalette($dataContainer, bool $withoutLegend = false): void
     {
         if (!$this->utils->container()->isBackend()) {
             return;
