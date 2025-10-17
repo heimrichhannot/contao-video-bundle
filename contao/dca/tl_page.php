@@ -40,7 +40,10 @@ $fields = [
         'label' => &$GLOBALS['TL_LANG']['tl_page']['overrideNoCookieVideoUrlSettings'],
         'exclude' => true,
         'inputType' => 'checkbox',
-        'eval' => ['tl_class' => 'w50', 'submitOnChange' => true],
+        'eval' => [
+            'tl_class' => 'w50',
+            'submitOnChange' => true,
+        ],
         'sql' => "char(1) NOT NULL default ''",
     ],
     'enableNoCookieVideoUrl' => [
@@ -48,14 +51,19 @@ $fields = [
         'exclude' => true,
         'default' => true,
         'inputType' => 'checkbox',
-        'eval' => ['tl_class' => 'clr'],
+        'eval' => [
+            'tl_class' => 'clr',
+        ],
         'sql' => "char(1) NOT NULL default ''",
     ],
     'overrideEnablePrivacyNotice' => [
         'label' => &$GLOBALS['TL_LANG']['tl_page']['overrideEnablePrivacyNotice'],
         'exclude' => true,
         'inputType' => 'checkbox',
-        'eval' => ['tl_class' => 'w50', 'submitOnChange' => true],
+        'eval' => [
+            'tl_class' => 'w50',
+            'submitOnChange' => true,
+        ],
         'sql' => "char(1) NOT NULL default ''",
     ],
     'enablePrivacyNotice' => [
@@ -63,21 +71,27 @@ $fields = [
         'exclude' => true,
         'default' => true,
         'inputType' => 'checkbox',
-        'eval' => ['tl_class' => 'clr'],
+        'eval' => [
+            'tl_class' => 'clr',
+        ],
         'sql' => "char(1) NOT NULL default ''",
     ],
     'videofullsizeTemplate' => [
         'default' => 'videofullsize_default',
         'exclude' => true,
         'inputType' => 'select',
-        'eval' => ['tl_class' => 'w50 clr'],
+        'eval' => [
+            'tl_class' => 'w50 clr',
+        ],
         'sql' => "varchar(64) NOT NULL default ''",
     ],
     'videoprivacyTemplate' => [
         'exclude' => true,
         'inputType' => 'select',
         'default' => 'videoprivacy_default.twig',
-        'eval' => ['tl_class' => 'w50'],
+        'eval' => [
+            'tl_class' => 'w50',
+        ],
         'sql' => "varchar(64) NOT NULL default ''",
     ],
 ];

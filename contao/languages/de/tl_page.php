@@ -1,15 +1,15 @@
 <?php
+
 /**
- * Contao Open Source CMS
+ * Contao Open Source CMS.
  *
  * Copyright (c) 2016 Heimrich & Hannot GmbH
  *
- * @package youtube
  * @author  Rico Kaltofen <r.kaltofen@heimrich-hannot.de>
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-/**
+/*
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_page']['overrideNoCookieVideoUrlSettings'][0] = '"Keine-Cookies-URL"-Einstellung überschreiben';
@@ -42,7 +42,7 @@ $GLOBALS['TL_LANG']['tl_page']['videoProvider'][1] = 'Wählen Sie den Anbieter d
 $GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'][0] = 'LocalStorage Attribut';
 $GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'][1] = 'Wählen Sie hier den LocalStorage Attribut aus';
 
-/**
+/*
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_page']['video_legend'] = 'Video-Einstellungen';

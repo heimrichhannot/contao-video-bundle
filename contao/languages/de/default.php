@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Contao Open Source CMS
+ * Contao Open Source CMS.
  *
  * Copyright (c) 2020 Heimrich & Hannot GmbH
  *

@@ -22,9 +22,6 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPluginInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [
@@ -33,17 +30,11 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPlu
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
         $loader->load('@HeimrichHannotVideoBundle/config/services.yaml');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         $file = '@HeimrichHannotVideoBundle/config/routing.yaml';

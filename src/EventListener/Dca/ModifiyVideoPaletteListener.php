@@ -25,7 +25,7 @@ class ModifiyVideoPaletteListener
     ) {
     }
 
-    public function updateVideoPaletteWithLegend(DataContainer|null $dc = null): void
+    public function updateVideoPaletteWithLegend(?DataContainer $dc = null): void
     {
         if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
             return;
@@ -34,7 +34,7 @@ class ModifiyVideoPaletteListener
         $this->updateVideoPalette($dc);
     }
 
-    public function updateVideoPaletteWithoutLegend(DataContainer|null $dc = null): void
+    public function updateVideoPaletteWithoutLegend(?DataContainer $dc = null): void
     {
         if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
             return;
