@@ -10,24 +10,30 @@ use Rector\Php84\Rector\Param\ExplicitNullableParamTypeRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
+use Rector\ValueObject\PhpVersion;
 
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/contao',
     ])
+    ->withPhpVersion(PhpVersion::PHP_84)
     ->withRules([
         AddVoidReturnTypeWhereNoReturnRector::class,
         ExplicitNullableParamTypeRector::class
     ])
 
-    ->withImportNames(importShortClasses: false, removeUnusedImports: true)
+    ->withImportNames(
+        importShortClasses: false,
+        removeUnusedImports: true
+    )
+    ->withComposerBased(
+        doctrine: true,
+        phpunit: true,
+        symfony: true,
+    )
     ->withSets([
         LevelSetList::UP_TO_PHP_81,
-        SymfonySetList::SYMFONY_54,
-        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
-//        # Erst mit Symfony 6 (Contao 5) nutzen:
-//        //SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
         ContaoLevelSetList::UP_TO_CONTAO_413,
         ContaoSetList::FQCN,
         ContaoSetList::ANNOTATIONS_TO_ATTRIBUTES,

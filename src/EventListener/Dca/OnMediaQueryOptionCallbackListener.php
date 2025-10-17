@@ -7,13 +7,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class OnMediaQueryOptionCallbackListener
 {
-    private ParameterBagInterface $parameterBag;
-
-    public function __construct(
-        ParameterBagInterface $parameterBag
-    )
+    public function __construct(private readonly ParameterBagInterface $parameterBag)
     {
-        $this->parameterBag = $parameterBag;
     }
 
     public function onMediaQueryOptionsCallback(?DataContainer $dc): array
