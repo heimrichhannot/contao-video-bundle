@@ -1,31 +1,29 @@
 {
-  "name": "contao-video-bundle",
-  "version": "2.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/heimrichhannot/contao-video-bundle",
-  "author": "Thomas Körner <t.koerner@heimrich-hannot.de>",
-  "dependencies": {
-    "alertifyjs": "^1.11"
-  },
-  "devDependencies": {
-    "@symfony/webpack-encore": "^0.30",
-    "autoprefixer": "^9.1.5",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^8.0"
-  },
-  "scripts": {
-    "build-dev": "yarn encore dev",
-    "build-production": "yarn encore production"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "last 2 versions",
-    "ios >= 12",
-    "ie >= 10"
-  ]
+    "name": "contao-video-bundle",
+    "version": "2.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/heimrichhannot/contao-video-bundle",
+    "author": "Thomas Körner <t.koerner@heimrich-hannot.de>",
+    "dependencies": {
+        "alertifyjs": "^1.11"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28",
+        "@babel/preset-env": "^7.28.3",
+        "@symfony/webpack-encore": "^4.0",
+        "postcss-loader": "^8.1.0",
+        "sass": "^1.69.5",
+        "sass-loader": "^14.0",
+        "webpack": "^5.88.2",
+        "webpack-cli": "^4.9.1"
+    },
+    "scripts": {
+        "build-dev": "yarn encore dev",
+        "build-production": "yarn encore production"
+    },
+    "browserslist": [
+        "last 2 versions",
+        "ios >= 12",
+        "ie >= 10"
+    ]
 }

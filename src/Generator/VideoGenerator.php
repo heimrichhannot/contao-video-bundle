@@ -12,6 +12,7 @@ use Contao\BackendTemplate;
 use Contao\Config;
 use Contao\ContentModel;
 use Contao\CoreBundle\Image\Studio\Studio;
+use Contao\CoreBundle\String\HtmlAttributes;
 use Contao\FilesModel;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -94,34 +95,31 @@ class VideoGenerator
 
         $isPrivacyNoticeEnabled = $this->isPrivacyNoticeEnabled($rootPage);
 
-        $context['dataAttributes'] = [
-            'privacyMode' => $isPrivacyNoticeEnabled,
-            'showPlayButton' => $context['playButton'],
-            'toggleVideo' => !empty($context['secondarySrc']),
-        ];
+        $attrs = new HtmlAttributes();
+        $attrs->set('data-privacy-mode', $isPrivacyNoticeEnabled);
+        $attrs->set('data-show-play-button', $context['playButton']);
+        $attrs->set('data-toggle-video', !empty($context['secondarySrc']));
 
         if ($isPrivacyNoticeEnabled) {
             $context['privacyNotice'] = $this->generatePrivacyNote($video, $context, $rootPage);
-            $context['dataAttributes']['privacyModalContent'] = htmlentities($context['privacyNotice']);
+            $attrs->set('data-privacy-modal-content', $context['privacyNotice']);
         }
 
         if ($video instanceof ExternalElementInterface && empty($context['secondarySrc'])) {
             $context['videoAriaLabel'] = $this->translator->trans('huh_video.template.accessibility.iframeTitle');
-            $context['dataAttributes']['element'] = [
+
+            $attrs->set('data-element', json_encode([
                 'type' => $video->videoElementType(),
                 'attributes' => $video->videoElementAttributes($context),
-            ];
+            ]));
         }
 
         $event = $this->eventDispatcher->dispatch(
             new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options),
             BeforeRenderPlayerEvent::NAME);
 
+        $context['dataAttributes'] = $attrs;
         $context = $event->getContext();
-        $context['dataAttributes'] = $this->utils->html()->generateDataAttributesString(
-            $context['dataAttributes'],
-            GenerateDataAttributesStringOptions::create()->setArrayHandling(GenerateDataAttributesStringArrayHandling::ENCODE)
-        );
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
 

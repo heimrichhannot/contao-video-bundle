@@ -1,7 +1,7 @@
 {%- import "@ContaoCore/Image/Studio/_macros.html.twig" as studio -%}
 
 <!-- indexer::stop -->
-<div class="huh_video videowrapper_default {{ type|default }}" {{ dataAttributes|default|e('html_attr') }}>
+<div class="huh_video videowrapper_default {{ type|default }}" {{ dataAttributes }}>
     {% block switch %}
     {% endblock %}
     <div class="video-wrapper" tabindex="0">
