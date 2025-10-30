@@ -114,11 +114,11 @@ class VideoGenerator
             ]));
         }
 
+        $context['dataAttributes'] = $attrs;
         $event = $this->eventDispatcher->dispatch(
             new BeforeRenderPlayerEvent($video, $context, $parent, $rootPage, $options),
             BeforeRenderPlayerEvent::NAME);
 
-        $context['dataAttributes'] = $attrs;
         $context = $event->getContext();
 
         $videoBuffer = $this->twig->render($event->getVideo()->getTemplate(), $context);
