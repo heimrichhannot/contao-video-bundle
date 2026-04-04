@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-DEV] - 2025-01-07
+- Changed: allow contao 5
+- Changed: migrated fullsize and privacy templates to new contao template system (NEED MANUAL ADJUSTMENT!)
+- Changed: use new contao image handling
+- Changed: dropped list bundle support (for the moment as not available for contao 5)
+- Changed: modernized bundle structure
+- Changed: dropped twig support bundle integration
+- Changed: allow utils bundle v3
+- Changed: dropped support for php lower than 8.1
+- Removed: support for deprecated config key videoProvider
+- Removed: support for deprecated config option names
+- Removed: support for deprecated privacy mode attribute
+- Removed: support for deprecated huh.video.event.alertify.onshow and huh.video.event.alertify.onfocus events
+- Removed: deprecated VideoFieldContainer class
+
+### Upgrade steps
+- If you have custom fullsize or privacy templates, move and rename them according to the new contao template system
+  e.g. `templates/videofullsize_default.html.twig` -> `contao/templates/[.twig-root]/huh_video/fullsize.html.twig`
+  `templates/videofullsize_custom.html.twig`  -> `contao/templates/[.twig-root]/huh_video/fullsize/custom.html.twig`
+- If you worked with preview images in your templates, adjust them as `previewImage` is now a `Figure` object
+
 ## [1.8.0] - 2025-02-27
 - Changed: refactored media query options callback listener
 - Fixed: exception with non public service

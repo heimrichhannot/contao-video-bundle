@@ -15,7 +15,7 @@ class FrontendAsset implements ServiceSubscriberInterface
 {
     use PageAssetsTrait;
 
-    public function addFrontendAsset()
+    public function addFrontendAsset(): void
     {
         $this->addPageEntrypoint('contao-video-bundle', [
             'TL_JAVASCRIPT' => [

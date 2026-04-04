@@ -9,24 +9,20 @@
 namespace HeimrichHannot\VideoBundle\EventListener;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
-use HeimrichHannot\VideoBundle\EventListener\Dca\ConfigElementListener;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
+use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
 use HeimrichHannot\VideoBundle\EventListener\Dca\PageContainer;
 use HeimrichHannot\VideoBundle\Generator\DcaFieldGenerator;
 
-/**
- * @Hook("loadDataContainer", priority=1)
- */
+#[AsHook('loadDataContainer', priority: 1)]
 class LoadDataContainerListener
 {
     public const PALETTE_VIDEO = 'videoProvider';
     public const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
-    private array $bundleConfig;
-
-    public function __construct(array $bundleConfig)
-    {
-        $this->bundleConfig = $bundleConfig;
+    public function __construct(
+        private array $bundleConfig,
+    ) {
     }
 
     public function __invoke(string $table): void
@@ -39,12 +35,6 @@ class LoadDataContainerListener
 
             case 'tl_page':
                 $this->preparePageTable();
-
-                break;
-
-            case 'tl_list_config_element':
-            case 'tl_reader_config_element':
-                $this->prepareConfigElementTable($table);
 
                 break;
         }
@@ -76,12 +66,6 @@ class LoadDataContainerListener
         }
     }
 
-    protected function prepareConfigElementTable($table)
-    {
-        $dca = &$GLOBALS['TL_DCA'][$table];
-        $dca['config']['onload_callback'][] = [ConfigElementListener::class, 'onLoadCallback'];
-    }
-
     protected function preparePageTable()
     {
         $this->enablePrivacyCenterSupport();
@@ -93,7 +77,7 @@ class LoadDataContainerListener
             return;
         }
 
-        if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
+        if (!class_exists(HeimrichHannotContaoMultiColumnEditorBundle::class)) {
             trigger_error(
                 'HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.',
                 \E_USER_WARNING);
@@ -117,7 +101,10 @@ class LoadDataContainerListener
             'label' => &$GLOBALS['TL_LANG']['tl_page']['usePrivacyCenter'],
             'exclude' => true,
             'inputType' => 'checkbox',
-            'eval' => ['tl_class' => 'w50', 'submitOnChange' => true],
+            'eval' => [
+                'tl_class' => 'w50',
+                'submitOnChange' => true,
+            ],
             'sql' => "char(1) NOT NULL default ''",
         ];
         $dca['fields']['privacyCenterLocalStorageAttribute'] = [
@@ -133,15 +120,25 @@ class LoadDataContainerListener
                             'filter' => true,
                             'inputType' => 'select',
                             'options_callback' => [PageContainer::class, 'onMceVideoProviderOptionsCallback'],
-                            'eval' => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                            'eval' => [
+                                'groupStyle' => 'width: 49%',
+                                'mandatory' => true,
+                                'includeBlankOption' => true,
+                                'submitOnChange' => true,
+                            ],
                         ],
                         'localStorageAttribute' => [
                             'label' => &$GLOBALS['TL_LANG']['tl_page']['localStorageAttribute'],
                             'exclude' => true,
                             'filter' => true,
                             'inputType' => 'select',
-                            'options_callback' => [PageContainer::class, 'onMceLocalStorageAttribute'],
-                            'eval' => ['groupStyle' => 'width: 49%', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
+                            'options_callback' => [PrivacyCenterListener::class, 'onFieldsMceLocalStorageAttribute'],
+                            'eval' => [
+                                'groupStyle' => 'width: 49%',
+                                'mandatory' => true,
+                                'includeBlankOption' => true,
+                                'submitOnChange' => true,
+                            ],
                         ],
                     ],
                 ],

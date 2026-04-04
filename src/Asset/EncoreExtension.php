@@ -22,10 +22,10 @@ class EncoreExtension implements EncoreExtensionInterface
     public function getEntries(): array
     {
         return [
-            EncoreEntry::create('contao-video-bundle', 'src/Resources/assets/js/contao-video-bundle.js')
+            EncoreEntry::create('contao-video-bundle', '/assets/js/contao-video-bundle.js')
                 ->addJsEntryToRemoveFromGlobals('alertifyjs')
                 ->addJsEntryToRemoveFromGlobals('contao-video-bundle'),
-            EncoreEntry::create('contao-video-bundle-theme', 'src/Resources/assets/js/contao-video-bundle-theme.js')
+            EncoreEntry::create('contao-video-bundle-theme', '/assets/js/contao-video-bundle-theme.js')
                 ->setRequiresCss(true)
                 ->addCssEntryToRemoveFromGlobals('alertifyjs')
                 ->addCssEntryToRemoveFromGlobals('contao-video-bundle'),

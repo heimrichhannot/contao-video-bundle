@@ -17,4 +17,9 @@ class HeimrichHannotVideoBundle extends Bundle
     {
         return new HeimrichHannotVideoExtension();
     }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }

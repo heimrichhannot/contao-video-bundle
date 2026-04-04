@@ -8,18 +8,15 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
+use HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle;
 
-/**
- * @Hook("sqlGetFromDca")
- */
+#[AsHook('sqlGetFromDca')]
 class SqlGetDataListener
 {
-    private array $bundleConfig;
-
-    public function __construct(array $bundleConfig)
-    {
-        $this->bundleConfig = $bundleConfig;
+    public function __construct(
+        private readonly array $bundleConfig,
+    ) {
     }
 
     public function __invoke($sqlDcaData)
@@ -33,7 +30,7 @@ class SqlGetDataListener
             return $sqlDcaData;
         }
 
-        if (!class_exists('HeimrichHannot\MultiColumnEditorBundle\HeimrichHannotContaoMultiColumnEditorBundle')) {
+        if (!class_exists(HeimrichHannotContaoMultiColumnEditorBundle::class)) {
             trigger_error(
                 'HeimrichHannotContaoMultiColumnEditorBundle not found. Multi Column Editor bundle is needed for privacy center integration.',
                 \E_USER_WARNING);

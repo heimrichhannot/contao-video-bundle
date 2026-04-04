@@ -11,20 +11,16 @@
   ],
   "license": "LGPL-3.0-or-later",
   "require": {
-    "php": "^7.4 || ^8.0",
-    "contao/core-bundle": "^4.9",
-    "heimrichhannot/contao-config-element-type-bundle": "^0.2",
+    "php": "^8.1",
+    "contao/core-bundle": "^5.3",
     "heimrichhannot/contao-encore-contracts": "^1.0",
     "heimrichhannot/contao-multi-column-editor-bundle": "^2.13",
-    "heimrichhannot/contao-twig-support-bundle": "^1.5",
-    "heimrichhannot/contao-utils-bundle": "^2.224",
+    "heimrichhannot/contao-utils-bundle": "^3.0",
     "symfony/deprecation-contracts": "^2.0 || ^3.0",
-    "symfony/http-kernel": "^4.4 || ^5.4",
+    "symfony/http-kernel": "^6.4 || ^7.0",
+    "symfony/routing": "^6.4 || ^7.0",
     "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0",
     "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
-  },
-  "conflict": {
-    "heimrichhannot/contao-privacy-center-bundle": "<2.8"
   },
   "autoload": {
     "psr-4": {
@@ -32,10 +28,15 @@
     }
   },
   "extra": {
-    "contao-manager-plugin": "HeimrichHannot\\VideoBundle\\ContaoManager\\Plugin",
-    "foxy": true
+    "contao-manager-plugin": "HeimrichHannot\\VideoBundle\\ContaoManager\\Plugin"
   },
-  "suggest": {
-    "heimrichhannot/contao-encore-bundle": "Manage dependencies with Symfony Webpack Encore."
+  "require-dev": {
+    "contao/manager-plugin": "^2.13",
+    "contao/core-bundle": "^4.13",
+    "rector/rector": "^2.2",
+    "contao/contao-rector": "dev-main",
+    "symplify/easy-coding-standard": "^12.6",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-symfony": "^2.0"
   }
 }

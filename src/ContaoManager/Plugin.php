@@ -14,8 +14,6 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Config\ConfigPluginInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
-use HeimrichHannot\EncoreBundle\HeimrichHannotContaoEncoreBundle;
-use HeimrichHannot\ListBundle\HeimrichHannotContaoListBundle;
 use HeimrichHannot\VideoBundle\HeimrichHannotVideoBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -24,34 +22,22 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Plugin implements BundlePluginInterface, ConfigPluginInterface, RoutingPluginInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [
-            BundleConfig::create(HeimrichHannotVideoBundle::class)->setLoadAfter([
-                ContaoCoreBundle::class,
-                HeimrichHannotContaoEncoreBundle::class,
-                HeimrichHannotContaoListBundle::class,
-            ]),
+            BundleConfig::create(HeimrichHannotVideoBundle::class)
+                ->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
-        $loader->load('@HeimrichHannotVideoBundle/Resources/config/services.yml');
+        $loader->load('@HeimrichHannotVideoBundle/config/services.yaml');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
-        $file = '@HeimrichHannotVideoBundle/Resources/config/routing.yml';
+        $file = '@HeimrichHannotVideoBundle/config/routing.yaml';
 
         return $resolver->resolve($file)->load($file);
     }
