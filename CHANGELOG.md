@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.0.0-DEV] - 2025-01-07
 - Changed: allow contao 5
+- Fixed: a preview image whose file is missing no longer throws; the video renders without preview
 - Changed: migrated fullsize and privacy templates to new contao template system (NEED MANUAL ADJUSTMENT!)
 - Changed: use new contao image handling
 - Changed: dropped list bundle support (for the moment as not available for contao 5)

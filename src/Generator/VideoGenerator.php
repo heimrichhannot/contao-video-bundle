@@ -206,7 +206,17 @@ class VideoGenerator
             ->setSize($size)
         ;
 
-        $context['previewImage'] = $figureBuilder->build();
+        // The tl_files record can outlive the file (deleted or not synced to this system). build()
+        // throws in that case and takes the whole page down; treat it like a missing preview instead.
+        $figure = $figureBuilder->buildIfResourceExists();
+
+        if (null === $figure) {
+            unset($context['previewImage']);
+
+            return;
+        }
+
+        $context['previewImage'] = $figure;
     }
 
     protected function generatePrivacyNote(VideoInterface $video, array &$videoContext, ?PageModel $rootPage = null): string
