@@ -11,6 +11,8 @@ namespace HeimrichHannot\VideoBundle\Generator;
 use Contao\Controller;
 use Contao\DataContainer;
 use Contao\System;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+use Symfony\Component\Translation\TranslatorBagInterface;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 use HeimrichHannot\VideoBundle\EventListener\Dca\OnMediaQueryOptionCallbackListener;
@@ -173,9 +175,7 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'inputType' => 'select',
                 'default' => 'huh_video.fields.videoLinkText.default',
-                'options_callback' => function (DataContainer $dc) {
-                    return System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
-                },
+                'options_callback' => static fn (): array => self::translationChoices('huh_video.fields.videoLinkText.'),
                 'eval' => [
                     'maxlength' => 255,
                     'tl_class' => 'w50',
@@ -325,5 +325,32 @@ class DcaFieldGenerator
         }
 
         return $videoFields;
+    }
+
+    /**
+     * The messages whose keys start with $prefix (key => translated message), from the current locale and its fallbacks.
+     * Replaces utils v2's MessageChoice::getCachedChoices() (service huh.utils.choice.message), which utils v3 dropped.
+     *
+     * @return array<string, string>
+     */
+    private static function translationChoices(string $prefix, string $domain = 'messages'): array
+    {
+        $translator = System::getContainer()->get('translator');
+
+        if (!$translator instanceof TranslatorBagInterface) {
+            return [];
+        }
+
+        $choices = [];
+
+        for ($catalogue = $translator->getCatalogue(); $catalogue instanceof MessageCatalogueInterface; $catalogue = $catalogue->getFallbackCatalogue()) {
+            foreach ($catalogue->all($domain) as $key => $message) {
+                if (str_starts_with((string) $key, $prefix) && !isset($choices[$key])) {
+                    $choices[$key] = $message;
+                }
+            }
+        }
+
+        return $choices;
     }
 }
