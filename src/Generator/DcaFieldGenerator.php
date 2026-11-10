@@ -11,21 +11,19 @@ namespace HeimrichHannot\VideoBundle\Generator;
 use Contao\Controller;
 use Contao\DataContainer;
 use Contao\System;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+use Symfony\Component\Translation\TranslatorBagInterface;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
-use HeimrichHannot\VideoBundle\DataContainer\VideoFieldContainer;
 use HeimrichHannot\VideoBundle\EventListener\Dca\ModifiyVideoPaletteListener;
 use HeimrichHannot\VideoBundle\EventListener\Dca\OnMediaQueryOptionCallbackListener;
 
 class DcaFieldGenerator
 {
-    const PALETTE_VIDEO = 'videoProvider';
-    const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
+    public const PALETTE_VIDEO = 'videoProvider';
+    public const PALETTE_PLAYER = 'videoFullsize,videoAutoplay';
 
     /**
      * Update dca for video bundle. Returns the string containing a legend and the selector field for the video subpalette.
-     *
-     * @param string $table
-     * @return string
      */
     public static function addSingleLegendPalette(string $table): string
     {
@@ -37,7 +35,7 @@ class DcaFieldGenerator
         $dca['config']['onload_callback'][] = [ModifiyVideoPaletteListener::class, 'updateVideoPaletteWithoutLegend'];
         $palette = '{video_legend},addVideo;';
 
-        $dca['subpalettes']['addVideo'] = static::PALETTE_VIDEO.','.static::PALETTE_PLAYER;
+        $dca['subpalettes']['addVideo'] = static::PALETTE_VIDEO . ',' . static::PALETTE_PLAYER;
         $dca['palettes']['__selector__'][] = 'addVideo';
         static::addSubpalettes($dca);
 
@@ -46,7 +44,9 @@ class DcaFieldGenerator
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['addVideo'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['submitOnChange' => true],
+                'eval' => [
+                    'submitOnChange' => true,
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
         ];
@@ -70,8 +70,6 @@ class DcaFieldGenerator
 
     /**
      * Return the video bundle dca fields.
-     *
-     * @return array
      */
     public static function getVideoFields(array $dca = []): array
     {
@@ -87,35 +85,49 @@ class DcaFieldGenerator
                     return System::getContainer()->get(VideoProviderCollection::class)->getVideoProvider();
                 },
                 'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['videoProvider'],
-                'eval' => ['submitOnChange' => true, 'maxlength' => 64, 'tl_class' => 'w50', 'includeBlankOption' => true],
+                'eval' => [
+                    'submitOnChange' => true,
+                    'maxlength' => 64,
+                    'tl_class' => 'w50',
+                    'includeBlankOption' => true,
+                ],
                 'sql' => "varchar(64) NOT NULL default ''",
             ],
             'addPreviewImage' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['addPreviewImage'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
+                'eval' => [
+                    'submitOnChange' => true,
+                    'tl_class' => 'clr',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'addPlayButton' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['addPlayButton'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoRemoveControls' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoRemoveControls'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoLoop' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoLoop'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoDuration' => [
@@ -125,28 +137,37 @@ class DcaFieldGenerator
                 'sorting' => true,
                 'flag' => 1,
                 'inputType' => 'text',
-                'eval' => ['maxlength' => 255, 'tl_class' => 'w50 clr'],
+                'eval' => [
+                    'maxlength' => 255,
+                    'tl_class' => 'w50 clr',
+                ],
                 'sql' => "varchar(255) NOT NULL default ''",
             ],
             'videoShowRelated' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoShowRelated'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50 clr'],
+                'eval' => [
+                    'tl_class' => 'w50 clr',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'ytModestBranding' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['ytModestBranding'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'ytShowInfo' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['ytShowInfo'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoLinkText' => [
@@ -154,24 +175,30 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'inputType' => 'select',
                 'default' => 'huh_video.fields.videoLinkText.default',
-                'options_callback' => function (DataContainer $dc) {
-                    return System::getContainer()->get('huh.utils.choice.message')->getCachedChoices('huh_video.fields.videoLinkText');
-                },
-                'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
+                'options_callback' => static fn (): array => self::translationChoices('huh_video.fields.videoLinkText.'),
+                'eval' => [
+                    'maxlength' => 255,
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "varchar(255) NOT NULL default ''",
             ],
             'videoFullsize' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoFullsize'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
+                'eval' => [
+                    'tl_class' => 'w50 clr',
+                    'submitOnChange' => true,
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoAutoplay' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['videoAutoplay'],
                 'exclude' => true,
                 'inputType' => 'checkbox',
-                'eval' => ['tl_class' => 'w50'],
+                'eval' => [
+                    'tl_class' => 'w50',
+                ],
                 'sql' => "char(1) NOT NULL default ''",
             ],
             'videoSRC' => [
@@ -242,7 +269,7 @@ class DcaFieldGenerator
                                     'groupStyle' => 'width: 48%',
                                 ],
                                 'options_callback' => function (DataContainer $dc) {
-                                    return System::getLanguages(true);
+                                    return System::getContainer()->get('contao.intl.locales')->getEnabledLocales(null, true);
                                 },
                             ],
                         ],
@@ -255,7 +282,10 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'search' => true,
                 'inputType' => 'textarea',
-                'eval' => ['tl_class' => 'long clr', 'mandatory' => false],
+                'eval' => [
+                    'tl_class' => 'long clr',
+                    'mandatory' => false,
+                ],
                 'sql' => 'text NULL',
             ],
             'transcriptedYoutube' => [
@@ -263,7 +293,10 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'search' => true,
                 'inputType' => 'text',
-                'eval' => ['decodeEntities' => true, 'tl_class' => 'w50'],
+                'eval' => [
+                    'decodeEntities' => true,
+                    'tl_class' => 'w50',
+                ],
                 'save_callback' => [
                     ['tl_content', 'extractYouTubeId'],
                 ],
@@ -274,7 +307,10 @@ class DcaFieldGenerator
                 'exclude' => true,
                 'search' => true,
                 'inputType' => 'text',
-                'eval' => ['decodeEntities' => true, 'tl_class' => 'w50'],
+                'eval' => [
+                    'decodeEntities' => true,
+                    'tl_class' => 'w50',
+                ],
                 'save_callback' => [
                     ['tl_content', 'extractVimeoId'],
                 ],
@@ -289,5 +325,32 @@ class DcaFieldGenerator
         }
 
         return $videoFields;
+    }
+
+    /**
+     * The messages whose keys start with $prefix (key => translated message), from the current locale and its fallbacks.
+     * Replaces utils v2's MessageChoice::getCachedChoices() (service huh.utils.choice.message), which utils v3 dropped.
+     *
+     * @return array<string, string>
+     */
+    private static function translationChoices(string $prefix, string $domain = 'messages'): array
+    {
+        $translator = System::getContainer()->get('translator');
+
+        if (!$translator instanceof TranslatorBagInterface) {
+            return [];
+        }
+
+        $choices = [];
+
+        for ($catalogue = $translator->getCatalogue(); $catalogue instanceof MessageCatalogueInterface; $catalogue = $catalogue->getFallbackCatalogue()) {
+            foreach ($catalogue->all($domain) as $key => $message) {
+                if (str_starts_with((string) $key, $prefix) && !isset($choices[$key])) {
+                    $choices[$key] = $message;
+                }
+            }
+        }
+
+        return $choices;
     }
 }

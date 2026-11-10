@@ -7,13 +7,9 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class OnMediaQueryOptionCallbackListener
 {
-    private ParameterBagInterface $parameterBag;
-
     public function __construct(
-        ParameterBagInterface $parameterBag
-    )
-    {
-        $this->parameterBag = $parameterBag;
+        private readonly ParameterBagInterface $parameterBag,
+    ) {
     }
 
     public function onMediaQueryOptionsCallback(?DataContainer $dc): array
@@ -24,7 +20,7 @@ class OnMediaQueryOptionCallbackListener
         if (\is_array($config['media_queries'])) {
             foreach ($config['media_queries'] as $key => $query) {
                 if (!empty($query['name'])) {
-                    $queries[$key] = $query['name'].' ['.$query['query'].']';
+                    $queries[$key] = $query['name'] . ' [' . $query['query'] . ']';
                 } else {
                     $queries[$key] = $query['query'];
                 }

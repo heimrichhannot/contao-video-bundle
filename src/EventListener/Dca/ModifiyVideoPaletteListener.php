@@ -10,63 +10,49 @@ namespace HeimrichHannot\VideoBundle\EventListener\Dca;
 
 use Contao\DataContainer;
 use Contao\Message;
-use HeimrichHannot\UtilsBundle\Container\ContainerUtil;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Collection\VideoProviderCollection;
 use HeimrichHannot\VideoBundle\Video\PreviewImageInterface;
 use HeimrichHannot\VideoBundle\Video\VideoInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ModifiyVideoPaletteListener
 {
-    /**
-     * @var ContainerUtil
-     */
-    private $containerUtil;
-    /**
-     * @var VideoProviderCollection
-     */
-    private $videoProviderCollection;
-    /**
-     * @var ModelUtil
-     */
-    private $modelUtil;
-
-    /**
-     * ModifiyVideoPaletteListener constructor.
-     */
-    public function __construct(ContainerUtil $containerUtil, ModelUtil $modelUtil, VideoProviderCollection $videoProviderCollection)
-    {
-        $this->containerUtil = $containerUtil;
-        $this->videoProviderCollection = $videoProviderCollection;
-        $this->modelUtil = $modelUtil;
+    public function __construct(
+        private readonly VideoProviderCollection $videoProviderCollection,
+        private readonly Utils $utils,
+        private readonly RequestStack $requestStack,
+    ) {
     }
 
-    /**
-     * @param DataContainer $dataContainer
-     */
-    public function updateVideoPaletteWithLegend($dataContainer)
+    public function updateVideoPaletteWithLegend(?DataContainer $dc = null): void
     {
-        $this->updateVideoPalette($dataContainer);
-    }
-
-    /**
-     * @param DataContainer $dataContainer
-     */
-    public function updateVideoPaletteWithoutLegend($dataContainer)
-    {
-        $this->updateVideoPalette($dataContainer, true);
-    }
-
-    protected function updateVideoPalette($dataContainer, bool $withoutLegend = false)
-    {
-        if (!$this->containerUtil->isBackend()) {
+        if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
             return;
         }
 
-        if (false === strpos($dataContainer->getPalette(), 'videoProvider')) {
+        $this->updateVideoPalette($dc);
+    }
+
+    public function updateVideoPaletteWithoutLegend(?DataContainer $dc = null): void
+    {
+        if (!$dc?->id || !('edit' === $this->requestStack->getCurrentRequest()?->query->get('act'))) {
             return;
         }
-        $model = $this->modelUtil->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
+
+        $this->updateVideoPalette($dc, true);
+    }
+
+    protected function updateVideoPalette($dataContainer, bool $withoutLegend = false): void
+    {
+        if (!$this->utils->container()->isBackend()) {
+            return;
+        }
+
+        if (!str_contains((string) $dataContainer->getPalette(), 'videoProvider')) {
+            return;
+        }
+        $model = $this->utils->model()->findModelInstanceByPk($dataContainer->table, $dataContainer->id);
 
         if (!isset($model->videoProvider)) {
             return;
@@ -83,7 +69,7 @@ class ModifiyVideoPaletteListener
 
         $isSubpalette = false;
 
-        if (false !== strpos($dataContainer->getPalette(), 'addVideo')) {
+        if (str_contains((string) $dataContainer->getPalette(), 'addVideo')) {
             $isSubpalette = true;
         }
 
@@ -107,7 +93,7 @@ class ModifiyVideoPaletteListener
             $palette = $dca['subpalettes']['addVideo'];
             $palette = str_replace(
                 'videoProvider',
-                'videoProvider,'.$videoProviderFields,
+                'videoProvider,' . $videoProviderFields,
                 $palette
             );
 
@@ -116,7 +102,7 @@ class ModifiyVideoPaletteListener
                 $previewPalette = ',addPreviewImage';
                 $palette = str_replace(
                     $position,
-                    $position.$previewPalette,
+                    $position . $previewPalette,
                     $palette
                 );
             }
@@ -129,7 +115,7 @@ class ModifiyVideoPaletteListener
 
                 $palette = str_replace(
                     ',videoProvider',
-                    ',videoProvider,'.$videoProviderFields,
+                    ',videoProvider,' . $videoProviderFields,
                     $palette
                 );
 

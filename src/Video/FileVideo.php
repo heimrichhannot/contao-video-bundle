@@ -8,15 +8,16 @@
 
 namespace HeimrichHannot\VideoBundle\Video;
 
+use Contao\FilesModel;
 use Contao\StringUtil;
 use Contao\System;
-use HeimrichHannot\UtilsBundle\File\FileUtil;
-use HeimrichHannot\UtilsBundle\Model\ModelUtil;
+use Contao\Validator;
+use HeimrichHannot\UtilsBundle\Util\Utils;
 
 class FileVideo extends AbstractVideo implements PreviewImageInterface, MultipleSourceVideoInterface, SubtitleInterface
 {
-    const TYPE = 'file';
-    const TEMPLATE = '@HeimrichHannotVideo/videoprovider/videoprovider_file.html.twig';
+    public const TYPE = 'file';
+    public const TEMPLATE = '@HeimrichHannotVideo/videoprovider/videoprovider_file.html.twig';
 
     /**
      * @var bool
@@ -48,49 +49,31 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
      */
     protected $alternativeText = '';
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getTemplate(): string
     {
         return self::TEMPLATE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasPreviewImage(): bool
     {
         return $this->addPreviewImage && \is_string($this->getPreviewImage());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPreviewImage(): ?string
     {
         return $this->posterSRC;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getPalette(): string
     {
         return 'videoSRC,videoSubtitles,videoAlternativeText';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSrc(): string
     {
         $path = $this->prepareVideoSource()[0]['file']->path;
@@ -140,11 +123,14 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
             return [];
         }
 
+        /** @var Utils $utils */
+        $utils = System::getContainer()->get(Utils::class);
+
         foreach ($data as $element) {
             $subtitles[] = [
-                'src' => System::getContainer()->get(FileUtil::class)->getPathFromUuid($element['file'][0]),
+                'src' => $utils->file()->getPathFromUuid($element['file'][0]),
                 'lang' => $element['language'],
-                'label' => System::getLanguages(true)[$element['language']],
+                'label' => System::getContainer()->get('contao.intl.locales')->getEnabledLocales(null, true)[$element['language']],
             ];
         }
 
@@ -188,8 +174,11 @@ class FileVideo extends AbstractVideo implements PreviewImageInterface, Multiple
 
         foreach ($data as $video) {
             $mediaQuery = $mediaQueryConfig[$video['mediaQuery']]['query'] ?? '';
+            if (Validator::isUuid($video['file'])) {
+                $file = FilesModel::findByUuid($video['file']);
+            }
             $videoSrc[] = [
-                'file' => System::getContainer()->get(ModelUtil::class)->getModelInstanceIfId($video['file'], 'tl_files'),
+                'file' => $file,
                 'mediaQuery' => $mediaQuery,
             ];
         }

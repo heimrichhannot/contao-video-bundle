@@ -17,8 +17,6 @@ interface PreviewImageInterface
 
     /**
      * Return the preview image uuid.
-     *
-     * @return string
      */
     public function getPreviewImage(): ?string;
 }

@@ -1,3 +1,0 @@
-huh_video:
-  resource: "@HeimrichHannotVideoBundle/Controller/"
-  type: annotation

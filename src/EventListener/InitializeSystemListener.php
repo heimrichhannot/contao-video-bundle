@@ -8,19 +8,15 @@
 
 namespace HeimrichHannot\VideoBundle\EventListener;
 
-use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 
-/**
- * @Hook("initializeSystem")
- */
+#[AsHook('initializeSystem')]
 class InitializeSystemListener
 {
-    private Utils $utils;
-
-    public function __construct(Utils $utils)
-    {
-        $this->utils = $utils;
+    public function __construct(
+        private readonly Utils $utils,
+    ) {
     }
 
     public function __invoke(): void

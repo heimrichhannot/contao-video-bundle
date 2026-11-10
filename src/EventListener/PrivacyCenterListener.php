@@ -13,6 +13,7 @@ use Contao\StringUtil;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeConfiguration;
 use HeimrichHannot\PrivacyCenterBundle\Generator\ProtectedCodeGenerator;
 use HeimrichHannot\PrivacyCenterBundle\Generator\SplashImage;
+use HeimrichHannot\PrivacyCenterBundle\Model\TrackingObjectModel;
 use HeimrichHannot\UtilsBundle\Util\Utils;
 use HeimrichHannot\VideoBundle\Event\AfterRenderPlayerEvent;
 use Psr\Container\ContainerInterface;
@@ -22,25 +23,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscriberInterface
 {
-    private TranslatorInterface $translator;
-    private ContainerInterface $container;
-    private Utils $utils;
-
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator, Utils $utils)
-    {
-        $this->translator = $translator;
-        $this->container = $container;
-        $this->utils = $utils;
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly TranslatorInterface $translator,
+        private readonly Utils $utils,
+    ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AfterRenderPlayerEvent::NAME => 'afterRenderPlayer',
         ];
     }
 
-    public function afterRenderPlayer(AfterRenderPlayerEvent $event)
+    public function afterRenderPlayer(AfterRenderPlayerEvent $event): void
     {
         if (!$this->isPrivacyCenterEnabled($event->getRootPage()) || 'file' === $event->getContext()['type']) {
             return;
@@ -71,7 +68,7 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         }
 
         ($configuration = new ProtectedCodeConfiguration())
-            ->setDescription($this->translator->trans('huh_video.video.'.$event->getVideo()::getType().'.privacy.text'))
+            ->setDescription($this->translator->trans('huh_video.video.' . $event->getVideo()::getType() . '.privacy.text'))
             ->setShowSplashImage(true)
             ->setShowPreview(true)
             ->setSplashImage($splashImage)
@@ -84,18 +81,18 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         ));
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         $services = [];
 
         if (class_exists(ProtectedCodeGenerator::class)) {
-            $services[] = '?'.ProtectedCodeGenerator::class;
+            $services[] = '?' . ProtectedCodeGenerator::class;
         }
 
         return $services;
     }
 
-    protected function isPrivacyCenterEnabled(PageModel $rootPage = null)
+    protected function isPrivacyCenterEnabled(?PageModel $rootPage = null): bool
     {
         $isPrivacyCenterEnabled = false;
 
@@ -105,5 +102,19 @@ class PrivacyCenterListener implements EventSubscriberInterface, ServiceSubscrib
         }
 
         return $isPrivacyCenterEnabled;
+    }
+
+    public function onFieldsMceLocalStorageAttribute($dc): array
+    {
+        $attributes = TrackingObjectModel::findAll();
+        $options = [];
+
+        foreach ($attributes as $attribute) {
+            $options[$attribute->id] = $attribute->title . ' (ID: ' . $attribute->id . ')';
+        }
+
+        natcasesort($options);
+
+        return $options;
     }
 }

@@ -1,0 +1,3 @@
+huh_video:
+  resource: "../src/Controller/"
+  type: attribute

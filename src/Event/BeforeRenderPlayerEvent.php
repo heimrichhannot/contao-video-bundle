@@ -15,37 +15,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 class BeforeRenderPlayerEvent extends Event
 {
     public const NAME = 'huh.video.before_render_player';
-    /**
-     * @var VideoInterface
-     */
-    private $video;
-    /**
-     * @var array
-     */
-    private $context;
-    /**
-     * @var mixed
-     */
-    private $parent;
-    /**
-     * @var PageModel|null
-     */
-    private $rootPage;
-    /**
-     * @var array
-     */
-    private $options;
 
-    /**
-     * BeforeRenderPlayerEvent constructor.
-     */
-    public function __construct(VideoInterface $video, array $context, $parent, ?PageModel $rootPage, array $options)
-    {
-        $this->video = $video;
-        $this->context = $context;
-        $this->parent = $parent;
-        $this->rootPage = $rootPage;
-        $this->options = $options;
+    public function __construct(
+        private readonly VideoInterface $video,
+        private array $context,
+        private readonly mixed $parent,
+        private readonly ?PageModel $rootPage,
+        private readonly array $options,
+    ) {
     }
 
     public function getVideo(): VideoInterface
@@ -63,9 +40,6 @@ class BeforeRenderPlayerEvent extends Event
         $this->context = $context;
     }
 
-    /**
-     * @return mixed
-     */
     public function getParent()
     {
         return $this->parent;

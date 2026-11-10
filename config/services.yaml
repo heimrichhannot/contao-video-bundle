@@ -1,0 +1,30 @@
+services:
+  _defaults:
+    autowire: true
+    bind:
+      $bundleConfig: '%huh_video%'
+      Contao\CoreBundle\Twig\Finder\FinderFactory: '@contao.twig.finder_factory'
+
+
+  HeimrichHannot\VideoBundle\:
+    resource: '../src/{Asset,Controller,DataContainer,EventListener}/*'
+    autoconfigure: true
+
+  HeimrichHannot\VideoBundle\Asset\FrontendAsset:
+    public: true
+    autoconfigure: true
+    autowire: true
+
+  HeimrichHannot\VideoBundle\Generator\VideoGenerator:
+    public: true
+
+  HeimrichHannot\VideoBundle\Collection\VideoProviderCollection:
+    public: true
+
+  HeimrichHannot\VideoBundle\EventListener\Dca\:
+    resource: ../src/EventListener/Dca/*
+    public: true
+
+  HeimrichHannot\VideoBundle\EventListener\PrivacyCenterListener:
+    public: true
+    autoconfigure: true
